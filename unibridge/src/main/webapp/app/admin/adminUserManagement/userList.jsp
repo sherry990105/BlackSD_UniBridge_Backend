@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>유저 관리</title>
-  <link rel="stylesheet" href="/frontend/assets/css/admin/adminUserManagement/user.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminUserManagement/user.css" />
 </head>
 <body>
 
@@ -18,7 +18,7 @@
     <div class="list-header">
       <div class="list-title">
         <span class="list-title-icon">
-          <img src="/frontend/assets/img/admin/adminSearch/유저들 아이콘.png" alt="유저 아이콘" style="width:36px;height:36px;" />
+          <img src="${pageContext.request.contextPath}/assets/img/admin/adminSearch/유저들 아이콘.png" alt="유저 아이콘" style="width:36px;height:36px;" />
         </span>
         전체 유저
       </div>
@@ -35,24 +35,24 @@
   </div>
 
   <script>
-  fetch("/frontend/header/adminHeader.html")
+  fetch("${pageContext.request.contextPath}/header/adminHeader.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("header-wrap").innerHTML = html;
       const s = document.createElement("script");
-      s.src = "/frontend/header/adminHeader.js";
+      s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
       document.body.appendChild(s);
     });
   </script>
 
   <script>
   // 유저 아바타 (유저_아이콘.png)
-  const avatarSVG = `<img src="/frontend/assets/img/admin/유저_아이콘.png" alt="유저 아이콘" style="width:40px;height:40px;" />`;
+  const avatarSVG = `<img src="${pageContext.request.contextPath}/assets/img/admin/유저_아이콘.png" alt="유저 아이콘" style="width:40px;height:40px;" />`;
 
   // 상세보기 아이콘 (상세보기_아이콘.png)
-  const detailSVG = `<img src="/frontend/assets/img/admin/상세보기_아이콘.png" alt="상세보기 아이콘" style="width:36px;height:36px;" />`;
+  const detailSVG = `<img src="${pageContext.request.contextPath}/assets/img/admin/상세보기_아이콘.png" alt="상세보기 아이콘" style="width:36px;height:36px;" />`;
   </script>
 
-  <script src="/frontend/assets/js/admin/adminUserManagement/user.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminUserManagement/user.js"></script>
 </body>
 </html>

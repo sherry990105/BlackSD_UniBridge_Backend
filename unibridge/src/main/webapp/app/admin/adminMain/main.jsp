@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UniBridge 관리자 메인</title>
-  <link rel="stylesheet" href="/frontend/assets/css/admin/adminMain/main.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminMain/main.css" />
 </head>
 <body>
   <div class="admin-main-page">
@@ -14,37 +14,37 @@
     <!-- 사이드 메뉴 -->
     <aside class="side-menu">
       <div class="side-logo">
-        <img src="/frontend/assets/img/UniBridge.png" alt="UniBridge 로고" />
+        <img src="${pageContext.request.contextPath}/assets/img/UniBridge.png" alt="UniBridge 로고" />
       </div>
 
       <nav class="side-nav">
 
         <!-- 공지사항 관리 -->
-        <a href="/frontend/html/admin/adminNotice/noticeList.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/admin/adminNotice/noticeList.html" class="side-link">
           <span class="side-icon" aria-hidden="true">
-            <img src="/frontend/assets/img/admin/공지사항.png" alt="공지사항 아이콘" />
+            <img src="${pageContext.request.contextPath}/assets/img/admin/공지사항.png" alt="공지사항 아이콘" />
           </span>
           <span>공지사항 관리</span>
         </a>
 
         <!-- 게시판 관리 -->
-        <a href="/frontend/html/admin/adminBoard/menteeBoard/menteeBoardList.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/admin/adminBoard/menteeBoard/menteeBoardList.html" class="side-link">
           <span class="side-icon" aria-hidden="true">
-            <img src="/frontend/assets/img/admin/게시판.png" alt="게시판 아이콘" />
+            <img src="${pageContext.request.contextPath}/assets/img/admin/게시판.png" alt="게시판 아이콘" />
           </span>
           <span>게시판 관리</span>
         </a>
 
         <!-- 학습보고서 관리 -->
-        <a href="/frontend/html/admin/adminReport/report.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/admin/adminReport/report.html" class="side-link">
           <span class="side-icon" aria-hidden="true">
-            <img src="/frontend/assets/img/admin/학습보고서 아이콘.png" alt="학습보고서 아이콘" />
+            <img src="${pageContext.request.contextPath}/assets/img/admin/학습보고서 아이콘.png" alt="학습보고서 아이콘" />
           </span>
           <span>학습보고서 관리</span>
         </a>
 
         <!-- 유저 관리 -->
-        <a href="/frontend/html/admin/adminUserManagement/userList.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/admin/adminUserManagement/userList.html" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="/frontend/assets/img/admin/유저 아이콘.png" alt="유저 아이콘" />
           </span>
@@ -52,7 +52,7 @@
         </a>
 
         <!-- 매칭 관리 -->
-        <a href="/frontend/html/admin/adminMatching/matching.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/admin/adminMatching/matching.html" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="/frontend/assets/img/admin/매칭아이콘.jpg" alt="매칭 아이콘" />
           </span>
@@ -113,7 +113,7 @@
     </main>
   </div>
 
-  <script src="/frontend/assets/js/admin/adminMain/main.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminMain/main.js"></script>
 </body>
 </html>
 

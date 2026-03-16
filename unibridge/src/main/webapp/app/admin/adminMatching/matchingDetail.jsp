@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/frontend/assets/css/global.css">
-    <link rel="stylesheet" href="/frontend/assets/css/fonts.css">
-    <link rel="stylesheet" href="/frontend/assets/css/admin/adminMatching/matchingDetail.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/fonts.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminMatching/matchingDetail.css">
     <title>Document</title>
 </head>
 <body>
@@ -48,7 +48,7 @@
                     <div class="match-apply-date-content">2025.11.15</div>
                   </div>
                   <div class="match-cancel-desc-container">
-                    <div      class="match-cancel-desc-title">신청 일시</div>
+                    <div      class="match-cancel-desc-title">취소 사유</div>
                     <textarea class="match-cancel-desc-content"
                       placeholder="ex) 개인 사정으로 인해 학습 일정을 이어가기 어려워 취소를 신청합니다. 추후 재매칭 의사가 있습니다."
                     ></textarea>
@@ -65,12 +65,12 @@
     </div>
   </div>
   <script>
-    fetch("/frontend/header/adminHeader.html")
+    fetch("${pageContext.request.contextPath}/header/adminHeader.html")
       .then(res => res.text())
       .then(html => {
         document.getElementById("header-wrap").innerHTML = html;
         const s = document.createElement("script");
-        s.src = "/frontend/header/adminHeader.js";
+        s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
         document.body.appendChild(s);
       });
   </script>

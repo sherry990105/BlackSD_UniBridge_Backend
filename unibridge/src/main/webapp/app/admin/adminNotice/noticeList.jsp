@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>공지사항 관리</title>
 
-  <link rel="stylesheet" href="/frontend/assets/css/admin/adminNotice/noticeList.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminNotice/noticeList.css" />
 
 </head>
 <body>
@@ -57,17 +57,17 @@
   </div>
 
   <script>
-  fetch("/frontend/header/adminHeader.html")
+  fetch("${pageContext.request.contextPath}/header/adminHeader.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("header-wrap").innerHTML = html;
       const s = document.createElement("script");
-      s.src = "/frontend/header/adminHeader.js";
+      s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
       document.body.appendChild(s);
     });
   </script>
 
-  <script src="/frontend/assets/js/admin/adminNotice/noticeData.js"></script>
-  <script src="/frontend/assets/js/admin/adminNotice/noticeList.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminNotice/noticeData.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminNotice/noticeList.js"></script>
 </body>
 </html>

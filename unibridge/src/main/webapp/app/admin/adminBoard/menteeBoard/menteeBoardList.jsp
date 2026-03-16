@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
   <title>게시판 관리 - 멘티</title>
-  <link rel="stylesheet" href="/frontend/assets/css/admin/adminBoard/menteeBoard/boardList.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminBoard/menteeBoard/boardList.css" />
 </head>
 <body>
 
@@ -48,16 +48,16 @@
   </div>
 
 <script>
-  fetch("/frontend/header/adminHeader.html")
+  fetch("${pageContext.request.contextPath}/header/adminHeader.html")
     .then(res => res.text())
     .then(html => {
       document.getElementById("header-wrap").innerHTML = html;
       const s = document.createElement("script");
-      s.src = "/frontend/header/adminHeader.js";
+      s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
       document.body.appendChild(s);
     });
 </script>
-  <script src="/frontend/assets/js/admin/adminBoard/boardData.js"></script>
-  <script src="/frontend/assets/js/admin/adminBoard/menteeBoard/boardList.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminBoard/boardData.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminBoard/menteeBoard/boardList.js"></script>
 </body>
 </html>

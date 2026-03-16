@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>공지사항 관리 - 작성</title>
 
-  <link rel="stylesheet" href="/frontend/assets/css/admin/adminNotice/noticeWrite.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminNotice/noticeWrite.css" />
 </head>
 <body>
 
@@ -70,7 +70,7 @@
     });
 </script>
 
-  <script src="/frontend/assets/js/admin/adminNotice/noticeData.js"></script>
-  <script src="/frontend/assets/js/admin/adminNotice/noticeWrite.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminNotice/noticeData.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminNotice/noticeWrite.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>유저 상세 - 대기</title>
-  <link rel="stylesheet" href="/frontend/assets/css/admin/adminUserManagement/userDetail/userModal.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminUserManagement/userDetail/userModal.css" />
 </head>
 <body>
 
@@ -19,7 +19,7 @@
       <div class="profile-col">
         <div class="profile-avatar">
           <div class="profile-avatar">
-            <img src="/frontend/assets/img/admin/유저 아이콘.png" alt="유저 아이콘" style="width:90px;height:90px;object-fit:contain;" />
+            <img src="${pageContext.request.contextPath}/assets/img/admin/유저 아이콘.png" alt="유저 아이콘" style="width:90px;height:90px;object-fit:contain;" />
           </div>
         </div>
         <button class="btn-survey" id="btnSurvey">설문조사 확인</button>
@@ -137,15 +137,15 @@
   </div>
 
   <script>
-    fetch("/frontend/header/adminHeader.html")
+    fetch("${pageContext.request.contextPath}/header/adminHeader.html")
       .then(res => res.text())
       .then(html => {
         document.getElementById("header-wrap").innerHTML = html;
         const s = document.createElement("script");
-        s.src = "/frontend/header/adminHeader.js";
+        s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
         document.body.appendChild(s);
       });
   </script>
-  <script src="/frontend/assets/js/admin/adminUserManagement/userDetail/userDetailWaiting.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminUserManagement/userDetail/userDetailWaiting.js"></script>
 </body>
 </html>

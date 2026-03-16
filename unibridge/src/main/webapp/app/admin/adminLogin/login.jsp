@@ -6,7 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UniBridge 관리자 로그인</title>
-  <link rel="stylesheet" href="/frontend/assets/css/admin/adminLogin/login.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminLogin/login.css" />
 </head>
 <body>
   <main class="login-page">
@@ -66,6 +66,6 @@
     </section>
   </main>
 
-  <script src="/frontend/assets/js/admin/adminLogin/login.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminLogin/login.js"></script>
 </body>
 </html>
