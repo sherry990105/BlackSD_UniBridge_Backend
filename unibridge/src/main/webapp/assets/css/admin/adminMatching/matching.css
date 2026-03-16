@@ -7,7 +7,6 @@
   display: flex;
   flex-direction: column;
 
-  padding: 23px 22px;
 }
 
 .header {
@@ -95,15 +94,21 @@
 }
 
 .content-container .title-container {
-  padding: 20px 0px 0px 20px;
+  padding: 0px 0px 0px 40px;
 
   font-family: 'NanumSquareRound';
   font-style: normal;
   font-weight: 700;
   font-size: 48px;
   line-height: 54px;
+  
+  gap: 20px;
 
   color: #000000;
+}
+
+.content-container .title-container span{
+	font-size : 30px;
 }
 
 .content-container .matching-user-container {
@@ -375,8 +380,12 @@
 .match-container .icon {
   width: 150px;
   height: 150px;
-  background: url("/frontend/assets/img/admin/matchingIcon.png") no-repeat center;
-  background-size: contain;
+}
+
+.match-container .icon img{
+	width : 100%;
+	height : 100%;
+	object-fit:contain;
 }
 
 .content-container 

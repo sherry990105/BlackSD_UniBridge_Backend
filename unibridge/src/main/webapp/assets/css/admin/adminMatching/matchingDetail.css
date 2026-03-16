@@ -3,12 +3,10 @@
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  
   display: flex;
   flex-direction: column;
-
-  padding: 23px 22px;
 }
+
 
 .header {
   display: flex;
@@ -225,8 +223,18 @@
 [class$="icon"] {
   width: 121px;
   height: 121px;
-  background: url("/frontend/assets/img/admin/matchingDetailIcon.png") no-repeat center;
-  background-size: contain;
+}
+
+div[class$="icon"] img {
+	width : 100%;
+	height: 100%;
+	  object-fit:contain;
+}
+
+.match-config-content > div[class$="icon"]{
+	width: 100%;
+	height: 100%
+	
 }
 
 .content-container 
@@ -281,10 +289,13 @@
 .match-config-content .arrow {
   width: 80px;
   height: 100%;
-
   margin: 0px 90px;
-  background: url("/frontend/assets/img/admin/matchingDetailArrow.png") center no-repeat;
-  background-size: contain;
+}
+
+.match-config-content .arrow img{
+	width: 100%;
+	height: 100%;
+	object-fit:contain;	
 }
 
 .content-container 

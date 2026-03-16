@@ -48,7 +48,7 @@
 </form>
 
 <script>
-  fetch("${pageContext.request.contextPath}/header/adminHeader.html")
+  fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
     .then(res => res.text())
     .then(html => {
       document.getElementById("header-wrap").innerHTML = html;

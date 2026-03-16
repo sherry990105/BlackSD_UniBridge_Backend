@@ -16,7 +16,7 @@
       <div id="header-wrap"></div>
       <div class="content-container">
         <div class="title-container">
-          <span>학습보고서</span>
+          <span>취소 신청 내역</span>
         </div>
         <div class="matching-user-container">
           <div class="matching-user-container__inner">
@@ -41,7 +41,7 @@
                     <div class="vertical-line"></div>
                   </div>
                   <div class="match-container">
-                    <div class="icon"></div>
+                    <div class="icon"><img src = "${pageContext.request.contextPath}/assets/img/admin/matchingIcon.png"></div>
                     <div class="desc-container">
                       <div class="mentor-to-mentee">
                         <div class="mentee">멘티</div>
@@ -76,7 +76,7 @@
                     <div class="vertical-line"></div>
                   </div>
                   <div class="match-container">
-                    <div class="icon"></div>
+                    <div class="icon"><img src = "${pageContext.request.contextPath}/assets/img/admin/matchingIcon.png"></div>
                     <div class="desc-container">
                       <div class="mentor-to-mentee">
                         <div class="mentee">멘티</div>
@@ -106,7 +106,7 @@
     </div>
   </div>
   <script>
-    fetch("${pageContext.request.contextPath}/header/adminHeader.html")
+    fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
       .then(res => res.text())
       .then(html => {
         document.getElementById("header-wrap").innerHTML = html;

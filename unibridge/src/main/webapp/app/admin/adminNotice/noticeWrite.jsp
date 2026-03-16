@@ -60,7 +60,7 @@
   </script>
 
 <script>
-  fetch("/frontend/header/adminHeader.html")
+  fetch("/frontend/header/adminHeader.jsp")
     .then(res => res.text())
     .then(html => {
       document.getElementById("header-wrap").innerHTML = html;

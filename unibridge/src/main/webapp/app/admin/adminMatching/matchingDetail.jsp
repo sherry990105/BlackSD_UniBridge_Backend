@@ -27,13 +27,13 @@
               <div class="vertical-line"></div>
               <div class="match-config-content">
                 <div class="mentee">
-                  <div class="mentee-icon"></div>
+                  <div class="mentee-icon"><img src="${pageContext.request.contextPath}/assets/img/admin/matchingDetailIcon.png"></div>
                   <div class="mentee-title">멘티</div>
                   <div class="mentee-title-name">멘티이름1</div>
                 </div>
-                <span class="arrow"></span>
+                <span class="arrow"><img src="${pageContext.request.contextPath}/assets/img/admin/matchingDetailArrow.png"></span>
                 <div class="mentor">
-                  <div class="mentor-icon"></div>
+                  <div class="mentor-icon"><img src="${pageContext.request.contextPath}/assets/img/admin/matchingDetailIcon.png"></div>
                   <div class="mentor-title">멘토</div>
                   <div class="mentor-title-name">멘토이름1</div>
                 </div>
@@ -65,7 +65,7 @@
     </div>
   </div>
   <script>
-    fetch("${pageContext.request.contextPath}/header/adminHeader.html")
+    fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
       .then(res => res.text())
       .then(html => {
         document.getElementById("header-wrap").innerHTML = html;

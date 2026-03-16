@@ -43,15 +43,15 @@
             </ul>
             <div class="vertical-line"></div>
             <ul class="subject-selector">
-              <li class="subject-item all"></li>
-              <li class="subject-item korean"></li>
-              <li class="subject-item english"></li>
-              <li class="subject-item math"></li>
-              <li class="subject-item c"></li>
-              <li class="subject-item java"></li>
-              <li class="subject-item cpp"></li>
-              <li class="subject-item python"></li>
-              <li class="subject-item game-programming"></li>
+              <li class="subject-item all"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/AllSubjectIcon.png"></li>
+              <li class="subject-item korean"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectKoreanIcon.png"></li>
+              <li class="subject-item english"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectEnglishIcon.png"></li>
+              <li class="subject-item math"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectMathIcon.png"></li>
+              <li class="subject-item c"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectCIcon.png"></li>
+              <li class="subject-item java"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectJavaIcon.png"></li>
+              <li class="subject-item cpp"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectCPPIcon.png"></li>
+              <li class="subject-item python"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectPythonIcon.png"></li>
+              <li class="subject-item game-programming"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectGameProIcon.png"></li>
             </ul>
             <div class="report-container">
               <div class="report-container__inner">
@@ -64,14 +64,14 @@
                       <li class="report-item">
                         <div class="mentor-mentee">
                           <div class="user-info mentor">
-                            <div class="user-icon"></div>
+                            <div class="user-icon"><img src ="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
                             <div class="user-desc">
                               <span>멘토</span>
                               <span class="mentor-name">멘토 이름 1</span>
                             </div>
                           </div>
                           <div class="user-info mentee">
-                            <div class="user-icon"></div>
+                            <div class="user-icon"><img src ="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
                             <div class="user-desc">
                               <span>멘티</span>
                               <span class="mentee-name">멘티 이름 1</span>
@@ -84,14 +84,14 @@
                       <li class="report-item">
                         <div class="mentor-mentee">
                           <div class="user-info mentor">
-                            <div class="user-icon"></div>
+                            <div class="user-icon"><img src ="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
                             <div class="user-desc">
                               <span>멘토</span>
                               <span class="mentor-name">멘토 이름 2</span>
                             </div>
                           </div>
                           <div class="user-info mentee">
-                            <div class="user-icon"></div>
+                            <div class="user-icon"><img src ="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
                             <div class="user-desc">
                               <span>멘티</span>
                               <span class="mentee-name">멘티 이름 2</span>
@@ -111,14 +111,14 @@
                       <li class="report-item">
                         <div class="mentor-mentee">
                           <div class="user-info mentor">
-                            <div class="user-icon"></div>
+                            <div class="user-icon"><img src ="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
                             <div class="user-desc">
                               <span>멘토</span>
                               <span class="mentor-name">멘토 이름 1</span>
                             </div>
                           </div>
                           <div class="user-info mentee">
-                            <div class="user-icon"></div>
+                            <div class="user-icon"><img src ="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
                             <div class="user-desc">
                               <span>멘티</span>
                               <span class="mentee-name">멘티 이름 1</span>
@@ -131,14 +131,14 @@
                       <li class="report-item">
                         <div class="mentor-mentee">
                           <div class="user-info mentor">
-                            <div class="user-icon"></div>
+                            <div class="user-icon"><img src ="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
                             <div class="user-desc">
                               <span>멘토</span>
                               <span class="mentor-name">멘토 이름 2</span>
                             </div>
                           </div>
                           <div class="user-info mentee">
-                            <div class="user-icon"></div>
+                            <div class="user-icon"><img src ="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/userIcon.png"></div>
                             <div class="user-desc">
                               <span>멘티</span>
                               <span class="mentee-name">멘티 이름 2</span>
@@ -159,7 +159,7 @@
     </div>
   </div>
   <script>
-    fetch("${pageContext.request.contextPath}/header/adminHeader.html")
+    fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
       .then(res => res.text())
       .then(html => {
         document.getElementById("header-wrap").innerHTML = html;

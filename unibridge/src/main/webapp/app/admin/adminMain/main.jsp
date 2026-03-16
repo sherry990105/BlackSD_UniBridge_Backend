@@ -20,7 +20,7 @@
       <nav class="side-nav">
 
         <!-- 공지사항 관리 -->
-        <a href="${pageContext.request.contextPath}/admin/adminNotice/noticeList.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminNotice/noticeList.jsp" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/공지사항.png" alt="공지사항 아이콘" />
           </span>
@@ -28,7 +28,7 @@
         </a>
 
         <!-- 게시판 관리 -->
-        <a href="${pageContext.request.contextPath}/admin/adminBoard/menteeBoard/menteeBoardList.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminBoard/menteeBoard/menteeBoardList.jsp" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/게시판.png" alt="게시판 아이콘" />
           </span>
@@ -36,7 +36,7 @@
         </a>
 
         <!-- 학습보고서 관리 -->
-        <a href="${pageContext.request.contextPath}/admin/adminReport/report.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminReport/report.jsp" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/학습보고서 아이콘.png" alt="학습보고서 아이콘" />
           </span>
@@ -44,17 +44,17 @@
         </a>
 
         <!-- 유저 관리 -->
-        <a href="${pageContext.request.contextPath}/admin/adminUserManagement/userList.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminUserManagement/userList.jsp" class="side-link">
           <span class="side-icon" aria-hidden="true">
-            <img src="/frontend/assets/img/admin/유저 아이콘.png" alt="유저 아이콘" />
+            <img src="${pageContext.request.contextPath}/assets/img/admin/유저 아이콘.png" alt="유저 아이콘" />
           </span>
           <span>유저 관리</span>
         </a>
 
         <!-- 매칭 관리 -->
-        <a href="${pageContext.request.contextPath}/admin/adminMatching/matching.html" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminMatching/matching.jsp" class="side-link">
           <span class="side-icon" aria-hidden="true">
-            <img src="/frontend/assets/img/admin/매칭아이콘.jpg" alt="매칭 아이콘" />
+            <img src="${pageContext.request.contextPath}/assets/img/admin/매칭아이콘.jpg" alt="매칭 아이콘" />
           </span>
           <span>매칭 관리</span>
         </a>
