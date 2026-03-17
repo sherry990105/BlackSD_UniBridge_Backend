@@ -18,7 +18,7 @@
    <!-- DTO 별칭 설정 -->
    <typeAliases>
       <typeAlias type="com.unibridge.app.member.dto.MemberDTO" alias="MemberDTO"></typeAlias>
-      <typeAlias type="com.unibridge.app.Board.dto.BoardDTO" alias="BoardDTO"></typeAlias>
+      <!-- <typeAlias type="com.unibridge.app.Board.dto.BoardDTO" alias="BoardDTO"></typeAlias> -->
    </typeAliases>
 
    <environments default="oracle">
@@ -36,7 +36,7 @@
    <!-- Mapper.xml 등록 추후 필요 , 추가되면 만들기 -->
    <mappers>
       <mapper resource="com/unibridge/mapper/MemberMapper.xml" />
-      <mapper resource="com/unibridge/mapper/BoardMapper.xml" />
+      <!-- <mapper resource="com/unibridge/mapper/BoardMapper.xml" /> -->
    </mappers>
    
 </configuration>
