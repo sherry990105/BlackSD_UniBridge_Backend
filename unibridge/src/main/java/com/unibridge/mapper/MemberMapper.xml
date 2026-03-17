@@ -40,8 +40,8 @@
    </select>
    
    <!-- 로그인 쿼리 작성 -->
-   <select id="login" parameterType="MemberDTO" resultType="int">
-      SELECT member_number FROM UB_MEMBER
+   <select id="login" parameterType="MemberDTO" resultType="MemberDTO">
+      SELECT * FROM UB_MEMBER
       WHERE member_id = #{memberId} and member_pw = #{memberPw}
    </select>
    
