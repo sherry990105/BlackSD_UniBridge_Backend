@@ -3,12 +3,34 @@
 <mapper namespace="member">
    <!-- 회원가입 쿼리 작성 -->
    <insert id="join" parameterType="MemberDTO">
-      INSERT INTO tbl_member(member_number, member_id, member_password, member_name,
-         member_age, member_gender, member_phone_number, member_postcode, member_address,
-         member_detail_addr)
-      VALUES (seq_member.nextval, #{memberId}, #{memberPassword}, #{memberName},
-      #{memberAge}, #{memberGender}, #{memberPhoneNumber}, #{memberPostcode}, #{memberAddress},
-      #{memberDetailAddr})
+      INSERT INTO UB_MEMBER(
+      	member_number, 
+      	member_id, 
+      	member_pw, 
+      	member_name,
+      	member_nickname,
+        member_phone, 
+        member_gender,
+        survey_number,
+        member_type,
+        member_state,
+        survey_write,
+        file_number 
+	  )
+      VALUES (
+      	seq_user.nextval, 
+      	#{memberId}, 
+      	#{memberPw}, 
+      	#{memberName},
+      	#{memberNickname}, 
+      	#{memberPhone}, 
+      	#{memberGender}, 
+      	null,
+      	'NODECIDED',
+      	'계정 활성화',
+      	'N',
+      	null
+      )
    </insert>
    
    <!-- id 중복 검사 쿼리 작성 -->
@@ -19,8 +41,8 @@
    
    <!-- 로그인 쿼리 작성 -->
    <select id="login" parameterType="MemberDTO" resultType="int">
-      SELECT member_number FROM tbl_member
-      WHERE member_id = #{memberId} and member_password = #{memberPassword}
+      SELECT member_number FROM UB_MEMBER
+      WHERE member_id = #{memberId} and member_pw = #{memberPw}
    </select>
    
    <!-- 멤버 번호에 해당하는 아이디 조회 쿼리 작성 -->
