@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/myPage.css" />
+    <script src="${pageContext.request.contextPath}/assets/js/header.js" defer></script>
+    <script src="${pageContext.request.contextPath}/assets/js/footer.js" defer></script>
 </head>
 <body>
 
@@ -38,23 +40,23 @@
                 <div class="userProfile">
                     <div class="userTextGroup">
                         <label for="">아이디</label>
-                        <div class="userText">hongdong11</div>
+                        <div class="userText">${sessionScope.memberId}</div>
                     </div>
                     <div class="userTextGroup">
                         <label for="">이름</label>
-                        <div class="userText">홍길동</div>
+                        <div class="userText">${sessionScope.memberName}</div>
                     </div>
                     <div class="userTextGroup">
                         <label for="">닉네임</label>
-                        <div class="userText">홍길동</div>
+                        <div class="userText">${sessionScope.memberNickname}</div>
                     </div>
                     <div class="userTextGroup">
                         <label for="">성별</label>
-                        <div class="userText">남성</div>
+                        <div class="userText">${sessionScope.memberGender}</div>
                     </div>
                     <div class="userTextGroup">
                         <label for="">전화번호</label>
-                        <div class="userText">010-1234-5678</div>
+                        <div class="userText">${sessionScope.memberPhone}</div>
                     </div>
                 </div>
             </div>
@@ -66,7 +68,6 @@
 
     </div>
 
-    <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+
 </body>
 </html>
