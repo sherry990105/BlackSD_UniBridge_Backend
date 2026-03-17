@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.mypage.delete.controller.MentorDeleteController;
 import com.unibridge.app.mypage.entrypoint.controller.MentorController;
 import com.unibridge.app.mypage.surveyMentee.controller.SurveyMenteeOkController;
 
@@ -23,6 +24,10 @@ public class MentorFrontController implements Execute {
 		case  "myPage.my":
 		case "/myPage.my":
 			this.outResult = new MentorController().execute(request, response);
+			break;
+		case  "delete.my":
+		case "/delete.my":
+			this.outResult = new MentorDeleteController().execute(request, response);
 			break;
 		case "/mypage/surveyMentorOk.my":
 			System.out.println("멘토 설문 등록 요청 수신");
