@@ -39,8 +39,8 @@
 						<%-- DTO에 없는 subject는 주석 처리하거나 임시 텍스트 사용 --%>
 						<div id="mentoSubject">전문 분야 준비 중</div>
 
-						<div id="mentorUniSchool">학교: ${mentor.gradSchool}</div>
-						<div id="mentoMajor">학과: ${mentor.gradDepart}</div>
+						<div id="mentorUniSchool">${mentor.gradSchool}</div>
+						<div id="mentoMajor">${mentor.gradDepart}</div>
 					</div>
 					<%-- 에러 유발 지점: mentoringContent가 DTO에 없으므로 주석 처리 --%>
 					<%-- <div id="mentoringPurpose">${mentor.mentoringContent}</div> --%>
