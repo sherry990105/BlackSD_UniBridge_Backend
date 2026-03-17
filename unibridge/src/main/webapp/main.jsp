@@ -1,5 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
   <meta charset="UTF-8" />
@@ -8,16 +9,15 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="/frontend/assets/css/header.css" />
-  <link rel="stylesheet" href="/frontend/assets/css/footer.css" />
-  <link rel="stylesheet" href="/frontend/assets/css/main.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/header.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/footer.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css" />
 </head>
 
 <body>
 
-  <!-- ====== HEADER 마운트 포인트 ====== -->
-  <div id="headerContainer"></div>
-
+  <%-- header.js의 renderHeader() + #headerContainer 대체 --%>
+	<div id="headerContainer"></div>
   <!-- ====== MAIN ====== -->
   <main class="mainWrap">
 
@@ -47,7 +47,9 @@
 
           <!-- 카드 1 -->
           <div class="contestCard">
-            <div class="contestCardThumbEmpty"><img src="/assets/img/UniBridge.png" alt="이미지"></div>
+            <div class="contestCardThumbEmpty">
+              <img src="${pageContext.request.contextPath}/assets/img/UniBridge.png" alt="이미지">
+            </div>
             <p class="contestCardTitle">구조를 인공 슬라이 추천 AI 문제</p>
             <p class="contestCardDate">2025.08.03</p>
             <div class="contestCardTagList">
@@ -109,7 +111,11 @@
               <span class="contestCardTag">핵 남앙</span>
             </div>
           </div>
-    </section>
+
+        </div><%-- contestSliderTrack 닫힘 --%>
+      </div><%-- contestSliderWrap 닫힘 --%>
+
+    </section><%-- contestWrap 닫힘 --%>
 
 
     <!-- 추천 멘토 섹션 -->
@@ -120,7 +126,7 @@
 
         <!-- 멘토 1 -->
         <div class="mentoRecommendCard" data-mento-id="1">
-          <img class="mentoRecommendAvatar" src="/assets/img/UniBridge.png" alt="멘토 프로필" />
+          <img class="mentoRecommendAvatar" src="${pageContext.request.contextPath}/assets/img/UniBridge.png" alt="멘토 프로필" />
           <p class="mentoRecommendName">한길대학교</p>
           <p class="mentoRecommendSchool">인공지능학과</p>
           <p class="mentoRecommendInfo">
@@ -131,7 +137,7 @@
 
         <!-- 멘토 2 -->
         <div class="mentoRecommendCard" data-mento-id="2">
-          <img class="mentoRecommendAvatar" src="img/mento2.jpg" alt="멘토 프로필" />
+          <img class="mentoRecommendAvatar" src="${pageContext.request.contextPath}/assets/img/mento2.jpg" alt="멘토 프로필" />
           <p class="mentoRecommendName">미래공과대학교</p>
           <p class="mentoRecommendSchool">컴퓨터소프트학과</p>
           <p class="mentoRecommendInfo">
@@ -142,7 +148,7 @@
 
         <!-- 멘토 3 -->
         <div class="mentoRecommendCard" data-mento-id="3">
-          <img class="mentoRecommendAvatar" src="img/mento3.jpg" alt="멘토 프로필" />
+          <img class="mentoRecommendAvatar" src="${pageContext.request.contextPath}/assets/img/mento3.jpg" alt="멘토 프로필" />
           <p class="mentoRecommendName">유니굴대학교</p>
           <p class="mentoRecommendSchool">소프트웨어학부</p>
           <p class="mentoRecommendInfo">
@@ -153,7 +159,7 @@
 
         <!-- 멘토 4 -->
         <div class="mentoRecommendCard" data-mento-id="4">
-          <img class="mentoRecommendAvatar" src="img/mento4.jpg" alt="멘토 프로필" />
+          <img class="mentoRecommendAvatar" src="${pageContext.request.contextPath}/assets/img/mento4.jpg" alt="멘토 프로필" />
           <p class="mentoRecommendName">연세대 수학과</p>
           <p class="mentoRecommendSchool">수학과</p>
           <p class="mentoRecommendInfo">
@@ -164,9 +170,9 @@
 
         <!-- 멘토 5 -->
         <div class="mentoRecommendCard" data-mento-id="5">
-          <img class="mentoRecommendAvatar" src="img/mento5.jpg" alt="멘토 프로필" />
+          <img class="mentoRecommendAvatar" src="${pageContext.request.contextPath}/assets/img/mento5.jpg" alt="멘토 프로필" />
           <p class="mentoRecommendName">연세대 국어국문과</p>
-          <p class="mentoRecommendSchool">수학과</p>
+          <p class="mentoRecommendSchool">국어국문학과</p>
           <p class="mentoRecommendInfo">
             국어<br />
             오프라인 / 주 3회
@@ -175,7 +181,7 @@
 
         <!-- 멘토 6 -->
         <div class="mentoRecommendCard" data-mento-id="6">
-          <img class="mentoRecommendAvatar" src="img/mento6.jpg" alt="멘토 프로필" />
+          <img class="mentoRecommendAvatar" src="${pageContext.request.contextPath}/assets/img/mento6.jpg" alt="멘토 프로필" />
           <p class="mentoRecommendName">연세대 수학과</p>
           <p class="mentoRecommendSchool">수학과</p>
           <p class="mentoRecommendInfo">
@@ -186,7 +192,7 @@
 
         <!-- 멘토 7 -->
         <div class="mentoRecommendCard" data-mento-id="7">
-          <img class="mentoRecommendAvatar" src="img/mento7.jpg" alt="멘토 프로필" />
+          <img class="mentoRecommendAvatar" src="${pageContext.request.contextPath}/assets/img/mento7.jpg" alt="멘토 프로필" />
           <p class="mentoRecommendName">연세대 수학과</p>
           <p class="mentoRecommendSchool">수학과</p>
           <p class="mentoRecommendInfo">
@@ -214,7 +220,7 @@
 
           <!-- 카드 1 -->
           <div class="jobBannerCard" data-job-id="1">
-            <img class="jobBannerCardThumb" src="/assets/img/UniBridge.png" alt="취업 썸네일" />
+            <img class="jobBannerCardThumb" src="${pageContext.request.contextPath}/assets/img/UniBridge.png" alt="취업 썸네일" />
             <p class="jobBannerCardTitle">구조를 인공 슬라이 추천 AI 문제</p>
             <p class="jobBannerCardDate">2025.08.03</p>
             <div class="jobBannerCardTagList">
@@ -227,7 +233,7 @@
 
           <!-- 카드 2 -->
           <div class="jobBannerCard" data-job-id="2">
-            <img class="jobBannerCardThumb" src="img/job2.jpg" alt="취업 썸네일" />
+            <img class="jobBannerCardThumb" src="${pageContext.request.contextPath}/assets/img/job2.jpg" alt="취업 썸네일" />
             <p class="jobBannerCardTitle">Almers 8기 : 모델 검증과 관리인 역방전</p>
             <p class="jobBannerCardDate">2026.02.02</p>
             <div class="jobBannerCardTagList">
@@ -240,7 +246,7 @@
 
           <!-- 카드 3 -->
           <div class="jobBannerCard" data-job-id="3">
-            <img class="jobBannerCardThumb" src="img/job3.jpg" alt="취업 썸네일" />
+            <img class="jobBannerCardThumb" src="${pageContext.request.contextPath}/assets/img/job3.jpg" alt="취업 썸네일" />
             <p class="jobBannerCardTitle">핵심 · 스텝 예발들을 위한 서비스 개발 경연</p>
             <p class="jobBannerCardDate">2026.01.04</p>
             <div class="jobBannerCardTagList">
@@ -253,7 +259,7 @@
 
           <!-- 카드 4 -->
           <div class="jobBannerCard" data-job-id="4">
-            <img class="jobBannerCardThumb" src="img/job4.jpg" alt="취업 썸네일" />
+            <img class="jobBannerCardThumb" src="${pageContext.request.contextPath}/assets/img/job4.jpg" alt="취업 썸네일" />
             <p class="jobBannerCardTitle">구조를 인공 슬라이 추천 AI 문제</p>
             <p class="jobBannerCardDate">2026.06.03</p>
             <div class="jobBannerCardTagList">
@@ -266,7 +272,7 @@
 
           <!-- 카드 5 -->
           <div class="jobBannerCard" data-job-id="5">
-            <img class="jobBannerCardThumb" src="img/job5.jpg" alt="취업 썸네일" />
+            <img class="jobBannerCardThumb" src="${pageContext.request.contextPath}/assets/img/job5.jpg" alt="취업 썸네일" />
             <p class="jobBannerCardTitle">HAI하이미 - Hecto AI Challenge : 2</p>
             <p class="jobBannerCardDate">2025.12.29</p>
             <div class="jobBannerCardTagList">
@@ -279,7 +285,7 @@
 
           <!-- 카드 6 -->
           <div class="jobBannerCard" data-job-id="6">
-            <img class="jobBannerCardThumb" src="img/job6.jpg" alt="취업 썸네일" />
+            <img class="jobBannerCardThumb" src="${pageContext.request.contextPath}/assets/img/job6.jpg" alt="취업 썸네일" />
             <p class="jobBannerCardTitle">빅데이터 취업 공모전 2025</p>
             <p class="jobBannerCardDate">2025.09.15</p>
             <div class="jobBannerCardTagList">
@@ -291,7 +297,7 @@
 
           <!-- 카드 7 -->
           <div class="jobBannerCard" data-job-id="7">
-            <img class="jobBannerCardThumb" src="img/job7.jpg" alt="취업 썸네일" />
+            <img class="jobBannerCardThumb" src="${pageContext.request.contextPath}/assets/img/job7.jpg" alt="취업 썸네일" />
             <p class="jobBannerCardTitle">AI 개발자 채용 연계 프로그램</p>
             <p class="jobBannerCardDate">2025.10.01</p>
             <div class="jobBannerCardTagList">
@@ -301,17 +307,24 @@
             </div>
           </div>
 
-        </div>
-      </div>
-    </section>
+        </div><%-- jobBannerSliderTrack 닫힘 --%>
+      </div><%-- jobBannerSliderWrap 닫힘 --%>
+
+    </section><%-- jobBannerWrap 닫힘 --%>
 
   </main>
 
   <div id="footerContainer"></div>
 
-  <script src="/frontend/assets/js/header.js"></script>
-  <script src="/frontend/assets/js/footer.js"></script>
-  <script src="/frontend/assets/js/main.js"></script>
+  <%--
+    원본 main.html:
+      <script src="/frontend/assets/js/header.js">  → 경로 수정 (동적 렌더링 코드 제거된 버전)
+      <script src="/frontend/assets/js/footer.js">  → 경로 수정 (빈 파일)
+      <script src="/frontend/assets/js/main.js">    → 경로 수정
+  --%>
+  <script src="${pageContext.request.contextPath}/assets/js/user/header.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/user/footer.js"></script>
+  <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 
 </body>
 

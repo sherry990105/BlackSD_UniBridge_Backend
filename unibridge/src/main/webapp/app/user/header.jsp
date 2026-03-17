@@ -21,7 +21,7 @@
     <div class="headerInner">
 
         <!-- 로고 -->
-        <a href="${pageContext.request.contextPath}/common/main.jsp" class="headerLogo">
+        <a href="${pageContext.request.contextPath}/main.jsp" class="headerLogo">
             <img src="${pageContext.request.contextPath}/assets/img/UniBridge.png" alt="UniBridge" />
         </a>
 
@@ -29,8 +29,8 @@
         <nav class="headerNav">
             <a href="${pageContext.request.contextPath}/mentorSearch/mentorSearch.jsp">멘토 검색</a>
             <a href="${pageContext.request.contextPath}/mentee/menteeBoard/menteeBoardList.jsp">게시판</a>
-            <a href="${pageContext.request.contextPath}/report/report.jsp">학습보고서</a>
-            <a href="${pageContext.request.contextPath}/common/announceBoard.jsp">공지사항</a>
+            <a href="${pageContext.request.contextPath}/notice/report.jsp">학습보고서</a>
+            <a href="${pageContext.request.contextPath}/announceBoard.jsp">공지사항</a>
         </nav>
 
         <!-- 인증 영역 -->
