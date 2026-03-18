@@ -13,8 +13,8 @@ public class AdminDAO {
 	}
 	
 	// 로그인
-	public AdminDTO login(AdminDTO adminDTO) {
-		AdminDTO admin = sqlSession.selectOne("admin.login", adminDTO);
+	public int login(AdminDTO adminDTO) {
+		int admin = sqlSession.selectOne("admin.adminlogin", adminDTO);
 		return admin;
 	}
 	

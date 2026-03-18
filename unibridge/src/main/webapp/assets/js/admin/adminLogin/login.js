@@ -23,7 +23,7 @@ loginForm.addEventListener("submit", function (event) {
   if (idValue === ADMIN_ACCOUNT.id && pwValue === ADMIN_ACCOUNT.pw) {
     errorText.textContent = "";
 
-    window.location.href = "./../../../html/admin/adminMain/main.html";
+    window.location.href = "./../../../html/admin/adminMain/main.admin";
     return;
   }
 
