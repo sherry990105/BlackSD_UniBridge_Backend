@@ -40,6 +40,8 @@ public class SurveyMentorController implements Execute{
 //         페이지 이동 설정을 수행합니다.
         outResult.setRedirect(false); // JSP로 포워딩
         outResult.setPath("/app/user/mentor/myPage/userSurvey/userSurvey.jsp");
+        
+        
 	}
 
 	private void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
