@@ -13,13 +13,13 @@
 </head>
 <body>
     
-    <div id="headerContainer"></div>
+    <jsp:include page="/app/user/header.jsp" />
 
     <div class="mainContainer">
         <aside>
             <div class="myPageTitle">마이페이지</div>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/auth/undecided/mypage.my" class="active">계정 관리</a></li>
+                <li><a href="${pageContext.request.contextPath}/auth/undecided/myPage.my" class="active">계정 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/auth/undecided/survey.my" >설문 조사</a></li>
                 <li><a href="${pageContext.request.contextPath}/auth/undecided/delete.my">회원 탈퇴</a></li>
             </ul>

@@ -149,6 +149,7 @@ public class SurveyMenteeController implements Execute{
             path = "/auth/mentee/mypage.my";
         }
 
+        // redirect 설정
         outResult.setRedirect(true);
         outResult.setPath(request.getContextPath() + path);
 		

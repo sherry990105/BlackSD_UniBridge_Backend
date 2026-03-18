@@ -145,6 +145,5 @@
 
     <script src="${pageContext.request.contextPath}/assets/js/header.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
-    <script>const contextPath = "${pageContext.request.contextPath}";</script>
 </body>
 </html>

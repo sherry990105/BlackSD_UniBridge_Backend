@@ -49,7 +49,7 @@
                     <button class="closeBtn"><img src="${pageContext.request.contextPath}/assets/img/user/userProfile/close.png" alt=""></button>
                     <div class="surveyTitle">설문 조사</div>
                     <div class="modalBox">
-                        <form id="surveyForm" method="post" enctype="multipart/form-data">
+                        <form id="surveyForm" action="${pageContext.request.contextPath}/auth/undecided/survey.my" method="post" enctype="multipart/form-data">
                             <div class="inputRow">
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">

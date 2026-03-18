@@ -8,17 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
-<<<<<<< HEAD
+
 import com.unibridge.app.member.controller.DeleteController;
 import com.unibridge.app.member.controller.UpdateController;
 import com.unibridge.app.mypage.matching.controller.MatchingController;
 import com.unibridge.app.mypage.matching.controller.PayLogController;
 import com.unibridge.app.mypage.survey.controller.SurveyController;
-=======
-import com.unibridge.app.mypage.surveyMentee.controller.SurveyMenteeController;
-import com.unibridge.app.mypage.delete.controller.MenteeDeleteController;
-import com.unibridge.app.mypage.delete.controller.MentorDeleteController;
->>>>>>> 2dcfaea6b47442a48a168dc7e8f723285f026411
 
 public class MenteeFrontController implements Execute {
 	Result outResult = new Result();
@@ -30,7 +25,6 @@ public class MenteeFrontController implements Execute {
 		String target = extractTargetPath(requestURI);
 		
 		switch (target) {
-<<<<<<< HEAD
 		case  "myPage.my":
 			System.out.println("계정관리 요청 수신");
 			this.outResult = new UpdateController().execute(request, response);
@@ -51,17 +45,8 @@ public class MenteeFrontController implements Execute {
 			System.out.println("결제 정보 조회 수신");
 			this.outResult = new PayLogController().execute(request, response);
 			break;
-=======
-		case  "myPage/delete.my":
-		case "/myPage/delete.my":
-			this.outResult = new MenteeDeleteController().execute(request, response);
-			break;
-		case "survey.my":
-		case "/survey.my":
-			System.out.println("멘티 설문 등록 요청 수신");
-			outResult = new SurveyMenteeController().execute(request, response);
->>>>>>> 2dcfaea6b47442a48a168dc7e8f723285f026411
 		default:
+			System.out.println("[Warn] 매칭되는 target이 없음: " + target);
 			break;
 		}
 		return outResult;
