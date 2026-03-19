@@ -15,18 +15,31 @@ public class MentoringFrontController implements Execute {
 			throws ServletException, IOException {
 
 		String requestURI = request.getRequestURI();
-		String target = extractTargetPath(requestURI);
+		String contextPath = request.getContextPath();
+		// contextPath를 제외한 순수 경로 추출 (/mvc/auth/mentor/...)
+		String command = requestURI.substring(contextPath.length());
+		// 마지막 슬래시 뒤의 문자열만 추출
+		String target = command.substring(command.lastIndexOf("/") + 1);
 		Result result = null;
 
-		// [추가] 현재 어떤 요청이 MentoringFC까지 도달했는지 확인용 로그
-		System.out.println("[Log] MentoringFrontController 도달 - target: " + target);
+		if (target.contains("?")) {
+			target = target.substring(0, target.indexOf("?"));
+		}
 
+		System.out.println("[Log] MentorFrontController 수신 URI: " + requestURI);
+		System.out.println("[Log] 추출된 Target: " + target);
+		
+		
 		try {
 			switch (target) {
+			case "mentoringMain.my": // 메뉴 클릭 시 호출될 URL
+				System.out.println("[Log] 분기: 멘토링 데이터 유무 확인 시작");
+				result = new MentoringEntryController().execute(request, response);
+				break;
 			case "mentoringCreate.my":
 				System.out.println("[Log] 분기: 등록 페이지 이동");
 				result = new Result();
-				result.setPath("/app/user/mentor/myPage/userMentoing/mentoringCreate.jsp");
+				result.setPath("/app/user/mentor/myPage/userMentoring/mentoringCreate.jsp");
 				result.setRedirect(false); // forward 방식
 				break;
 			case "mentoringWriteOk.my":

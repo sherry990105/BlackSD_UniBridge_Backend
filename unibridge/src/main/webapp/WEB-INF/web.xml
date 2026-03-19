@@ -126,7 +126,7 @@
 		<servlet-name>Admin</servlet-name>
 		<url-pattern>*.admin</url-pattern>
 	</servlet-mapping>
-	
+
 	
 	<!--  API  -->
 	<servlet>

@@ -20,7 +20,7 @@
       <nav class="side-nav">
 
         <!-- 공지사항 관리 -->
-        <a href="${pageContext.request.contextPath}/app/admin/adminNotice/noticeList.jsp" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminNotice/noticeList.admin" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/공지사항.png" alt="공지사항 아이콘" />
           </span>
@@ -28,7 +28,7 @@
         </a>
 
         <!-- 게시판 관리 -->
-        <a href="${pageContext.request.contextPath}/app/admin/adminBoard/menteeBoard/menteeBoardList.jsp" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminBoard/menteeBoard/menteeBoardList.admin" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/게시판.png" alt="게시판 아이콘" />
           </span>
@@ -36,7 +36,7 @@
         </a>
 
         <!-- 학습보고서 관리 -->
-        <a href="${pageContext.request.contextPath}/app/admin/adminReport/report.jsp" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminReport/report.admin" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/학습보고서 아이콘.png" alt="학습보고서 아이콘" />
           </span>
@@ -44,7 +44,7 @@
         </a>
 
         <!-- 유저 관리 -->
-        <a href="${pageContext.request.contextPath}/app/admin/adminUserManagement/userList.jsp" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminUserManagement/userList.admin" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/유저 아이콘.png" alt="유저 아이콘" />
           </span>
@@ -52,7 +52,7 @@
         </a>
 
         <!-- 매칭 관리 -->
-        <a href="${pageContext.request.contextPath}/app/admin/adminMatching/matching.jsp" class="side-link">
+        <a href="${pageContext.request.contextPath}/app/admin/adminMatching/matching.admin" class="side-link">
           <span class="side-icon" aria-hidden="true">
             <img src="${pageContext.request.contextPath}/assets/img/admin/매칭아이콘.jpg" alt="매칭 아이콘" />
           </span>
@@ -69,18 +69,18 @@
       <section class="summary-section">
         <article class="summary-card">
           <h2>총 가입자 수</h2>
-          <p class="summary-value" id="totalJoinCount">136 명</p>
-          <p class="summary-sub" id="joinSubText">멘토 60  멘티 76</p>
+          <p class="summary-value" id="totalJoinCount"></p>
+          <p class="summary-sub" id="joinSubText"></p>
         </article>
 
         <article class="summary-card">
           <h2>오늘 방문자 수</h2>
-          <p class="summary-value" id="todayVisitCount">58 명</p>
+          <p class="summary-value" id="todayVisitCount"></p>
         </article>
 
         <article class="summary-card">
           <h2>매칭 수</h2>
-          <p class="summary-value" id="matchingCount">48 명</p>
+          <p class="summary-value" id="matchingCount"></p>
         </article>
       </section>
 
@@ -112,6 +112,13 @@
       </section>
     </main>
   </div>
+
+
+	<script>
+		 const data = JSON.parse('${summaryDataJson}');
+		 const recentBoards = JSON.parse('${recentBoardsJson}');
+		 const recentUsers = JSON.parse('${recentUsersJson}');
+	</script>
 
   <script src="${pageContext.request.contextPath}/assets/js/admin/adminMain/main.js"></script>
 </body>
