@@ -89,4 +89,6 @@ public class MentorFrontController implements Execute {
 		String   target = splitedPaths[splitedPaths.length - 1];
 		return target;
 	}
+
 }
+

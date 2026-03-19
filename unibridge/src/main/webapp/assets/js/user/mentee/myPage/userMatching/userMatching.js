@@ -52,7 +52,7 @@ function submitCancel(matchNum) {
         // 가상의 폼 생성
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = contextPath + "/mvc/auth/mentor/matching.my"; 
+        form.action = contextPath + "/mvc/auth/mentee/matching.my"; 
 
         // 데이터 1: 매칭 번호 추가
         const numInput = document.createElement('input');

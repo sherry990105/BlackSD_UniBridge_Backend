@@ -26,30 +26,31 @@ function closeCancelModal(matchNum) {
 
 // 3. 매칭 취소 신청 제출 처리
 function submitCancel(matchNum) {
-    // 1. 취소 사유 입력 확인 (필요 시)
     const modal = document.getElementById('matchingModal_' + matchNum);
-    const reasonArea = modal.querySelector('textarea');
+    const reasonArea = modal.querySelector('textarea[name="matchingCanReason"]');
     const reason = reasonArea ? reasonArea.value.trim() : "";
 
-    // 2. 사용자 최종 확인
-    const isConfirmed = confirm("정말로 " + matchNum + "번 매칭을 취소 신청하시겠습니까?");
-
-    if (isConfirmed) {
-        // [경로 설정] 현재 프로젝트의 ContextPath를 고려한 경로 생성
-        const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
-        
-        // 실제 컨트롤러 주소 (매핑된 주소로 수정 필요)
-        const targetPath = contextPath + "/mvc/auth/mentor/matchingCancel.my";
-        
-        // 실제 운영 시에는 아래처럼 POST 방식으로 데이터를 보내거나 location.href를 사용합니다.
-        console.log("취소 신청 경로: " + targetPath + "?matchinNumber=" + matchNum);
-        
-        alert(matchNum + "번 매칭 취소 신청이 완료되었습니다.");
-        
-        // 임시: 요청 후 리스트 페이지로 이동 혹은 새로고침
-        // window.location.href = contextPath + "/mvc/auth/mentor/matching.my";
-        location.reload(); 
+    // 1. 유효성 검사
+    if (reason === "") {
+        alert("취소 사유를 입력해주세요.");
+        if(reasonArea) reasonArea.focus();
+        return false; // HTML 폼 전송을 중단함
     }
+
+    if (reason.length > 1024) {
+        alert("취소 사유는 1024자를 초과할 수 없습니다.");
+        return false; // HTML 폼 전송을 중단함
+    }
+
+    // 2. 최종 확인
+    if (confirm("정말로 매칭을 취소 신청하시겠습니까?")) {
+        // [중요] 여기서 별도로 form을 만들지 않습니다.
+        // true를 반환하면 HTML에 작성된 <form>이 자동으로 제출됩니다.
+        alert("매칭 취소 신청을 처리합니다.");
+        return true; 
+    }
+
+    return false; // 취소 버튼 누를 시 전송 중단
 }
 
 // 4. 모달 바깥쪽(어두운 배경) 클릭 시 닫기 처리

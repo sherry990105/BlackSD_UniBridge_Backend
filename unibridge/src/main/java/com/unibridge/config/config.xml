@@ -31,6 +31,7 @@
       <typeAlias type="com.unibridge.app.admin.dto.AdminDTO" alias="AdminDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.admin.dto.AdMainDTO" alias="AdMainDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.learningReport.dto.LearningReportDTO" alias="LearningReportDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.mypage.matching.dto.matchingDTO" alias="MatchingDTO"></typeAlias>
    </typeAliases>
 
    <environments default="oracle">
@@ -58,6 +59,7 @@
       <mapper resource="com/unibridge/mapper/mainMapper.xml"/>
       <mapper resource="com/unibridge/mapper/AdminMapper.xml"/>
       <mapper resource="com/unibridge/mapper/NoticeBoardMapper.xml" />
+      <mapper resource="com/unibridge/mapper/matchingMapper.xml"/>
    </mappers>
    
 </configuration>

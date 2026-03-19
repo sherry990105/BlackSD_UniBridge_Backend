@@ -52,7 +52,7 @@
         FROM (
             SELECT
                 /* m.INTERNAL_ID를 m.MENTORING_NUMBER로 변경 */
-                m.MENTORING_NUMBER AS mentoring_number,
+                m.INTERNAL_ID 		AS mentoring_number,
                 m.MENTOR_NUMBER    AS mentor_number,
                 m.MENTORING_TITLE  AS mentoring_title,
                 m.MENTORING_GOAL   AS mentoring_goal,

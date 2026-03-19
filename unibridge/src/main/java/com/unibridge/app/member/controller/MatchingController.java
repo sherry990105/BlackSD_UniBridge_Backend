@@ -22,8 +22,8 @@ public class MatchingController implements Execute{
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("===MenteeMatchingController===");
-		
+		System.out.println("===MatchingController===");
+
 		String method = request.getMethod().toUpperCase();
 
         switch (method) {
@@ -132,7 +132,12 @@ public class MatchingController implements Execute{
 			
 			// 3. 처리 완료 후 다시 매칭 리스트 페이지로 이동 (Redirect)
 			// Redirect를 해야 업데이트된 결과(취소된 행은 안 보임)가 반영된 doGet이 실행됩니다.
-			outResult.setPath(request.getContextPath() + "/mvc/auth/mentor/matching.my");
+			// 회원 타입의 따라 출력
+	        if(loginUser.getMemberType().equals("MENTOR")) {	        	
+	        	outResult.setPath(request.getContextPath() + "/mvc/auth/mentor/matching.my");
+	        }else {
+	        	outResult.setPath(request.getContextPath() + "/mvc/auth/mentee/matching.my"); 	        		        	
+	        }
 			outResult.setRedirect(true);
 		} catch (Exception e) {
 			System.out.println("[에러] 매칭 취소 중 오류 발생: " + e.getMessage());

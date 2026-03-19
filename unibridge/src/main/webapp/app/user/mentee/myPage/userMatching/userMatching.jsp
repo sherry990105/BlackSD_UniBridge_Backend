@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMatching/userMatching.css">
-    <script defer src="${pageContext.request.contextPath}/assets/js/user/mentor/myPage/userMatching/userMatching.js"></script>
+    <script defer src="${pageContext.request.contextPath}/assets/js/user/mentee/myPage/userMatching/userMatching.js"></script>
 </head>
 <body>
     
@@ -79,7 +79,8 @@
                             </button>
                             <div class="cacelTitle">매칭 취소 신청서</div>
                             <div class="cancelModalBox">
-                                <form>
+                                <form method="post" action="${pageContext.request.contextPath}/mvc/auth/mentee/matching.my">
+                                    <input type="hidden" name="matchinNumber" value="${matching.matchinNumber}">
                                     <div class="infoGrid">
                                         <div class="printRow">
                                             <label>멘토 이름</label>
@@ -103,15 +104,13 @@
 
                                     <div class="cencelInputBox">
                                         <div class="contextTitle">매칭취소 사유</div>
-                                        <textarea name="CancelReason" class="cencelIput"></textarea>
+	                                     <textarea name="matchingCanReason" class="cencelIput"></textarea>
                                     </div>
 
-                                    <div class="cancelFooter">
-	                                    <form method="post" action="${pageContext.request.contextPath}/mvc/auth/mentee/matching.my">
-	                                        <button type="submit" class="submitBtn" onclick="submitCancel('${matching.matchinNumber}')">취소 신청</button>
-	                                    </form>
-                                        <button type="button" class="cancelBtn" onclick="closeCancelModal('${matching.matchinNumber}')">취소</button>                                    
-                                    </div>
+                                    	<div class="cancelFooter">
+	                                       <button type="submit" class="submitBtn" onclick="submitCancel('${matching.matchinNumber}')">취소 신청</button>
+                                        	<button type="button" class="cancelBtn" onclick="return submitCancel('${matching.matchinNumber}')">취소</button>                                    
+                                    	</div>
                                 </form>
                             </div>
                         </div>
