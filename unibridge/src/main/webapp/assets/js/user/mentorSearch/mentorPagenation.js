@@ -110,7 +110,7 @@ function createMentoCard(mentor) {
 	html += '      <div class="mentoSubject">' + (mentor.subject || '전공미정') + '</div>';
 	html += '      <div class="mentoCardMain">';
 	html += '        <div class="mentoFront">';
-	html += '          <img src="' + cp + '/upload/' + mentor.img + '" alt="사진">';
+	html += '          <img src="' + cp + '/upload/' + mentor.fileName + '" alt="사진">';
 	html += '          <button type="button" class="matching" data-id="' + mentor.id + '">매칭하기</button>';
 	html += '        </div>';
 	html += '        <div class="mentoBack">';

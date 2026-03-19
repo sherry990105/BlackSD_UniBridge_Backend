@@ -21,20 +21,19 @@
     var globalContextPath = "${pageContext.request.contextPath}";
 </script>
 <script>
-    // const 대신 var를 사용하여 전역 어디서든 접근 가능하게 합니다.
     var REAL_MENTORS = [
-        <c:forEach var="m" items="${mentorList}" varStatus="status">
-        {
-            id: "${m.memberNumber}",
-            name: "${m.memberName}",
-            university: "${m.gradSchool}",
-            major: "${m.gradDepart}",
-            img: "${not empty m.file ? m.file : ''}", 
-            date: "${m.createdAt}",
-            subject: "입시/IT"
-        }${not status.last ? ',' : ''}
-        </c:forEach>
-    ];
+    <c:forEach var="m" items="${mentorList}" varStatus="status">
+    {
+        id: "${m.memberNumber}",
+        name: "${m.memberName}",
+        university: "${m.gradSchool}",
+        major: "${m.gradDepart}",
+        img: "${not empty m.fileName ? m.fileName : ''}", 
+        date: "${m.createdAt}",
+        subject: "입시/IT"
+    	}${not status.last ? ',' : ''}
+	    </c:forEach>
+	];
     var globalContextPath = "${pageContext.request.contextPath}";
     console.log("데이터 확인:", REAL_MENTORS);
 </script>
@@ -71,7 +70,7 @@
 			<ul></ul>
 		</div>
 	</main>
-	
+
 	<jsp:include page="/app/user/footer.jsp" />
 </body>
 </html>

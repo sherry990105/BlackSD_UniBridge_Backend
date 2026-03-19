@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${mentor.memberName}멘토 상세 정보</title>
+<title>${mentor.memberName}멘토상세정보</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/user/mentorSearch/mentorDetail.css">
 <link rel="stylesheet"
@@ -42,7 +42,7 @@
 				<div class="title">커리큘럼 소개</div>
 				<div id="mentoringCurriculum">
 					<p>안녕하세요, ${mentor.memberName} 멘토입니다.</p>
-					<p>${mentor.gradSchool}에서전공한 지식을 바탕으로 성심껏 도와드리겠습니다.</p>
+					<p>${mentor.gradSchool}에서전공한지식을바탕으로 성심껏 도와드리겠습니다.</p>
 				</div>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 			style="width: 300px; border: 1px solid #ddd; padding: 20px; border-radius: 10px; height: fit-content;">
 			<c:choose>
 				<%-- 세션의 memberType이 MENTEE인 경우 --%>
-				<c:when test="${sessionScope.memberType eq 'MENTEE'}">
+				<c:when test="${sessionScope.loginUser.memberType eq 'MENTEE'}">
 					<div id="paymenthead">
 						<div class="mentoSpec">
 							<div style="font-weight: bold; color: #007bff;">${mentor.gradSchool}</div>
@@ -79,7 +79,7 @@
 				</c:when>
 
 				<%-- 로그인은 되어있으나 멘티가 아닌 경우 (멘토 등) --%>
-				<c:when test="${not empty sessionScope.memberNumber}">
+				<c:when test="${not empty sessionScope.loginUser}">
 					<div style="text-align: center; color: #666;">
 						<p>
 							멘토링 신청은<br>멘티 계정으로만 가능합니다.

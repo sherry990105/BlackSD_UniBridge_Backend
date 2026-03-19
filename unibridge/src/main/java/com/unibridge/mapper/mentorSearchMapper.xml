@@ -9,7 +9,7 @@
 		m.member_nickname AS memberNickname,
 		s.grad_school AS gradSchool,
 		s.grad_depart AS gradDepart,
-		f.file_name AS file, TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt
+		f.file_name AS fileName, TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt
 		FROM UB_MEMBER m
 		LEFT JOIN UB_SURVEY_MENTOR s ON m.survey_number = s.survey_number
 		LEFT JOIN UB_FILE f ON m.file_number = f.file_number
@@ -27,7 +27,7 @@
 		m.member_nickname AS memberNickname,
 		s.grad_school AS gradSchool,
 		s.grad_depart AS gradDepart,
-		f.file_name AS file,
+		f.file_name AS fileName,
 		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt
 		FROM UB_MEMBER m
 		LEFT JOIN UB_SURVEY_MENTOR s ON m.survey_number = s.survey_number
