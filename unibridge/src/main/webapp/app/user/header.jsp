@@ -87,9 +87,8 @@
 								class="headerBtnText">마이페이지</a>
 						</c:when>
 						<c:otherwise>
-							<%-- 미정 상태일 때 --%>
 							<a
-								href="${pageContext.request.contextPath}/mvc/auth/pending/myPage.my"
+								href="${pageContext.request.contextPath}/mvc/auth/undecided/myPage.my"
 								class="headerBtnText">마이페이지</a>
 						</c:otherwise>
 					</c:choose>

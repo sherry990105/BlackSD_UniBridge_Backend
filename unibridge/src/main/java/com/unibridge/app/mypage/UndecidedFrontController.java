@@ -44,9 +44,10 @@ public class UndecidedFrontController implements Execute{
 	}
 	
 	private String extractTargetPath(String requestUri) {
-		String[] splitedPaths = requestUri.split("/");
-		String   target = splitedPaths[splitedPaths.length - 1];
-		return target;
+		if (requestUri == null) return "";
+	    
+	    // 마지막 슬래시(/) 다음의 문자열(예: myPage.my)만 추출
+	    return requestUri.substring(requestUri.lastIndexOf("/") + 1);
 	}
 
 }
