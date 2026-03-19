@@ -63,7 +63,7 @@ public class MenteeBoardUpdateOkController implements Execute {
 		// 게시글 업데이트 실행
 		MemberDTO loginUser = (MemberDTO) request.getSession().getAttribute("loginUser");
 		if (loginUser == null) {
-		    response.sendRedirect(request.getContextPath() + "/signin.mem");
+		    response.sendRedirect(request.getContextPath() + "/signin.jsp");
 		    return null;
 		}
 		MenteeBoardDTO.setMemberNumber(loginUser.getMemberNumber());
@@ -71,7 +71,7 @@ public class MenteeBoardUpdateOkController implements Execute {
 		System.out.println("게시글 수정 완료");
  
 		// 수정 완료 후 페이지 이동
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.meb");
+		result.setPath(request.getContextPath() + "/mentee/menteeBoard/MenteeBoardList.meb");
 		result.setRedirect(true);
  
 		return result;

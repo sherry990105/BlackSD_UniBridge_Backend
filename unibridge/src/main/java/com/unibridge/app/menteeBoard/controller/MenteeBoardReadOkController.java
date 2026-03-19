@@ -61,7 +61,7 @@ public class MenteeBoardReadOkController implements Execute {
 		}
 		
 		request.setAttribute("MenteeBoard", MenteeBoardListDTO);
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardDetail.meb");
+		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardDetail.jsp");
 		result.setRedirect(false);
 		
 		return result;

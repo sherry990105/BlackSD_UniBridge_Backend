@@ -33,7 +33,7 @@ public class MenteeBoardDeleteOkController implements Execute{
 		MenteeBoardDAO.deleteBoard(MenteeBoardNumber);
 		
 		//이동
-		result.setPath(request.getContextPath() + "/app/user/mentee/menteeBoard/MenteeBoardList.meb");
+		result.setPath(request.getContextPath() + "/app/user/mentee/menteeBoard/MenteeBoardList.jsp");
 		result.setRedirect(true);
 		
 		return result;

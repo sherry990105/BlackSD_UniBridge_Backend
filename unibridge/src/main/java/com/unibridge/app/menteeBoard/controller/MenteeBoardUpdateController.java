@@ -22,7 +22,7 @@ public class MenteeBoardUpdateController implements Execute {
 		System.out.println("MenteeBoardNumber 값 : " + MenteeBoardNumber);
 		request.setAttribute("MenteeBoard", MenteeBoardDAO.selectBoard(MenteeBoardNumber));
 
-		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardModify.jsp");
+		result.setPath("/app/user/mentee/menteeBoard/MenteeBoardList.jsp");
 		result.setRedirect(false);
 
 		return result;
