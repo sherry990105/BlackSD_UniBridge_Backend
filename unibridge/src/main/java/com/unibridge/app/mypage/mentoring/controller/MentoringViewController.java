@@ -27,7 +27,7 @@ public class MentoringViewController implements Execute {
             // 2. 유효성 검사 (번호가 없으면 마이페이지 홈으로 튕겨냄)
             if (mentoringNumberParam == null || mentoringNumberParam.isEmpty()) {
                 System.out.println("[Warn] 파라미터가 누락되었습니다. 마이페이지로 이동합니다.");
-                result.setPath(request.getContextPath() + "/auth/mentor/myPage.my"); 
+                result.setPath(request.getContextPath() + "/mvc/auth/mentor/myPage.my"); 
                 result.setRedirect(true);
                 return result;
             }

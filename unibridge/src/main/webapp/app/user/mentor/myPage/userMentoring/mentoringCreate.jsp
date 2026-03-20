@@ -20,7 +20,7 @@
 				<li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my" >계정 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my">설문 조사</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringCreate.my" class="active">멘토링</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my" class="active">멘토링</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/app/delete.my">회원 탈퇴</a></li>
 			</ul>
 		</aside>
@@ -33,7 +33,7 @@
 
 			<div id="contentsMain">
 				<div id="mentoringBackground">
-					<form id="createForm" action="${pageContext.request.contextPath}/auth/mentor/mentoringWriteOk.my" method="post" enctype="multipart/form-data">
+					<form action="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my?type=writeOk" method="post" enctype="multipart/form-data">
 						<div id="mentoringMain">
 							<div id="mentoring">
 								<div id="mentoringTopics">

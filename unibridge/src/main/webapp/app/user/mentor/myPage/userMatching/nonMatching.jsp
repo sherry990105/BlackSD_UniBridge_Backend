@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>멘토 매칭 내역 없음</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMatching/nonMatching.css">
 </head>
 <body>
@@ -23,7 +21,7 @@
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my" >계정 관리</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my">설문 조사</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my" class="active">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringCreate.my">멘토링</a></li>
+                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my">멘토링</a></li>
                 <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/delete.my">회원 탈퇴</a></li>
 
             </ul>

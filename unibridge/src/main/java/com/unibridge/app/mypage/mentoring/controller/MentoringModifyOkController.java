@@ -67,7 +67,7 @@ public class MentoringModifyOkController implements Execute {
 
             // 6. 결과 페이지 설정 (상세보기로 리다이렉트)
             // 상세 조회 경로가 /mvc/auth/mentor/mentoringView.my 인지 확인 필요
-            result.setPath(request.getContextPath() + "/mvc/auth/mentor/mentoringView.my?mentoringNumber=" + mentoringNumber);
+            result.setPath(request.getContextPath() + "/mvc/auth/mentor/mentoring.my?type=view&mentoringNumber=" + mentoringNumber);
             result.setRedirect(true);
             
         } catch (Exception e) {

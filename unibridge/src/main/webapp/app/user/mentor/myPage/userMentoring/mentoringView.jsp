@@ -13,18 +13,11 @@
 	href="${pageContext.request.contextPath}/assets/css/fonts.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoring/mentoringForm.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/header.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/footer.css">
 
 <%-- JS 로드 --%>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/user/mentor/myPage/userMentoCreate/mentoringView.js"></script>
-<script defer
-	src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-<script defer
-	src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+
 </head>
 <body>
 	<jsp:include page="/app/user/header.jsp" />
@@ -33,11 +26,21 @@
 		<aside>
 			<div class="myPageTitle">마이페이지</div>
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringCreate.my" class="active">멘토링</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/app/delete.my">회원 탈퇴</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my">계정
+						관리</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my">설문
+						조사</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my">매칭
+						정보</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my"
+					class="active">멘토링</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/app/delete.my">회원
+						탈퇴</a></li>
 			</ul>
 		</aside>
 
@@ -54,7 +57,7 @@
 				action="${pageContext.request.contextPath}/auth/mentor/mentoringUpdate.my">
 				<%-- 수정을 위해 데이터의 고유 ID(PK)를 숨겨서 전달: DTO의 internalId와 매칭 --%>
 				<input type="hidden" name="mentoringId"
-					value="${mentoring.internalId}">
+					value="${mentoring.mentoringNumber}">
 
 				<div id="contentsMain">
 					<div id="mentoringBackground">
@@ -123,11 +126,12 @@
 						</div>
 
 						<div id="buttons">
-							<button type="button" id="delBtn"
-								onclick="if(confirm('정말로 삭제하시겠습니까?')) { location.href='${pageContext.request.contextPath}/mvc/auth/mentor/mentoringDeleteOk.my?mentoringNumber=${mentoring.mentoringNumber}'; }">삭제</button>
-
 							<button type="button" id="modBtn"
-								onclick="location.href='${pageContext.request.contextPath}/mvc/auth/mentor/mentoringModify.my?mentoringNumber=${mentoring.mentoringNumber}'">수정</button>
+								onclick="location.href='${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my?type=modify&mentoringNumber=${mentoring.mentoringNumber}'">수정</button>
+
+							<button type="button" id="delBtn"
+								onclick="if(confirm('정말로 삭제하시겠습니까?')) { // mentoring.my로 보내되 type 파라미터를 넘김
+										location.href='${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my?type=deleteOk&mentoringNumber=${mentoring.mentoringNumber}'; }">삭제</button>
 						</div>
 					</div>
 				</div>

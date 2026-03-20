@@ -81,7 +81,7 @@ public class MentoringWriteOkController implements Execute {
             System.out.println("[Step 6] DB Insert 성공! 생성된 번호: " + createdNumber);
 
             // 상세 페이지 이동 경로 수정
-            result.setPath(request.getContextPath() + "/mvc/auth/mentor/mentoringView.my?mentoringNumber=" + createdNumber);
+            result.setPath(request.getContextPath() + "/mvc/auth/mentor/mentoring.my?type=view&mentoringNumber=" + createdNumber);
             result.setRedirect(true);
             
             System.out.println("[Log] 이동 경로 설정 완료: " + result.getPath());

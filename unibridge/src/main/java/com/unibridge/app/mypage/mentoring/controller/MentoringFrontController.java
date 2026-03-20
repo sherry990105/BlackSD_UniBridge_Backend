@@ -4,82 +4,53 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 
 public class MentoringFrontController implements Execute {
 
-	@Override
-	public Result execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		String requestURI = request.getRequestURI();
-		String contextPath = request.getContextPath();
-		// contextPath를 제외한 순수 경로 추출 (/mvc/auth/mentor/...)
-		String command = requestURI.substring(contextPath.length());
-		// 마지막 슬래시 뒤의 문자열만 추출
-		String target = command.substring(command.lastIndexOf("/") + 1);
-		Result result = null;
+        // mentoring.my?type=view 와 같이 파라미터로 구분합니다.
+        String type = request.getParameter("type");
+        if (type == null) type = "main"; // 기본값: 데이터 존재 여부 확인
 
-		if (target.contains("?")) {
-			target = target.substring(0, target.indexOf("?"));
-		}
+        System.out.println("=== MentoringFrontController ===");
+        System.out.println("[Log] 요청 작업(type): " + type);
 
-		System.out.println("[Log] MentorFrontController 수신 URI: " + requestURI);
-		System.out.println("[Log] 추출된 Target: " + target);
-		
-		
-		try {
-			switch (target) {
-			case "mentoringMain.my": // 메뉴 클릭 시 호출될 URL
-				System.out.println("[Log] 분기: 멘토링 데이터 유무 확인 시작");
-				result = new MentoringEntryController().execute(request, response);
-				break;
-			case "mentoringCreate.my":
-				System.out.println("[Log] 분기: 등록 페이지 이동");
-				result = new Result();
-				result.setPath("/app/user/mentor/myPage/userMentoring/mentoringCreate.jsp");
-				result.setRedirect(false); // forward 방식
-				break;
-			case "mentoringWriteOk.my":
-				System.out.println("[Log] 분기: 등록 실행");
-				result = new MentoringWriteOkController().execute(request, response);
-				break;
-			case "mentoringView.my":
-				System.out.println("[Log] 분기: 상세보기 실행");
-				result = new MentoringViewController().execute(request, response);
-				break;
-			case "mentoringModify.my":
-				System.out.println("[Log] 분기: 수정페이지 로드");
-				result = new MentoringModifyController().execute(request, response);
-				break;
-			case "mentoringModifyOk.my":
-				System.out.println("[Log] 분기: 수정 실행");
-				result = new MentoringModifyOkController().execute(request, response);
-				break;
-			case "mentoringDeleteOk.my":
-				System.out.println("[Log] 분기: 삭제 실행");
-				result = new MentoringDeleteOkController().execute(request, response);
-				break;
+        Result result = null;
 
-			default:
-				// [추가] 매칭되는 케이스가 없을 때 로그
-				System.out.println("[Warn] MentoringForntController 내 매칭되는 케이스 없음: " + target);
-				break;
-			}
-		} catch (Exception e) {
-			System.out.println("[Error] MentoringFrontController 예외 발생!");
-			e.printStackTrace();
-		}
-		return result;
-	}
-
-	private String extractTargetPath(String requestUri) {
-		if (requestUri == null || !requestUri.contains("/")) {
-			return "";
-		}
-		String[] splitedPaths = requestUri.split("/");
-		return splitedPaths[splitedPaths.length - 1];
-	}
+        try {
+            switch (type) {
+                case "main": // 멘토링 메뉴 클릭 시 진입 (데이터 유무 체크)
+                    result = new MentoringEntryController().execute(request, response);
+                    break;
+                case "create": // 등록 폼 페이지 이동
+                    result = new Result();
+                    result.setPath("/app/user/mentor/myPage/userMentoring/mentoringCreate.jsp");
+                    result.setRedirect(false);
+                    break;
+                case "view": // 상세보기 실행
+                    result = new MentoringViewController().execute(request, response);
+                    break;
+                case "writeOk": // 등록 DB 처리
+                    result = new MentoringWriteOkController().execute(request, response);
+                    break;
+                case "modify": // 수정 폼 페이지 이동
+                    result = new MentoringModifyController().execute(request, response);
+                    break;
+                case "modifyOk": // 수정 DB 처리
+                    result = new MentoringModifyOkController().execute(request, response);
+                    break;
+                case "deleteOk": // 삭제 DB 처리
+                    result = new MentoringDeleteOkController().execute(request, response);
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

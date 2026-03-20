@@ -74,27 +74,14 @@ public class MentoringDAO {
 
 	// 멘토링 중복 체크 (파라미터 타입 일관성 유지: long)
 	public int checkAlreadyExists(long mentorNumber) {
-		System.out.println("[DAO] 중복 체크 시작 - 멘토 번호: " + mentorNumber);
-		int count = 0;
-		try {
-			count = sqlSession.selectOne("mentoring.checkExists", mentorNumber);
-			System.out.println("[DAO] 중복 체크 결과 (개수): " + count);
-		} catch (Exception e) {
-			System.out.println("[DAO] 중복 체크 중 오류 발생!");
-			e.printStackTrace();
-		}
-		return count;
+	    return sqlSession.selectOne("mentoring.checkAlreadyExists", mentorNumber);
 	}
 
 	// 멘토링 있을시 가져오기
 	public Long getMentoringNumberByMentor(long mentorNumber) {
-		Long mentoringNumber = null;
-		try {
-			// 결과가 없으면 null을 반환
-			mentoringNumber = sqlSession.selectOne("mentoring.getMentoringNumberByMentor", mentorNumber);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return mentoringNumber;
+	    // Mapper의 id="getMentoringNumberByMentor"와 일치해야 함 (이 부분이 없어서 에러남)
+	    return sqlSession.selectOne("mentoring.getMentoringNumberByMentor", mentorNumber);
 	}
+	
+	
 }

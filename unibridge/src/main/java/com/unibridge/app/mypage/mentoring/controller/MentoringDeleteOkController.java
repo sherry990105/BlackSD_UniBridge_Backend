@@ -23,8 +23,10 @@ public class MentoringDeleteOkController implements Execute {
             System.out.println("[Log] 삭제 요청된 mentoringNumber: " + mentoringNumberParam);
 
             if (mentoringNumberParam == null || mentoringNumberParam.isEmpty()) {
-                System.out.println("[Warn] 삭제할 ID(mentoringNumber)가 전달되지 않았습니다.");
-                // 필요 시 예외 처리 로직 추가
+                System.out.println("[Warn] 삭제할 ID가 전달되지 않았습니다.");
+                result.setPath(request.getContextPath() + "/mvc/auth/mentor/myPage.my");
+                result.setRedirect(true);
+                return result;
             }
 
             int internalId = Integer.parseInt(mentoringNumberParam);
