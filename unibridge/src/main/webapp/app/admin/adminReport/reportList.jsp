@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,8 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/global.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/fonts.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminReport/reportList.css">
+  <script src="${pageContext.request.contextPath}/assets/js/admin/adminReport/reportList.js" defer></script>
+
   <title>Document</title>
 </head>
 <body>
@@ -17,105 +20,32 @@
       <main class="content-container">
         <div class="selector-container">
           <div class="date-container">
-            <div class="start-date-container date-container__inner">연도. 월. 일</div>
-            <span>~</span>
-            <div class="end-date-container date-container__inner">연도. 월. 일</div>
+            <div class="date-content">주차</div>
+            <div class="week-select-dropdown disabled">
+              <ul class="week-selector">
+              <li class="week-item">전체</li>
+              	<c:forEach var="week" items="${sessionScope.learningReportWeeks}">
+              		<li class="week-item">${week}주차</li>
+              	</c:forEach>
+              </ul>
+            </div>
           </div>
           <div class="select-button">조회</div>
         </div>
         <ul class="list-container">
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">10일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">9일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">8일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">7일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">6일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">5일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">4일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">3일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">2일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
-
-          <li class="lr-report">
-            <div class="lr-report-desc">
-              <div class="lr-report-idx">1일차 학습보고서 ㅡ 학습보고서</div>
-              <div class="lr-report-date">작성날짜 작성시간</div>
-            </div>
-            <div class="lr-report-submit-button">확인</div>
-          </li>
+		  <c:forEach var="report" items="${sessionScope.learningReports}">
+            <li class="lr-report">
+              <div class="lr-report-desc">
+                <div class="lr-report-idx">${report.getLrReportWeek()}주차 ${report.getLrReportSession()}일차 - ${report.getLrSubjectTitle()}</div>
+                <div class="lr-report-date">${report.getLrReportDate()}</div>
+              </div>
+              <div 
+              	class="lr-report-submit-button"
+              	onclick="window.location.href='${pageContext.request.contextPath}/adminDetail.admin'"
+              >확인</div>
+            </li>
+    	  </c:forEach>
         </ul>
-
-        <div class="page-btn-container">
-          <div class="prev-btn">&lt;</div>
-          <ul class="page-btn-container__inner">
-            <li class="page-btn">1</li>
-            <li class="page-btn">2</li>
-            <li class="page-btn">3</li>
-            <li class="page-btn">4</li>
-            <li class="page-btn">5</li>
-          </ul>
-          <div class="next-btn">&gt;</div>
-        </div>
       </main>
     </div>
   </div>
@@ -128,6 +58,10 @@
         s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
         document.body.appendChild(s);
       });
+    
+    window.contextPath = "${pageContext.request.contextPath}";
+    sessionStorage.setItem("learningReports", JSON.stringify(${learningReports}));
+    sessionStorage.setItem("learningReportWeeks", JSON.stringify(${learningReportWeeks}));
   </script>
 
 </body>

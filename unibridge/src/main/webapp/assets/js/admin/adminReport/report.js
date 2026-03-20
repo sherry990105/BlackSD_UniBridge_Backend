@@ -93,7 +93,7 @@ async function initMatchingGroup(
 	detailBtnEls.forEach((element) => {
 		element.addEventListener('click', (event) => {
 			const targetNumber = Number(event.target.parentElement.id.split("-").at(-1));
-			window.location.href = `${window.contextPath}/reportDetail.admin?number=${targetNumber}`;
+			window.location.href = `${window.contextPath}/reportList.admin?matchingNumber=${targetNumber}`;
 		});
 	});
 }

@@ -12,11 +12,11 @@ public class ReportDetailOkController {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         
         // 1. 파라미터 수집
-        int learningReportNumber = Integer.parseInt(request.getParameter("reportId"));
+        int reportNumber = Integer.parseInt(request.getParameter("reportNumber"));
 
         // 2. DAO 호출 (DB 데이터 가져오기)
         LearningReportDAO dao = new LearningReportDAO();
-        LearningReportDTO dto = dao.selectReportDetail(learningReportNumber);
+        LearningReportDTO dto = dao.selectReportDetail(reportNumber);
 
         // 3. 응답 설정
         response.setContentType("application/json;charset=UTF-8");

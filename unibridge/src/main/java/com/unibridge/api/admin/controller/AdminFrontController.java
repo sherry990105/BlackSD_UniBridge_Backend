@@ -54,6 +54,9 @@ public class AdminFrontController extends HttpServlet {
 		case  "report/searchUsers.admin":
 		case "/report/searchUsers.admin":
 			return new AdminReportController().execute(request, response);
+		case  "reportList/selectLrByMatchingNumber.admin":
+		case "/reportList/selectLrByMatchingNumber.admin":
+			return new AdminReportListController().execute(request, response);
 		default:
 			return null;
 		}
