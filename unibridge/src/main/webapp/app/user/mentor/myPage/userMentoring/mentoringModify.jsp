@@ -22,11 +22,21 @@
 		<aside>
 			<div class="myPageTitle">마이페이지</div>
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my" >계정 관리</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my">설문 조사</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my">매칭 정보</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringCreate.my" class="active">멘토링</a></li>
-                <li><a href="${pageContext.request.contextPath}/mvc/auth/mentor/app/delete.my">회원 탈퇴</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/myPage.my">계정
+						관리</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/survey.my">설문
+						조사</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my">매칭
+						정보</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my"
+					class="active">멘토링</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/app/delete.my">회원
+						탈퇴</a></li>
 			</ul>
 		</aside>
 
@@ -42,14 +52,14 @@
 				<div id="mentoringBackground">
 					<%-- [수정] action 경로 확인: .mo인지 .my인지 확인 필요 (일단 기존 흐름대로 유지) --%>
 					<form
-						action="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringModifyOk.my"
+						action="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my?type=modifyOk"
 						method="post" enctype="multipart/form-data">
 						<input type="hidden" name="mentoringNumber"
 							value="${mentoring.mentoringNumber}">
 
 						<%-- [수정] DTO 필드명에 맞춰 internalId 사용 --%>
 						<input type="hidden" name="mentoringNumber"
-							value="${mentoring.internalId}">
+							value="${mentoring.mentoringNumber}">
 
 						<div id="mentoringMain">
 							<div id="mentoring">

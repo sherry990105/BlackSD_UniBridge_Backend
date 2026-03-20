@@ -65,11 +65,16 @@
 		MENTORING_NUMBER = #{mentoringNumber}
 	</delete>
 
-	<select id="checkExists" parameterType="long" resultType="int">
-		SELECT
-		COUNT(*)
-		FROM UB_MENTORING
-		WHERE MENTOR_NUMBER = #{mentorNumber}
-	</select>
+	<select id="checkAlreadyExists" parameterType="long" resultType="int">
+        SELECT COUNT(*)
+        FROM UB_MENTORING
+        WHERE MENTOR_NUMBER = #{mentorNumber}
+    </select>
+    
+    <select id="getMentoringNumberByMentor" parameterType="long" resultType="long">
+        SELECT MENTORING_NUMBER
+        FROM UB_MENTORING
+        WHERE MENTOR_NUMBER = #{mentorNumber}
+    </select>
 
 </mapper>

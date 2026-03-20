@@ -12,10 +12,6 @@
 	href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
 	rel="stylesheet" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/header.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/footer.css" />
-<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMatching/userMatching.css">
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/user/mentor/myPage/userMatching/userMatching.js"></script>
@@ -36,7 +32,7 @@
 					href="${pageContext.request.contextPath}/mvc/auth/mentor/matching.my"
 					class="active">매칭 정보</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoringCreate.my">멘토링</a></li>
+					href="${pageContext.request.contextPath}/mvc/auth/mentor/mentoring.my">멘토링</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/mvc/auth/mentor/delete.my">회원탈퇴</a></li>
 			</ul>
