@@ -38,6 +38,7 @@ public class LearningReportFrontController extends HttpServlet {
         try {
             switch (target) {
                 // 1. 목록 조회 (검색 포함)
+            	case "/mvc/auth/report.rep":
                 case "/mvc/auth/reportList.rep":
                     System.out.println("[Log] ReportListOkController 실행");
                     result = new ReportListOkController().execute(request, response);

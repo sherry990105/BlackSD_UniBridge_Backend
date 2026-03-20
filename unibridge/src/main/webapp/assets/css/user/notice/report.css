@@ -13,7 +13,7 @@ li, ul, body, html {
 }
 
 body, html {
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 #root {
@@ -606,7 +606,7 @@ body, html {
     color: #000000;
 }
 
-/* .list-container__inner 
+/* .list-container__inner
 .list-content-container {
     width: 100%;
     height: 100%;
@@ -856,6 +856,7 @@ body, html {
 .list-learning-content {
     display: flex;
     flex-direction: row;
+    align-items: center;
     height: 80px;
 
     padding: 0px 10px;
@@ -876,7 +877,7 @@ body, html {
 }
 
 .list-container__inner .list-content-container .list-content .list-content__body .list-content__body-content .list-learning-content .date {
-    width: 10%;
+    width: 10%; text-align: center;
 }
 
 .list-container__inner .list-content-container .list-content .list-content__body .list-content__body-content .list-learning-content .report-name {
@@ -892,15 +893,15 @@ body, html {
 }
 
 .list-container__inner .list-content-container .list-content .list-content__body .list-content__body-content .list-learning-content .week {
-    width: 10%;
+    width: 10%; 
 }
 
 .list-container__inner .list-content-container .list-content .list-content__body .list-content__body-content .list-learning-content .session {
-    width: 10%;
+    width: 10%; text-align: center;
 }
 
 .list-container__inner .list-content-container .list-content .list-content__body .list-content__body-content .list-learning-content .actions {
-    flex: 1;
+    flex: 1; display: flex; gap: 10px; justify-content: center;
 }
 
 .list-container__inner 
