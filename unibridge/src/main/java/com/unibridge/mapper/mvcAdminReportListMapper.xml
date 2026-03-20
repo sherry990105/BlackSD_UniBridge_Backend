@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mvc.adminReportList">
+	<select id="selectLrByMatchingNumber" parameterType="int" resultType="AdminReportListDTO">
+		SELECT 
+		    mth.matching_number AS "matching_number",
+		    mtr.member_name     AS "mentor_name",
+		    mte.member_name     AS "mentee_name",
+		    mth.matching_start  AS "matching_start",
+		    ulr.report_number	AS "lr_report_number",
+			ulr.report_week		AS "lr_report_week",
+			ulr.report_session	AS "lr_report_session",
+			ulr.report_date		AS "lr_report_date",
+			ulr.subject_number	AS "lr_subject_number",
+			ulr.subject_title	AS "lr_subject_title",
+			ulr.subject_summary AS "lr_subject_summary",
+			ulr.subject_content	AS "lr_subject_content"
+		FROM UB_MATCHING mth
+		INNER JOIN UB_MEMBER mtr
+		    ON mth.mentor_number = mtr.member_number
+		INNER JOIN UB_MEMBER mte
+		    ON mth.mentee_number = mte.member_number
+		INNER JOIN UB_LEARNING_REPORT ulr
+		    ON mth.matching_number = ulr.matching_number
+		WHERE mth.matching_state != '매칭됨'
+			AND mth.matching_number = #{matchingNumber}
+		ORDER BY mth.matching_number
+	</select>
+	
+	<select id="selectLrWeeksByMatchingNumber" parameterType="int" resultType="int">
+		SELECT DISTINCT
+			ulr.report_week AS "lr_report_week"
+		FROM UB_MATCHING mth
+		INNER JOIN UB_MEMBER mtr
+		    ON mth.mentor_number = mtr.member_number
+		INNER JOIN UB_MEMBER mte
+		    ON mth.mentee_number = mte.member_number
+		INNER JOIN UB_LEARNING_REPORT ulr
+		    ON mth.matching_number = ulr.matching_number
+		WHERE mth.matching_state != '매칭됨'
+			AND mth.matching_number = #{matchingNumber}
+		ORDER BY mth.matching_number
+	</select>
+</mapper>

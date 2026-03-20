@@ -58,7 +58,7 @@
               <li class="subject-item python"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectPythonIcon.png"></li>
               <li class="subject-item game-programming"><img src="${pageContext.request.contextPath}/assets/img/admin/adminNoticeImg/subjectGameProIcon.png"></li>
             </ul>
-            <div class="report-container">
+            <div class="report-container" onclick="() => {}">
               <div class="report-container__inner">
                 <ul class="reports-per-week">
                 </ul>
