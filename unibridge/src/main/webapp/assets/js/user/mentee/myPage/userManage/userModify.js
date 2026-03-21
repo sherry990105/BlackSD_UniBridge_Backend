@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     // ── 공통 설정 ──
-    const contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
+    // contextPath는 이미 JSP 하단 <script>에서 선언되었으므로 여기서 다시 선언하지 않습니다.
+    // 만약 선언이 안 되어 있다면 아래 한 줄만 남기세요.
+    const cPath = window.contextPath || ""; 
 
-    // ── 1. 프로필 사진 관리 (미리보기) ──
+    // ── 1. 프로필 사진 관리 ──
     const profileImg = document.querySelector(".userImg > img");
     const photoBtn = document.querySelector("#imgBtn");
     const photoError = document.querySelector(".userImg .errorMsg");
@@ -11,10 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = "image/*";
-    photoBtn.addEventListener("click", () => fileInput.click());
+    
+    photoBtn.addEventListener("click", (e) => {
+        e.preventDefault(); // 버튼 클릭 시 폼 제출 방지
+        fileInput.click();
+    });
 
     fileInput.addEventListener("change", (e) => {
-        const file = e.target.files; // 인덱스 추가 확인
+        const file = e.target.files; // 인덱스 추가
         if (file) {
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -26,43 +32,51 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // ── 2. 전화번호 인증 (실제 서버 통신 로직으로 교체) ──
+    // ── 2. 전화번호 인증 ──
     window.sendSms = function() {
-        const phone = document.getElementById("memberPhone").value;
-        const phoneError = document.getElementById("phoneSendError");
+        const phoneInput = document.getElementById("memberPhone");
+        const phone = phoneInput.value.trim();
 
         if (!phone) {
             alert("전화번호를 입력해주세요.");
             return;
         }
 
-        // MenteeVerifyActionController 호출
-        fetch(`${contextPath}/mvc/auth/mentee/verify.my?mode=send&phoneNumber=${phone}`)
+        // URL 확인: contextPath가 중복되지 않도록 주의
+        const url = `${cPath}/mvc/auth/mentee/verify.my?mode=send&phoneNumber=${phone}`;
+        
+        fetch(url)
             .then(res => res.text())
             .then(data => {
-                if (data === "success") {
+                if (data.trim() === "success") {
                     alert("인증번호가 발송되었습니다.");
+                } else if (data.trim() === "invalid_format") {
+                    alert("올바른 전화번호 형식이 아닙니다. (010으로 시작하는 11자리)");
                 } else {
-                    alert("발송 실패: 서버 로그를 확인하세요.");
+                    alert("발송 실패: " + data);
                 }
-            });
+            })
+            .catch(err => console.error("Error:", err));
     };
 
     window.verifyCode = function() {
-        const code = document.getElementById("authCodeInput").value;
+        const code = document.getElementById("authCodeInput").value.trim();
+        if(!code) {
+            alert("인증번호를 입력하세요.");
+            return;
+        }
         
-        // JSON 형태로 서버에 전달
-        fetch(`${contextPath}/mvc/auth/mentee/verify.my?mode=check`, {
+        fetch(`${cPath}/mvc/auth/mentee/verify.my?mode=check`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ authCode: code })
         })
         .then(res => res.text())
         .then(data => {
-            if (data === "verified") {
+            if (data.trim() === "verified") {
                 alert("인증에 성공하였습니다.");
             } else {
-                alert("인증번호가 일치하지 않습니다.");
+                alert("인증번호가 일치하지 않거나 만료되었습니다.");
             }
         });
     };
@@ -75,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             return;
         }
-        // 메인 마이페이지로 이동
-        location.href = `${contextPath}/mvc/auth/mentee/myPage.my`;
+        location.href = `${cPath}/mvc/auth/mentee/myPage.my`;
     });
 });

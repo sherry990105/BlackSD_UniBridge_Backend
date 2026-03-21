@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
+import com.unibridge.app.member.controller.CheckNickOkController;
 import com.unibridge.app.member.controller.MatchingController;
 import com.unibridge.app.member.controller.MentorDeleteController;
 import com.unibridge.app.member.controller.MentorMangeController;
@@ -62,6 +63,11 @@ public class MentorFrontController implements Execute {
             outResult = new MentorUpdateOkController().execute(request, response);
             System.out.println("[Log] 결과: MenteeUpdateOkController 실행완료!");
             break;
+            
+		case "checkNick.my":
+		    System.out.println("[Log] 닉네임 중복 확인 실행");
+		    outResult = new CheckNickOkController().execute(request, response);
+		    break;
             
 		case "finishUpdate.my": // 수정 완료 단순 이동 처리
             System.out.println("[Log] 결과: 수정 완료 후 마이페이지 메인으로 리다이렉트");
