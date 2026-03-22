@@ -43,7 +43,7 @@ body {
   background: #F4F9FF;
   border-bottom: 1px solid var(--border);
   position: relative !important; 
-  z-index: 1000;
+  /* z-index: 1000; */
 }
 
 .headerInner {

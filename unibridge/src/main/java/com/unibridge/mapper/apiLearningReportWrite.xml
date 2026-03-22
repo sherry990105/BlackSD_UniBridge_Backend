@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="api.learningReportWrite">
+	<insert id="insert" parameterType="LrWriteDTO">
+		INSERT INTO UB_LEARNING_REPORT (
+		    REPORT_NUMBER,
+		    MATCHING_NUMBER,
+		    SUBJECT_NUMBER,
+		    SUBJECT_TITLE,
+		    SUBJECT_SUMMARY,
+		    SUBJECT_CONTENT,
+		    REPORT_WEEK,
+		    REPORT_SESSION,
+		    REPORT_DATE,
+		    CREATED_AT,
+		    UPDATED_AT
+		) VALUES (
+		    SEQ_REPORT.nextval,
+		    #{matchingNumber},
+		    #{lrSubjectNumber},
+		    #{lrSubjectTitle},
+		    #{lrSubjectSummary},
+		    #{lrSubjectContent},
+		    #{lrReportWeek},
+		    #{lrReportSession},
+		    #{lrReportDate},
+		    SYSTIMESTAMP,
+		    NULL
+		)
+	</insert>
+</mapper>

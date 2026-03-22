@@ -54,7 +54,7 @@ public class MainController implements Execute {
         // 3. 취업 회사 목록
         List<CompanyDTO> companyList = mainDAO.getCompanyList();
         request.setAttribute("companyList", companyList);
-
+        
         // 3. main.jsp로 forward (redirect 아님)
         outResult.setPath("/main.jsp");
         outResult.setRedirect(false);

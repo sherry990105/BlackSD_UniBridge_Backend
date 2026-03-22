@@ -226,6 +226,7 @@ body, html {
     top: 100%;
     width: 360px;
     height: auto;
+	max-height: 500px;
 
     margin-top: 10px;
 
@@ -237,6 +238,7 @@ body, html {
     padding: 10px 0px;
 
     z-index: 1;
+    overflow-y: auto;
 }
 
 .main-container 
@@ -897,11 +899,11 @@ body, html {
 }
 
 .list-container__inner .list-content-container .list-content .list-content__body .list-content__body-content .list-learning-content .session {
-    width: 10%; text-align: center;
+    width: 10%; text-align: left;
 }
 
 .list-container__inner .list-content-container .list-content .list-content__body .list-content__body-content .list-learning-content .actions {
-    flex: 1; display: flex; gap: 10px; justify-content: center;
+    flex: 1; display: flex; justify-content: row; gap: 10px; justify-content: flex-start;
 }
 
 .list-container__inner 

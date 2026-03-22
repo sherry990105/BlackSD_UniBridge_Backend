@@ -138,6 +138,16 @@
 		<url-pattern>/api/admin/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ApiLearningReport</servlet-name>
+		<servlet-class>com.unibridge.api.learningReport.controller.LearningReportFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ApiLearningReport</servlet-name>
+		<url-pattern>/api/user/lr/*</url-pattern>
+	</servlet-mapping>
+	
+	
 	<!--  Filter  -->
 	<filter>
 		<filter-name>MVCAuthFilter</filter-name>

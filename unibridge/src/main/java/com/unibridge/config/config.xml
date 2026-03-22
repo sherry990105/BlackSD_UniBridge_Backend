@@ -28,7 +28,7 @@
       <typeAlias type="com.unibridge.app.noticeBoard.dto.NoticeBoardDTO"             alias="NoticeBoardDTO"    />
       <typeAlias type="com.unibridge.app.noticeBoard.dto.NoticeBoardListDTO"         alias="NoticeBoardListDTO"/>
       <typeAlias type="com.unibridge.app.mypage.mentoring.dto.MentoringDTO" alias="MentoringDTO"></typeAlias>
-      <typeAlias type="com.unibridge.app.learningReport.dto.LearningReportDTO" alias="LearningReportDTO"></typeAlias>
+      <!-- <typeAlias type="com.unibridge.app.learningReport.dto.LearningReportDTO" alias="LearningReportDTO"></typeAlias> -->
       <typeAlias type="com.unibridge.app.mypage.matching.dto.matchingDTO" alias="MatchingDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.menteeBoard.dto.MenteeBoardDTO"             alias="MenteeBoardDTO"    />
       <typeAlias type="com.unibridge.app.menteeBoard.dto.MenteeBoardListDTO"         alias="MenteeBoardListDTO"/>
@@ -53,6 +53,11 @@
       <!--  API DTO  -->
       <typeAlias type="com.unibridge.api.admin.dto.AdminUserMMDTO" alias="AdminUserMMDTO"></typeAlias>
       <typeAlias type="com.unibridge.api.admin.dto.AdminReportDTO" alias="AdminReportDTO"></typeAlias>
+      <typeAlias type="com.unibridge.api.learningReport.dto.LrDTO" alias="LrDTO" />
+      <typeAlias type="com.unibridge.api.learningReport.dto.LrWriteDTO" alias="LrWriteDTO" />
+      <typeAlias type="com.unibridge.api.learningReport.dto.LrModifyDTO" alias="LrModifyDTO" />
+      <typeAlias type="com.unibridge.api.learningReport.dto.LrSubjectDTO" alias="LrSubjectDTO" />
+      <typeAlias type="com.unibridge.api.learningReport.dto.LrMatchingInfoDTO" alias="LrMatchingInfoDTO" />
    </typeAliases>
 
    <environments default="oracle">
@@ -95,6 +100,8 @@
       <!--  API  -->
       <mapper resource="com/unibridge/mapper/apiAdminUserMMMapper.xml" />
       <mapper resource="com/unibridge/mapper/apiAdminReportMapper.xml" />
+      <mapper resource="com/unibridge/mapper/apiLearningReportWrite.xml" />
+      <mapper resource="com/unibridge/mapper/apiLearningReportModify.xml" />
    </mappers>
    
 </configuration>

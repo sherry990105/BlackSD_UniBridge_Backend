@@ -50,6 +50,7 @@ public class MentorVerifyActionController implements Execute{
 	// [1] 문자 발송 로직
     private void doSendSms(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	String phoneNumber = request.getParameter("phoneNumber");
+    	System.out.println("인증 입력 번호 : "+phoneNumber);
         
         // 서버측 검증: 010으로 시작하는 숫자 11자리만 허용
         if (phoneNumber == null || !phoneNumber.matches("^010\\d{8}$")) {
@@ -58,6 +59,18 @@ public class MentorVerifyActionController implements Execute{
         }
 
         String authCode = String.format("%06d", new Random().nextInt(1000000));
+        
+        // 1. 세션에 테스트용 번호 저장 (고정값 123456)
+//        String authCode = "123456"; 
+//        HttpSession session = request.getSession();
+//        session.setAttribute("serverAuthCode", authCode);
+//
+//        System.out.println("[테스트 모드] 발송 생략 -> 인증번호: " + authCode);
+//
+//        // 2. 무조건 성공(success) 응답 보내기
+//        response.getWriter().write("success");
+        
+        
         
         HttpSession session = request.getSession();
         session.setAttribute("serverAuthCode", authCode);

@@ -72,7 +72,7 @@
                             <div class="inputRow">
                                 <label>멘토/멘티</label>
                                 <div class="radioGroup">
-                                    <label class="radioItem">
+                                    <label class="radioItem" style="${userRole eq 'MENTEE' ? 'display: none;' : ''}">
                                         <span>멘토</span> 
                                         <input type="radio" value="mentor" name="role" class="radioUserType" 
                                         		${userRole eq 'MENTEE' ? 'disabled' : ''} 

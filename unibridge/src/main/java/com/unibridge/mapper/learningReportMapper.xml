@@ -1,29 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="learningReportMapper">
-
-	<select id="selectReportList" resultType="LearningReportDTO">
-		SELECT
-		REPORT_NUMBER AS reportNumber,
-		MATCHING_NUMBER,
-		SUBJECT_TITLE,
-		TO_CHAR(REPORT_DATE, 'YYYY-MM-DD') AS reportDateStr
-		FROM UB_LEARNING_REPORT
-		WHERE MATCHING_NUMBER = #{matchingNumber}
-		ORDER BY REPORT_DATE DESC
+<mapper namespace="api.learningReport">
+	<select id="selectAll" parameterType="int" resultType="LrDTO">
+		SELECT 
+		    mth.matching_number AS "matching_number",
+		    mtr.member_name     AS "mentor_name",
+		    mte.member_name     AS "mentee_name",
+		    mth.matching_start  AS "matching_start",
+		    ulr.report_number	AS "lr_report_number",
+			ulr.report_week		AS "lr_report_week",
+			ulr.report_session	AS "lr_report_session",
+			ulr.report_date		AS "lr_report_date",
+			ulr.subject_number	AS "lr_subject_number",
+			usj.subject_name	AS "lr_subject_name",
+			ulr.subject_title	AS "lr_subject_title",
+			ulr.subject_summary AS "lr_subject_summary",
+			ulr.subject_content	AS "lr_subject_content"
+		FROM UB_MATCHING mth
+		INNER JOIN UB_LEARNING_REPORT ulr
+		    ON mth.matching_number = ulr.matching_number
+		INNER JOIN UB_MEMBER mtr
+		    ON mth.mentor_number = mtr.member_number
+		INNER JOIN UB_MEMBER mte
+		    ON mth.mentee_number = mte.member_number
+		LEFT OUTER JOIN UB_SUBJECT usj
+			ON mth.subject_number = usj.subject_number
+		WHERE mth.matching_number = #{matchingNumber}
+		ORDER BY mth.matching_number
 	</select>
-
-	<select id="selectReportDetail" resultType="LearningReportDTO">
-		SELECT
-		REPORT_NUMBER AS reportNumber,
-		MATCHING_NUMBER,
-		SUBJECT_TITLE,
-		SUBJECT_CONTENT,
-		REPORT_WEEK,
-		REPORT_SESSION
-		FROM UB_LEARNING_REPORT
-		WHERE REPORT_NUMBER = #{reportNumber}
+	
+	<select id="selectMatching" parameterType="int" resultType="LrMatchingInfoDTO">
+		SELECT 
+			mth.matching_number AS "matching_number",
+			mth.matching_start	AS "matching_start",
+			mth.matching_cancel	AS "matching_end",
+			mth.matching_state	AS "matching_state",
+			usj.subject_name	AS "subject_name"
+		FROM UB_MATCHING mth LEFT OUTER JOIN UB_SUBJECT usj
+			ON mth.subject_number = usj.subject_number
+		WHERE mth.mentor_number = #{mentorNumber}
 	</select>
-
+	
+	<select id="selectSubjects" resultType="LrSubjectDTO">
+		SELECT
+		 	suj.subject_number  AS "subject_number",
+			suj.subject_name 	AS "subject_name"
+		FROM UB_SUBJECT suj
+	</select>
 </mapper>

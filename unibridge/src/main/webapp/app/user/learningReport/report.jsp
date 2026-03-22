@@ -15,11 +15,17 @@
     <script type="module" src="${pageContext.request.contextPath}/assets/js/user/notice/subjectSelector.js" defer></script>
     <script type="module" src="${pageContext.request.contextPath}/assets/js/user/notice/calendar.js" defer></script>
     <script type="module" src="${pageContext.request.contextPath}/assets/js/user/notice/popupUtils.js" defer></script>
+    <script type="text/javascript">
+    	window.contextPath = "${pageContext.request.contextPath}";
+      	sessionStorage.setItem("userNumber", "${loginUser.getMemberNumber()}");
+      	sessionStorage.setItem("userNickname", "${loginUser.getMemberNickname()}");
+      	sessionStorage.setItem("userType", "${loginUser.getMemberType()}");
+    </script>
     <title>Document</title>
 </head>
 <body>
     <div id="root">    
-        	<%@ include file="/app/user/header.jsp"%>
+       	<%@ include file="/app/user/header.jsp"%>
         <div class="main-container">
             <div class="filter-container">
                 <div class="filter-container__inner">
@@ -137,8 +143,7 @@
                 </main>
             </div>
         </div>
-
-        <div class="popup-container">
+	    <div class="popup-container">
             <div class="dim"></div>
         </div>
     </div>

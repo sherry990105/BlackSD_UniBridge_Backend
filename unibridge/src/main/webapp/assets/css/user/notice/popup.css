@@ -226,6 +226,7 @@
     top: 100%;
     width: 360px;
     height: auto;
+	max-height: 500px;
 
     margin-top: 10px;
 
@@ -237,6 +238,7 @@
     padding: 10px 0px;
 
     z-index: 1;
+    overflow-y: auto;
 }
 
 .popup-container 
