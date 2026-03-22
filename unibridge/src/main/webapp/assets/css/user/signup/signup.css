@@ -109,3 +109,17 @@ label {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.confirmMsg {
+	color: #6495ed;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    flex-basis: 100%;
+    margin-left: 100px;
+    margin-top: 1px;
+    order: 99;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -13,6 +13,9 @@
     <script defer src="${pageContext.request.contextPath}/assets/js/user/signup/signup.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/header.js" defer></script>
     <script src="${pageContext.request.contextPath}/assets/js/footer.js" defer></script>
+    <script type="text/javascript">
+    	window.contextPath = "${pageContext.request.contextPath}"; 
+    </script>
 </head>
 <body>
     <div id="headerContainer">
@@ -22,7 +25,7 @@
         <div class="content">
             <div class="signUpBox">
                 <div class="signUpTitle">회원가입</div>
-                <form action="${pageContext.request.contextPath}/signup.mem" method="post" id="signUpForm">
+                <form action="${pageContext.request.contextPath}/signup.mem" method="POST" id="signUpForm">
                     <div class="inputGroup">
                         <label for="userId">아이디</label>
                         <input type="text" name="userId" class="userInput">
@@ -36,7 +39,7 @@
                     <div class="inputGroup">
                         <label for="userPw2">비밀번호 확인</label>
                         <input type="password" name="userPw2" class="userInput">
-                        <button class="duplication">확인</button>
+                        <div class="spacer"></div>
                     </div>
                     <div class="inputGroup">
                         <label for="userNamme">이름</label>
@@ -60,9 +63,9 @@
                     </div>
                     <div class="inputGroup">
                         <label>성별</label>
-                        남성 <input type='radio' name='userGender' value='male' class="genderBtn" />
-                        여성 <input type='radio' name='userGender' value='female' class="genderBtn"/>
-                        선택안함 <input type='radio' name='userGender' value='none' class="genderBtn" checked />
+                        남성 <input type='radio' name='userGender' value='M' class="genderBtn" />
+                        여성 <input type='radio' name='userGender' value='W' class="genderBtn"/>
+                        선택안함 <input type='radio' name='userGender' value='N' class="genderBtn" checked />
                     </div>
                     <button type="submit" class="signUpBtn">회원가입</button>
                 </form>

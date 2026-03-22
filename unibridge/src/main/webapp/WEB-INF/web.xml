@@ -147,6 +147,15 @@
 		<url-pattern>/api/user/lr/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ApiMember</servlet-name>
+		<servlet-class>com.unibridge.api.member.controller.MemberFrontController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ApiMember</servlet-name>
+		<url-pattern>/api/user/*</url-pattern>
+	</servlet-mapping>
+	
 	
 	<!--  Filter  -->
 	<filter>

@@ -1,4 +1,3 @@
-const DUPLICATE_IDS = ["test"];
 const DUPLICATE_NICKNAMES = ["test"];
 const VALID_AUTH_CODE = "12345";
 
@@ -62,11 +61,52 @@ function showError(inputEl, message) {
   updateSignUpBtn();
 }
 
+function showConfirm(inputEl, message) {
+	const group = inputEl.closest(".inputGroup");
+	let confirmMsgEl = group.querySelector(".confirmMsg");
+
+	if (!confirmMsgEl) {
+	  confirmMsgEl = document.createElement("div");
+	  confirmMsgEl.classList.add("confirmMsg");
+	  confirmMsgEl.style.cssText = `
+	    color: #6495ed;
+	    font-size: 12px;
+	    margin-top: 1px;
+	    display: block;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    flex-basis: 100%;
+	    order: 99;
+	  `;
+	  group.appendChild(confirmMsgEl);
+	}
+
+	confirmMsgEl.style.maxWidth = inputEl.offsetWidth + "px";
+	confirmMsgEl.style.width = inputEl.offsetWidth + "px";
+	confirmMsgEl.textContent = message;
+
+	updateSignUpBtn();
+}
+
+function clearAll(inputEl) {
+	clearError(inputEl);
+	clearConfirm(inputEl);	
+}
+
 // ── 오류 메시지 제거 ──
 function clearError(inputEl) {
   const group = inputEl.closest(".inputGroup");
   const errorEl = group ? group.querySelector(".errorMsg") : null;
   if (errorEl) errorEl.textContent = "";
+  updateSignUpBtn();
+}
+
+// ── Confirm 메시지 제거 ──
+function clearConfirm(inputEl) {
+  const group = inputEl.closest(".inputGroup");
+  const confirmMsgEl = group ? group.querySelector(".confirmMsg") : null;
+  if (confirmMsgEl) confirmMsgEl.textContent = "";
   updateSignUpBtn();
 }
 
@@ -121,7 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const authInput       = getInputByLabel("인증번호");
 
   const idDupBtn        = getButtonByLabel("아이디");
-  const pwConfirmBtn    = getButtonByLabel("비밀번호 확인");
   const nicknameDupBtn  = getButtonByLabel("닉네임");
   const phoneSendBtn    = getButtonByLabel("전화번호");
   const authCheckBtn    = getButtonByLabel("인증번호");
@@ -132,19 +171,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 아이디 중복확인
   if (idDupBtn && idInput) {
-    idDupBtn.addEventListener("click", (e) => {
+    idDupBtn.addEventListener("click", async (e) => {
       e.preventDefault();
       const val = idInput.value.trim();
       if (!val) {
+		clearAll(idInput);
         showError(idInput, "아이디를 입력해주세요.");
         idChecked = false;
-      } else if (DUPLICATE_IDS.includes(val)) {
+		updateSignUpBtn();
+		return;
+      } 
+	  
+	  const resp = await fetch(`${window.contextPath}/api/user/signin/checkDupID.mem?memberId=${val}`, { method: "GET"} );
+	  const isOk = await resp.json();
+	  if (isOk.status === "ok") {
+		clearAll(idInput);
+		showConfirm(idInput, "검증이 완료되었습니다.");
+		idChecked = true;
+	  } else {
+		clearAll(idInput);
         showError(idInput, "중복 아이디가 있습니다.");
         idChecked = false;
-      } else {
-        clearError(idInput);
-        idChecked = true;
       }
+	  
       updateSignUpBtn();
     });
 
@@ -155,22 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 비밀번호 확인
-  if (pwConfirmBtn && pwInput && pwConfirmInput) {
-    pwConfirmBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (!pwInput.value) {
-        showError(pwConfirmInput, "비밀번호를 먼저 입력해주세요.");
-        pwValid = false;
-      } else if (pwInput.value !== pwConfirmInput.value) {
-        showError(pwConfirmInput, "비밀번호가 일치하지 않습니다.");
-        pwValid = false;
-      } else {
-        clearError(pwConfirmInput);
-        pwValid = true;
-      }
-      updateSignUpBtn();
-    });
-
+  if (pwInput && pwConfirmInput) {
     pwInput.addEventListener("input", () => {
       if (pwConfirmInput.value) {
         if (pwInput.value !== pwConfirmInput.value) {
@@ -202,19 +236,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 닉네임 중복확인
   if (nicknameDupBtn && nicknameInput) {
-    nicknameDupBtn.addEventListener("click", (e) => {
+    nicknameDupBtn.addEventListener("click", async (e) => {
       e.preventDefault();
+	  clearAll(nicknameInput);
+	  
       const val = nicknameInput.value.trim();
       if (!val) {
         showError(nicknameInput, "닉네임을 입력해주세요.");
         nicknameChecked = false;
-      } else if (DUPLICATE_NICKNAMES.includes(val)) {
-        showError(nicknameInput, "중복 닉네임이 있습니다.");
-        nicknameChecked = false;
-      } else {
-        clearError(nicknameInput);
-        nicknameChecked = true;
-      }
+		updateSignUpBtn();
+		return;
+      } 
+	  
+	  const resp = await fetch(`${window.contextPath}/api/user/signin/checkDupNickname.mem?memberNickname=${val}`, { method: "GET"} );
+	  const isOk = await resp.json();
+	  if (isOk.status === "ok") {
+		showConfirm(nicknameInput, "검증이 완료되었습니다.");
+		nicknameChecked = true;
+	  } else {
+	  	showError(nicknameInput, "중복된 닉네임이 있습니다.");
+	    nicknameChecked = false;
+	  }
+	  
       updateSignUpBtn();
     });
 
@@ -245,11 +288,13 @@ document.addEventListener("DOMContentLoaded", () => {
   if (authCheckBtn && authInput) {
     authCheckBtn.addEventListener("click", (e) => {
       e.preventDefault();
+	  clearAll(authInput);
+	  
       if (authInput.value.trim() !== VALID_AUTH_CODE) {
         showError(authInput, "인증번호가 일치하지 않습니다.");
         authVerified = false;
       } else {
-        clearError(authInput);
+        showConfirm(authInput, "인증이 완료되었습니다.");
         authVerified = true;
       }
       updateSignUpBtn();
@@ -261,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 회원가입 전송
+/*  // 회원가입 전송
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -269,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = '/frontend/main.html';
       }
     });
-  }
+  }*/
 
   // 리사이즈 시 에러 너비 조정
   window.addEventListener("resize", () => {
