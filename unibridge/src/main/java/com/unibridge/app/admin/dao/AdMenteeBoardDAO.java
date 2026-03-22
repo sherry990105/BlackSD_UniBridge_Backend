@@ -53,6 +53,30 @@ public class AdMenteeBoardDAO {
 			return mentee;
 		}
 		
+		//멘티 게시판 작성
+		public int insertBoard(AdMenteeBoardDTO boardDTO) {
+			System.out.println("게시글 작성 - insertBoard 메소드 실행");
+			int insert = sqlSession.insert("admin.insert", boardDTO);
+			System.out.println(boardDTO + "===출력");
+			System.out.println("insert 결과 : " + insert);
+			System.out.println("생성된 boardNumber : " + boardDTO.getMenteeboardNumber());
+			return boardDTO.getMenteeboardNumber();
+		}
+		
+		//멘티 게시판 수정
+		public void updateBoard(AdMenteeBoardDTO boardDTO) {
+			System.out.println("게시글 수정 - updateBoard 메소드 실행");
+			sqlSession.update("admin.menteeUpdate", boardDTO);
+			System.out.println("게시글 수정 쿼리 실행 완료");
+		} 
+		
+		//멘티 게시판 삭제
+		public void deleteBoard(int boardNumber) {
+			System.out.println("게시글 삭제 - deleteBoard 메소드 실행");
+			sqlSession.delete("admin.menteeDeleteAllComment",boardNumber);
+			sqlSession.delete("admin.menteeDelete", boardNumber);
+			System.out.println("게시글 삭제 쿼리 실행 완료");
+		}
 		
 		
 }

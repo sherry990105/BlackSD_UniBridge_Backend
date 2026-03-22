@@ -21,20 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="btn btn-red" id="btnDelete">삭제</button>
       `;
     } else {
-      postActions.innerHTML = `
-        <button class="btn btn-red" id="btnDelete">삭제</button>
-      `;
+      postActions.innerHTML = 
+	  `<button class="btn btn-red" id="btnDelete">삭제</button>`;
     }
 	
 
-  postActions && postActions.addEventListener("click", e => {
+  postActions.addEventListener("click", e => {
     if (e.target.id === "btnEdit") {
-      location.href = `${boardType}BoardEdit.admin`;
+      window.location.href = `${boardType}BoardEdit.admin?boardNumber=${boardNumber}`;
     }
     if (e.target.id === "btnDelete") {
       if (confirm("게시글을 삭제하시겠습니까?")) {
-        BoardStore.remove(boardType, postId);
-        location.href = `${boardType}BoardList.admin`;
+        window.location.href = `${boardType}BoardDeleteOk.admin?boardNumber=${boardNumber}`;
       }
     }
   });

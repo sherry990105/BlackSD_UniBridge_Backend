@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.unibridge.app.admin.controller.AdminMenteeBoardDeleteOkController;
 import com.unibridge.app.Result;
 
 import com.unibridge.app.admin.controller.AdminLoginController;
@@ -13,6 +14,10 @@ import com.unibridge.app.admin.controller.AdminLoginOkController;
 import com.unibridge.app.admin.controller.AdminMainController;
 import com.unibridge.app.admin.controller.AdminMenteeBoardController;
 import com.unibridge.app.admin.controller.AdminMenteeBoardDetailController;
+import com.unibridge.app.admin.controller.AdminMenteeBoardEditController;
+import com.unibridge.app.admin.controller.AdminMenteeBoardEditOkController;
+import com.unibridge.app.admin.controller.AdminMenteeBoardWriteController;
+import com.unibridge.app.admin.controller.AdminMenteeBoardWriteOkController;
 import com.unibridge.app.admin.controller.AdminMentorBoardController;
 import com.unibridge.app.admin.controller.AdminReportController;
 import com.unibridge.app.admin.controller.AdminReportDeleteController;
@@ -78,7 +83,43 @@ public class AdminFrontController extends HttpServlet {
 	    	System.out.println("멘티 게시판 상세 화면 출력 완료");
 	    	break;
 	    	
-	         
+	    case "menteeBoardWrite.admin":
+	    case "/menteeBoardWrite.admin":
+	    	System.out.println("멘티 게시판 글 생성 화면 출력 준비");
+	    	result = new AdminMenteeBoardWriteController().execute(request, response);
+	        System.out.println("멘티 게시판 글 생성 화면 출력 완료");
+	        break;
+	        
+	    case "menteeBoardWriteOk.admin":
+	    case "/menteeBoardWriteOk.admin":
+	    	System.out.println("멘티 게시판 글 생성 준비");
+	    	result = new AdminMenteeBoardWriteOkController().execute(request, response);
+	    	System.out.println("멘티 게시판 글 작성 완료");
+	    	break;
+	        
+	    case "menteeBoardEdit.admin":
+	    case "/menteeBoardEdit.admin":
+	    	System.out.println("멘티 게시판 글 수정 화면 출력 준비");
+	    	result = new AdminMenteeBoardEditController().execute(request, response);
+	    	System.out.println("멘티 게시판 글 수정 화면 출력 완료");
+	    	break;
+
+	    case "menteeBoardEditOk.admin":
+	    case "/menteeBoardEditOk.admin":
+	    	System.out.println("멘티 게시판 글 수정 준비");
+	    	result = new AdminMenteeBoardEditOkController().execute(request, response);
+	    	System.out.println("멘티 게시판 글 수정 완료");
+	    	break;
+	    	
+	    case "menteeBoardDeleteOk.admin":
+	    case "/menteeBoardDeleteOk.admin":
+	    	System.out.println("멘티 게시판 글 삭제 준비");
+	    	result = new AdminMenteeBoardDeleteOkController().execute(request, response);
+	    	System.out.println("멘티 게시판 글 삭제 완료");
+	    	break;
+	    	
+	    	
+	    	
 	    case "mentorBoardList.admin":
 	    case "/mentorBoardList.admin":
 	    	System.out.println("멘토 게시판 화면 출력 준비");

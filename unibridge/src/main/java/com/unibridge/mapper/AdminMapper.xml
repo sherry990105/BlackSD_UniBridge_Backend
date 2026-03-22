@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 
+	<!-- 관리자 번호 닉네임 변환  -->
+	<select id="conversionNickname" parameterType="int" resultType="String">
+		SELECT ADMIN_NICKNAME
+		FROM UB_ADMIN 
+		WHERE ADMIN_NUMBER = #{adminNumber}
+	</select>
+	
+	
 	<!-- 관리자 로그인 -->
 	<select id="adlogin" parameterType="AdminDTO" resultType="int">
 		SELECT * FROM UB_ADMIN
@@ -52,15 +60,18 @@
 	</select>
 	
 	<!-- 멘티 게시판 -->
+	<!-- 전체 조회 게시판 갯수 -->
 	<select id="menteeGetTotal" resultType = "int">
 		select count(*) from UB_MENTEE_BOARD
 	</select>
 	
+	<!-- 랜더링 조회 게시판 갯수 -->
 	<select id="menteeGetRenderingTotal" resultType = "int">
 		select count(*) from UB_MENTEE_BOARD 
 		WHERE board_date BETWEEN TO_DATE(#{dateFrom}, 'YYYY-MM-DD') AND TO_DATE(#{dateTo}, 'YYYY-MM-DD') 
 	</select>
 	
+	<!-- 전체 조회 -->
 	<select id="menteeSelectAll" resultType = "AdMenteeBoardListDTO">
 		<![CDATA[
 			SELECT * FROM (
@@ -80,6 +91,7 @@
 		]]>
 	</select>
 	
+	<!-- 멘티 랜더링 조회 -->
 	<select id="menteeSelectFilter" resultType="AdMenteeBoardListDTO">
 		<![CDATA[
 			SELECT * FROM (
@@ -119,6 +131,33 @@
 		WHERE UMB.MENTEEBOARD_NUMBER = #{boardNumber}
 	</select>
 	
+	<!-- 멘티 게시판 작성 -->
+	<insert id="insert" parameterType="AdMenteeBoardDTO">
+		<selectKey keyProperty="menteeboardNumber" resultType="int" order="BEFORE">
+			SELECT SEQ_MENTEE_BOARD.nextVal FROM DUAL
+		</selectKey>
+		INSERT INTO UB_mentee_board(menteeboard_number, board_title, board_content, admin_number)
+		VALUES(#{menteeboardNumber}, #{boardTitle}, #{boardContent}, #{writeNumber})
+	</insert>
+	
+	<!-- 멘티 게시판 수정 -->
+	<update id="menteeUpdate">
+		UPDATE UB_mentee_board 
+		SET board_title=#{boardTitle}, board_content=#{boardContent} 
+		WHERE menteeBoard_number=#{menteeboardNumber}
+	</update>
+	
+	<!-- 멘티 게시판 삭제 -->
+	<delete id="menteeDelete">
+		delete From UB_mentee_board
+		where menteeBoard_number=#{menteeboardNumber}
+	</delete>
+	
+	<!-- 멘티 게시판 댓글 전체 삭제 -->
+	<delete id="menteeDeleteAllComment">
+		DELETE FROM UB_mentee_board_comment WHERE menteeBoard_ID = #{menteeboardNumber}
+	</delete>
+
 	
 	<!-- 멘토 게시판 -->
 	<select id="mentorGetTotal" resultType = "int">

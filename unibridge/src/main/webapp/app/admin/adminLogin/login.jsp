@@ -52,8 +52,7 @@
         <p class="error-text" id="errorText">
         <c:choose>
         	<c:when test="${param.login == 'fail'}">아이디 또는 비밀번호가 일치하지 않습니다.</c:when>
-        	<%-- <c:when test="${empty adminId or empty adminPw}">아이디와 비밀번호를 입력해주세요.</c:when> --%>
-        </c:choose>
+        	</c:choose>
         </p>
 
         <button type="submit" class="login-btn">로그인</button>

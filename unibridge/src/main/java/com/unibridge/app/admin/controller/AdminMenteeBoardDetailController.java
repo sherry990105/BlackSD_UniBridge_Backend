@@ -54,14 +54,6 @@ public class AdminMenteeBoardDetailController implements Execute {
 			return result;
 		}
 		
-		//첨부파일 가져오기
-		FileDTO file = fileDAO.selectFile(boardNumber);
-		System.out.println("==파일 확인==");
-		System.out.println(file);
-		System.out.println("===========");
-		
-		//첨부파일 붙이기
-		boardDTO.setFileName(file);
 		
 		//로그인 한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("adminNumber");

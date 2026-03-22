@@ -18,7 +18,11 @@ public class AdminDAO {
       Integer admin = sqlSession.selectOne("admin.adlogin", adminDTO);
       return admin == null? -1 : admin;
    }
-   
+
+   //회원 닉네임 변환
+	public String getMemberNickname(int adminNumber) {
+		return sqlSession.selectOne("admin.conversionNickname", adminNumber);
+	}
    
    
 }

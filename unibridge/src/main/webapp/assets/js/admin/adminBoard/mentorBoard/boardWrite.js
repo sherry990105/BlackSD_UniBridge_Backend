@@ -1,12 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
 
   const path = window.location.pathname;
   const isMentor = path.includes("mentorBoard");
   const boardType = sessionStorage.getItem("currentBoardType") || (isMentor ? "mentor" : "mentee");
 
-  /* ========================
+   ========================
      등록 폼 submit
-  ======================== */
+  ======================== 
   const writeForm = document.getElementById("writeForm");
   if (writeForm) {
     writeForm.addEventListener("submit", e => {
@@ -22,4 +22,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-});
+});*/

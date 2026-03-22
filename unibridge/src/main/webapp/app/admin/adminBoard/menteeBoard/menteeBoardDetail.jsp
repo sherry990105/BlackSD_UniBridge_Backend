@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>게시판 관리 - 멘티 게시글</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminBoard/menteeBoard/boardDetail.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminBoard/boardDetail.css" />
+<script defer src="${pageContext.request.contextPath}/assets/js/admin/adminBoard/boardDetail.js"></script>
 </head>
 <body>
 
@@ -54,7 +54,8 @@
 	<script>
 		const writeNumber = ${board.writeNumber};
 		const sessionNumber = ${loginMemberNumber};
+		const boardNumber = ${board.menteeboardNumber};
 	</script>
-  <script src="${pageContext.request.contextPath}/assets/js/admin/adminBoard/menteeBoard/boardDetail.js"></script>
+  
 </body>
 </html>

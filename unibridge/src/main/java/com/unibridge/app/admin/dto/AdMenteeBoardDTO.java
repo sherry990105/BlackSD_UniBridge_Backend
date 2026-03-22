@@ -20,7 +20,7 @@ public class AdMenteeBoardDTO {
 //		);
 	
 	
-	private int mentorboardNumber;
+	private int menteeboardNumber;
 	private String boardTitle;
 	private String boardContent;
 	private int boardClick;
@@ -42,14 +42,26 @@ public class AdMenteeBoardDTO {
 	public void setBoardContent(String boardContent) {
 		this.boardContent = boardContent;
 	}
+	public void setMenteeboardNumber(int menteeboardNumber) {
+		this.menteeboardNumber = menteeboardNumber;
+	}
+	public void setBoardClick(int boardClick) {
+		this.boardClick = boardClick;
+	}
+	public void setBoardDate(String boardDate) {
+		this.boardDate = boardDate;
+	}
+	public void setWriteNickname(String writeNickname) {
+		this.writeNickname = writeNickname;
+	}
 	public FileDTO getFileName() {
 		return fileName;
 	}
 	public void setFileName(FileDTO fileName) {
 		this.fileName = fileName;
 	}
-	public int getMentorboardNumber() {
-		return mentorboardNumber;
+	public int getMenteeboardNumber() {
+		return menteeboardNumber;
 	}
 	public int getBoardClick() {
 		return boardClick;

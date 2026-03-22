@@ -32,7 +32,7 @@ public class AdminMenteeBoardController implements Execute{
 		// 한 페이지당 게시글 수
 		int rowCount = 10;
 		// 페이지 버튼 수
-		int pageCount = 10;
+		int pageCount = 5;
 
 		int startRow = (page - 1) * rowCount + 1;
 		int endRow = startRow + rowCount - 1;
