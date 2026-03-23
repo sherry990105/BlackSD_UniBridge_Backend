@@ -118,9 +118,9 @@
 							<div id="profile">
 								<a href="#"> <%-- 프로필 이미지는 현재 DTO에 없으므로 기본 이미지 노출 혹은 추후 추가 필요 --%>
 									<img
-									src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png"
-									alt="멘토 프로필" id="profileImg"
-									onerror="this.src='${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png'">
+									src="/upload/profile/${member.MEMBER_IMG != null ? member.MEMBER_IMG : 'default.png'}?t=<%=System.currentTimeMillis()%>"
+									alt="유저의 프로필 사진" id="profileDisplay"
+									onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/user/userProfile/default.png';">
 								</a>
 							</div>
 						</div>
