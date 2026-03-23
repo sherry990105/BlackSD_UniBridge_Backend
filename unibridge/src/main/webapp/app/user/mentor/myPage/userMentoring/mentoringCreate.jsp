@@ -76,7 +76,10 @@
 							<div id="profile">
 								<a href="#"> 
 									<img src="${pageContext.request.contextPath}/assets/img/user/userProfile/userIcon.png" alt="아이콘"> 
-									<img id="profileImg" src="${pageContext.request.contextPath}/assets/img/user/userProfile/ex1.png" alt="프로필이미지">
+									<img src="/upload/profile/${member.MEMBER_IMG != null ? member.MEMBER_IMG : 'default.png'}?t=<%=System.currentTimeMillis()%>" 
+										     alt="유저의 프로필 사진" 
+										     id="profileDisplay"
+										     onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/user/userProfile/default.png';">
 								</a>
 							</div>
 						</div>
