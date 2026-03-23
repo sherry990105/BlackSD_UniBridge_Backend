@@ -60,12 +60,12 @@
   </script>
 
 <script>
-  fetch("/frontend/header/adminHeader.jsp")
+  fetch("${pageContext.request.contextPath}/header/adminHeader.jsp")
     .then(res => res.text())
     .then(html => {
       document.getElementById("header-wrap").innerHTML = html;
       const s = document.createElement("script");
-      s.src = "/frontend/header/adminHeader.js";
+      s.src = "${pageContext.request.contextPath}/header/adminHeader.js";
       document.body.appendChild(s);
     });
 </script>

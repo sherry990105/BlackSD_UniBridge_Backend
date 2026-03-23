@@ -2,7 +2,6 @@ package com.unibridge.app.admin.controller;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +12,7 @@ import com.unibridge.app.Result;
 import com.unibridge.app.admin.dao.AdMentorBoardDAO;
 import com.unibridge.app.admin.dto.AdMentorBoardCommentDTO;
 import com.unibridge.app.admin.dto.AdMentorBoardDTO;
-import com.unibridge.app.admin.dto.AdMentorBoardListDTO;
-import com.unibridge.app.file.dao.FileDAO;
-import com.unibridge.app.file.dto.FileDTO;
+
 
 public class AdminMentorBoardDetailController implements Execute {
 
@@ -37,7 +34,6 @@ public class AdminMentorBoardDetailController implements Execute {
 		int boardNumber = Integer.parseInt(boardNumberStr);
 		
 		AdMentorBoardDAO boardDAO = new AdMentorBoardDAO();
-		FileDAO fileDAO = new FileDAO();
 		
 		//DB에서 게시글 가져오기
 		AdMentorBoardDTO boardDTO = boardDAO.selectPage(boardNumber);

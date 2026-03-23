@@ -28,6 +28,7 @@ import com.unibridge.app.admin.controller.AdminMentorBoardWriteController;
 import com.unibridge.app.admin.controller.AdminMentorBoardWriteOkController;
 import com.unibridge.app.admin.controller.AdminNoticeBoardController;
 import com.unibridge.app.admin.controller.AdminNoticeDetailController;
+import com.unibridge.app.admin.controller.AdminNoticeWriteController;
 import com.unibridge.app.admin.controller.AdminReportController;
 import com.unibridge.app.admin.controller.AdminReportDeleteController;
 import com.unibridge.app.admin.controller.AdminReportDetailController;
@@ -204,7 +205,12 @@ public class AdminFrontController extends HttpServlet {
 	    	System.out.println("공지 상세보기 화면 출력 완료");
 	    	break;
 	    	
-	    	
+	    case "noticeWrite.admin":
+	    case "/noticeWrite.admin":
+	    	System.out.println("공지 생성 화면 출력 준비");
+	    	result = new AdminNoticeWriteController().execute(request, response);
+	    	System.out.println("공지 생성 화면 출력 완료");
+	    	break;
 	    	
 	    	
 	    	

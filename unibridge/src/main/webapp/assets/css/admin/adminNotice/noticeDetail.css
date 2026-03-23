@@ -8,6 +8,10 @@
 
 * { box-sizing: border-box; }
 
+a{
+	text-decoration : none;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -19,6 +23,7 @@ html, body {
 
 .detail-wrap {
   padding: 0 48px 60px;
+  margin : auto;
   max-width: 1400px;
 }
 
@@ -71,7 +76,7 @@ html, body {
 
 .detail-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 12px;
   margin-bottom: 24px;
 }

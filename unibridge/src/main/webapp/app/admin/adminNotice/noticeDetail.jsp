@@ -31,8 +31,11 @@
 
     <!-- 수정 / 삭제 버튼 -->
     <div class="detail-actions">
-      <button class="btn btn-blue" id="btnEdit">수정</button>
-      <button class="btn btn-red" id="btnDelete">삭제</button>
+      <button class="btn" id = "btnList">목록</button>
+      <div>
+      	<button class="btn btn-blue" id="btnEdit">수정</button>
+      	<button class="btn btn-red" id="btnDelete">삭제</button>
+      </div>
     </div>
 
     <!-- 첨부파일 박스 -->
