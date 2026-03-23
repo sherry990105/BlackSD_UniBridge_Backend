@@ -54,12 +54,13 @@
 					<%-- DB 데이터가 있을 경우 동적 렌더링 --%>
 					<c:choose>
 						<c:when test="${not empty contestList}">
-							<c:forEach var="contest" items="${contestList}">
+							<c:forEach var="contest" items="${contestList}" varStatus="status">
+								<c:set var="imgNum" value="${(status.index % 5) + 1}" />
 								<div class="contestCard">
 									<div class="contestCardThumbEmpty"
 										onclick="location.href=`${pageContext.request.contextPath}/common/noticeBoardReadOk.ntb?contestNumber=${contest.contestNumber}`">
 										<img
-											src="${pageContext.request.contextPath}/assets/img/UniBridge.png"
+											src="${pageContext.request.contextPath}/assets/img/user/userContesting/대회이미지${imgNum}.png"
 											alt="대회 이미지" />
 									</div>
 									<p class="contestCardTitle">${contest.title}</p>
@@ -121,9 +122,19 @@
 												src="${pageContext.request.contextPath}/upload/${mentor.fileName}"
 												alt="프로필">
 										</c:when>
+										<c:when test="${member.memberGender == 'W'}">
+											<img
+												src="${pageContext.request.contextPath}/assets/img/user/userMetor/여자증명사진.png"
+												alt="프로필">
+										</c:when>
+										<c:when test="${member.memberGender == 'M'}">
+											<img
+												src="${pageContext.request.contextPath}/assets/img/user/userMetor/남자증명사진.png"
+												alt="프로필">
+										</c:when>
 										<c:otherwise>
 											<img
-												src="${pageContext.request.contextPath}/static/img/default_avatar.png"
+												src="${pageContext.request.contextPath}/assets/img/UniBridge.png"
 												alt="기본프로필">
 										</c:otherwise>
 									</c:choose>
@@ -173,7 +184,8 @@
 
 					<c:choose>
 						<c:when test="${not empty companyList}">
-							<c:forEach var="company" items="${companyList}">
+							<c:forEach var="company" items="${companyList}" varStatus="status">
+							<c:set var="imgNum" value="${(status.index % 5) + 1}" />
 								<div class="jobBannerCard" data-job-id="${company.employmentId}"
 									<%-- DB에 URL이 있으면 해당 URL로, 없으면 사람인 기본 페이지로 이동 --%>
                             onclick="window.open('${not empty company.employmentUrl ? company.employmentUrl : 'https://www.saramin.co.kr/'}', '_blank')"
@@ -187,7 +199,7 @@
 										</c:when>
 										<c:otherwise>
 											<img class="jobBannerCardThumb"
-												src="${pageContext.request.contextPath}/assets/img/UniBridge.png"
+												src="${pageContext.request.contextPath}/assets/img/user/userCompany/취업이미지${imgNum}.png"
 												alt="기업 이미지" />
 										</c:otherwise>
 									</c:choose>
