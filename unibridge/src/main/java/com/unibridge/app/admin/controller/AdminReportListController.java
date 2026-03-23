@@ -57,8 +57,10 @@ public class AdminReportListController implements Execute {
 			    .collect(Collectors.toList());
 		
 		Gson gson = new Gson();
-		request.setAttribute("learningReports", gson.toJson(learningReports));
-		request.setAttribute("learningReportWeeks", gson.toJson(weekList));
+		request.setAttribute("learningReports", learningReports);
+		request.setAttribute("learningReportWeeks", weekList);
+		request.setAttribute("learningReportsJson", gson.toJson(learningReports));
+		request.setAttribute("learningReportWeeksJson", gson.toJson(weekList));
 		
 		result.setRedirect(false);
 		result.setPath("/app/admin/adminReport/reportList.jsp");

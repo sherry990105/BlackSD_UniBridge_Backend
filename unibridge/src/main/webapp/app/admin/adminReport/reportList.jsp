@@ -10,7 +10,11 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/fonts.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminReport/reportList.css">
   <script src="${pageContext.request.contextPath}/assets/js/admin/adminReport/reportList.js" defer></script>
-
+  <script>
+    window.contextPath = "${pageContext.request.contextPath}";
+    sessionStorage.setItem("learningReports", JSON.stringify(${learningReports}));
+    sessionStorage.setItem("learningReportWeeks", JSON.stringify(${learningReportWeeks}));
+  </script>
   <title>Document</title>
 </head>
 <body>
@@ -26,7 +30,7 @@
             <div class="week-select-dropdown disabled">
               <ul class="week-selector">
               <li class="week-item">전체</li>
-              	<c:forEach var="week" items="${sessionScope.learningReportWeeks}">
+              	<c:forEach var="week" items="${learningReportWeeks}">
               		<li class="week-item">${week}주차</li>
               	</c:forEach>
               </ul>
@@ -35,7 +39,7 @@
           <div class="select-button">조회</div>
         </div>
         <ul class="list-container">
-		  <c:forEach var="report" items="${sessionScope.learningReports}">
+		  <c:forEach var="report" items="${learningReports}">
             <li class="lr-report" id="report-id-${report.getMatchingNumber()} }">
               <div class="lr-report-desc">
                 <div class="lr-report-idx">${report.getLrReportWeek()}주차 ${report.getLrReportSession()}일차 - ${report.getLrSubjectTitle()}</div>
@@ -51,11 +55,5 @@
       </main>
     </div>
   </div>
-  <script>
-    window.contextPath = "${pageContext.request.contextPath}";
-    sessionStorage.setItem("learningReports", JSON.stringify(${learningReports}));
-    sessionStorage.setItem("learningReportWeeks", JSON.stringify(${learningReportWeeks}));
-  </script>
-
 </body>
 </html>
