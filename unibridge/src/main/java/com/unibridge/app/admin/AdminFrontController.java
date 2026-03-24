@@ -140,9 +140,7 @@ public class AdminFrontController extends HttpServlet {
 	    	result = new AdminMenteeBoardDeleteOkController().execute(request, response);
 	    	System.out.println("멘티 게시판 글 삭제 완료");
 	    	break;
-	    	
-	    	
-	    	
+	    	   	
 	    case "mentorBoardList.admin":
 	    case "/mentorBoardList.admin":
 	    	System.out.println("멘토 게시판 화면 출력 준비");
@@ -191,9 +189,7 @@ public class AdminFrontController extends HttpServlet {
 	    	result = new AdminMentorBoardDeleteOkController().execute(request, response);
 	    	System.out.println("멘토 게시판 글 삭제 완료");
 	    	break;
-	    	
-	    	
-	    	
+
 	    
 	    case "noticeList.admin":
 	    case "/noticeList.admin":
@@ -223,7 +219,6 @@ public class AdminFrontController extends HttpServlet {
 	    	System.out.println("공지 생성 완료");
 	    	break;
 	    	
-	    	
 	    case "noticeEdit.admin":
 	    case "/noticeEdit.admin":
 	    	System.out.println("공지 수정 화면 출력 준비");
@@ -244,6 +239,10 @@ public class AdminFrontController extends HttpServlet {
 	    	result = new AdminNoticeDeleteOkController().execute(request, response);
 	    	System.out.println("공지 삭제 완료");
 	    	break;
+	    	
+	    	
+	    
+	    	
 	    	
 	    case  "report.admin":
 		case "/report.admin":

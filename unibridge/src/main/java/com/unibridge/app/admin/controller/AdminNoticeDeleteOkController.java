@@ -21,14 +21,16 @@ public class AdminNoticeDeleteOkController implements Execute {
 		Result result = new Result();
 		FileDAO fileDAO = new FileDAO();
 
+
 		int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
 		System.out.println(boardNumber);
 		
+		boardDAO.deleteBoard(boardNumber);
+
 		if(boardDAO.fileNumberSelect(boardNumber) != null) {
 			fileDAO.delete(boardDAO.fileNumberSelect(boardNumber));
 		}
 		
-		boardDAO.deleteBoard(boardNumber);
 		System.out.println("게시글 삭제 완료");
 		
 		String path = request.getContextPath() + "/app/admin/adminNotice/noticeList.admin";

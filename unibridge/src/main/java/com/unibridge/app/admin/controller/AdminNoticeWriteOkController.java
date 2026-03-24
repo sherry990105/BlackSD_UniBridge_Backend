@@ -33,8 +33,8 @@ public class AdminNoticeWriteOkController implements Execute {
 		
 		System.out.println("현재 로그인한 회원 번호 : " + adminNumber);
 		
-		//파일 업로드 환경 설정
-		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
+
+		final String UPLOAD_PATH = "C:/upload/DATA/";
 		final int FILE_SIZE = 1024 * 1024 * 5; //5MB
 		System.out.println("파일 업로드 경로 : " + UPLOAD_PATH);
 		
@@ -43,7 +43,7 @@ public class AdminNoticeWriteOkController implements Execute {
 			uploadDir.mkdirs();
 		}
 		
-		//MultipartRequest를 이용한 데이터 파싱
+
 		MultipartRequest multipartRequest = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "utf-8", 
 				new DefaultFileRenamePolicy()); 
 		
@@ -54,21 +54,30 @@ public class AdminNoticeWriteOkController implements Execute {
 		//Enumeration : java.util 패키지에 포함된 인터페이스, Itrator와 비슷한 역할을 함
 		Enumeration<String> fileNames = multipartRequest.getFileNames();
 		Integer fileNumber = null;
+
 		while(fileNames.hasMoreElements()) {
 			FileDTO fileDTO = new FileDTO();
-			String name = fileNames.nextElement();
-			String fileSystemName = multipartRequest.getFilesystemName(name);
-			String fileOriginalName = multipartRequest.getOriginalFileName(name);
-				
-			if(fileSystemName == null) {
+			String Filename = fileNames.nextElement();
+			String SystemName = multipartRequest.getFilesystemName(Filename);
+			String OriginalName = multipartRequest.getOriginalFileName(Filename);
+
+			if(SystemName == null) {
 				continue;
 			}
 			
-			fileDTO.setFileName(fileSystemName);
-			fileDTO.setFileOriginalName(fileOriginalName);
+			String extension = OriginalName.substring(OriginalName.lastIndexOf("."));
 			
+
+			File newFile = new File(UPLOAD_PATH, SystemName);
+
+			fileDTO.setFileName(SystemName);
+			fileDTO.setFileOriginalName(OriginalName);
+			fileDTO.setFileExtension(extension.replace(".", ""));
+            fileDTO.setFileSize(newFile.length());
+            fileDTO.setFilePath("/upload/board/" + SystemName);
+
 			fileNumber = fileDAO.insertFileIfExists(fileDTO);
-			System.out.println(fileNumber);
+			System.out.println("파일 번호 :"+ fileNumber);
 			System.out.println("업로드 파일 정보 : " + fileDTO);
 		}
 		

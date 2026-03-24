@@ -6,8 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const content = document.getElementById("inputContent").value.trim();
       if (!title) { alert("제목을 입력해주세요."); return; }
       if (!content) { alert("내용을 입력해주세요."); return; }
-      
-	  alert("저장되었습니다.");
+
 	  writeForm.submit();
 	  
 	  

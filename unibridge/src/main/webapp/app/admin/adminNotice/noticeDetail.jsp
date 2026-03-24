@@ -33,10 +33,10 @@
     <div class="detail-actions">
       <button class="btn" id = "btnList">목록</button>
       <div>
-       <c:if test="${board.adminNumber eq loginMemberNumber}">
+<%--        <c:if test="${board.adminNumber eq loginMemberNumber}"> --%>
       		<button class="btn btn-blue" id="btnEdit">수정</button>
-        </c:if>
-      	<button class="btn btn-red" id="btnDelete">삭제</button>
+ 	     	<button class="btn btn-red" id="btnDelete">삭제</button>
+<%--         </c:if> --%>
       </div>
     </div>
 

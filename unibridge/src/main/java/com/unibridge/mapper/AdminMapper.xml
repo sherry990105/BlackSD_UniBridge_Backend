@@ -443,8 +443,8 @@
 			order="BEFORE">
 			SELECT SEQ_NOTICEBOARD.nextVal FROM DUAL
 		</selectKey>
-		INSERT INTO UB_noticeboard(noticeboard_number, board_title, board_content, admin_number, board_type, board_date)
-		VALUES(#{noticeboardNumber}, #{boardTitle}, #{boardContent}, #{adminNumber}, #{boardType} , sysdate)
+		INSERT INTO UB_noticeboard(noticeboard_number, board_title, board_content, admin_number, board_type, board_date, file_number)
+		VALUES(#{noticeboardNumber}, #{boardTitle}, #{boardContent}, #{adminNumber}, #{boardType} , sysdate, #{fileNumber})
 	</insert>
 	
 	<!-- 공지글에 링크되어 있는 파일 번호 확인 -->

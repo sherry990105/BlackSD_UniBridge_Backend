@@ -46,4 +46,7 @@ public class FileDAO {
 		sqlSession.delete("file.delete", fileNumber);
 	}
 
+	public void update(FileDTO fileDTO) {
+		 sqlSession.update("file.updateFile",fileDTO);
+	}
 }
