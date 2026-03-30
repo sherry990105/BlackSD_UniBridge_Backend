@@ -7,7 +7,6 @@
 
 body {
     background-color: white;
-    /* 폰트 글꼴 지정 NanumSquareRound */
     font-family: 'NanumSquareRound', sans-serif;
 }
 
@@ -17,7 +16,7 @@ body {
     margin-top: 40px;
     gap: 30px;
     padding: 80px 100px;
-    min-height: 100vh; /* 고정값보다는 vh 단위가 유연합니다 */
+    min-height: 100vh;
 }
 
 a {
@@ -46,44 +45,32 @@ aside {
     margin-bottom: 20px;
 }
 
-/* 사이드바 리스트 초기화 */
 aside ul {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* 간격 살짝 조정 */
+    gap: 10px;
 }
 
-/* li가 아닌 a 태그에 스타일을 집중 (클릭 범위 확대) */
 aside ul li a {
     display: block;
     padding: 15px 20px;
     border-radius: 12px;
-    font-size: 20px; /* 25px은 너무 커서 레이아웃을 깰 수 있음 */
+    font-size: 20px;
     color: #888;
     transition: all 0.2s;
     text-align: center;
 }
 
-/* 마우스 호버 시 */
 aside ul li a:hover {
-    background-color: #eef2ff;
+    background-color: #dde5ff;
     color: #4f73e3;
 }
 
-aside ul li a:hover {
-    background-color: #eef2ff;
-    color: #4f73e3;
-}
-
-/* ✅ 활성화된 메뉴 스타일 (이 부분이 적용됩니다) */
 aside ul li a.active {
-    /* background-color: #4f73e3; 배경을 파란색으로 */
-    color: #4f73e3;              /* 글자를 흰색으로 (혹은 원하는 디자인대로) */
+    color: #4f73e3;
     font-weight: 700;
 }
-
-/* 사이드바 끝 */
 
 /* 메인 콘텐츠 영역 */
 main {
@@ -96,7 +83,7 @@ main {
     align-items: center;
 }
 
-/* 제목 부분 (아이콘 + 텍스트) */
+/* 제목 부분 */
 .userManageTitle {
     display: flex;
     align-items: center;
@@ -118,65 +105,53 @@ main {
     color: #222;
 }
 
-/* 유저 정보 카드 (사진 + 텍스트 가로 배치) */
-.userMain {
-    display: flex;
-    align-items: center;
+/* ✅ 결제 정보 카드 박스 */
+.userTypeBox {
     width: 80%;
-    height: 70%;
-    text-align: center;
-    gap: 60px;
-    background: #eef2ff;   /* 연한 배경만, 테두리 없음 */
-    padding: 40px 50px;
+    background-color: #f5f7ff;
+    border: 1px solid #d0d8f5;
     border-radius: 16px;
-    border: 1px solid black;           /* 기존 border 제거 */
-    position: relative;
-
+    padding: 50px 70px;
+    box-shadow: 0 4px 16px rgba(79, 115, 227, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
-/* 유저 프로필 이미지 */
-.userMain > img {
-    width: 300px;
-    height: 360px;
-    object-fit: cover;
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
-.userTypeBox{
-    margin-top: 30px;
-    width: 60%;
-    height: 60%;
-    background-color: #eef2ff;
-    border: 1px solid #eef2ff;
-    border-radius: 12px
-}
-
+/* ✅ 각 행 (라벨 + 값) */
 .userText {
     display: flex;
     align-items: center;
-    gap: 40px;
-    margin-top: 20px;
-    margin-left: 350px;
+    gap: 0;
+    padding: 18px 0;
+    border-bottom: 1px solid #e2e8f7;
+    margin: 0;
 }
 
+/* 마지막 행은 구분선 제거 */
+.userText:last-child {
+    border-bottom: none;
+}
+
+/* ✅ 라벨 (왼쪽 키) */
 .userText label:first-child {
-    width: 100px;
-    font-size: 25px;
-    font-weight: 600;
-    color: #333;
-    margin-left: 30px;
-    margin-top: 40px;
+    width: 120px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #555;
+    flex-shrink: 0;
+    margin: 0;
 }
 
+/* ✅ 값 (오른쪽) */
 .userText label:last-child {
-    font-size: 25px;
-    margin-top: 30px;
+    font-size: 18px;
     font-weight: 600;
     color: #222;
+    margin: 0;
 }
 
-/* 수정 버튼 우측 하단 absolute */
+/* 수정 버튼 */
 .userModifyBtn {
     position: absolute;
     right: 145px;
@@ -195,7 +170,7 @@ main {
     background-color: #c7d2fe;
 }
 
-.nonPayLog{
+.nonPayLog {
     font-size: 50px;
     font-weight: 700;
     margin-top: 230px;

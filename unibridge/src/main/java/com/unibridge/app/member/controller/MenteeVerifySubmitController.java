@@ -26,7 +26,7 @@ public class MenteeVerifySubmitController implements Execute {
         
         // 2. 비로그인 상태 접근 제어
         if (loginUser == null) {
-            result.setPath(request.getContextPath() + "/mvc/auth/signin.my"); // 로그인 페이지 경로
+            result.setPath(request.getContextPath() + "/index.main"); // 메인 페이지 경로
             result.setRedirect(true);
             return result;
         }

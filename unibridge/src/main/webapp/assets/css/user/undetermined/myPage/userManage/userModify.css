@@ -112,7 +112,7 @@ main {
     padding: 40px 50px;
     border-radius: 16px;
     border: 1px solid black;
-    position: relative;
+    /*position: relative;*/
 }
 
 .userImg {
@@ -131,17 +131,17 @@ main {
     flex-shrink: 0;
 }
 
+/* ✅ 사진 변경 버튼 - 다른 버튼들과 동일한 스타일 */
 .userImg > button {
-    width: 130px;
-    height: 40px;
     margin-top: 15px;
+    padding: 10px;
     background-color: white;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: center;
-    border: 1px solid #eef2ff;
-    border-radius: 8px;
+    border: 1px solid black;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 15px;
+    font-weight: 700;
+    min-width: 100px;
 }
 
 .modifyForm {
@@ -212,19 +212,53 @@ label {
 .radioUserType {
     width: 20px;
     height: 20px;
-    transform: scale(1.5);
+    transform: scale(2);        /* scale(1.5) → scale(2)로 키움 */
     cursor: pointer;
-    margin: 0 5px;
+    margin: 0 8px;
     vertical-align: middle;
 }
 
 .radioItem {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 18px;
     cursor: pointer;
     margin-right: 40px;
+}
+
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #aaa;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: 0 15px 0;
+    flex-shrink: 0;
+    background-color: white;
+    transition: all 0.2s;
+}
+
+input[type="radio"]:checked {
+    background-color: #4f73e3;
+    border-color: #4f73e3;
+    box-shadow: inset 0 0 0 4px white;
+}
+
+#imgBtn{
+  margin-top: 15px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  min-width: 100px;
+  height: auto;
+  width: auto;
 }
 
 .userModifyBtn {

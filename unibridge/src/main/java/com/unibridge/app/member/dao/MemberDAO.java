@@ -1,5 +1,6 @@
 package com.unibridge.app.member.dao;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -124,11 +125,9 @@ public class MemberDAO {
      * @return 중복된 개수 (0이면 사용 가능)
      */
     public int checkNickname(String memberNickname, int memberNumber) {
-        java.util.Map<String, Object> map = new java.util.HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("memberNickname", memberNickname);
         map.put("memberNumber", memberNumber);
-        
-        // 두 개의 파라미터가 담긴 map을 전달합니다.
         return sqlSession.selectOne("member.checkNicknameExceptMe", map);
     }
     

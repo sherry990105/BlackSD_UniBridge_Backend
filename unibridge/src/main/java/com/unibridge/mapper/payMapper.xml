@@ -78,6 +78,7 @@
 		TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD
 		HH24:MI:SS') as payDate,
 		P.PAY_STATUS as payStatus,
+		M.MEMBER_ID as memberId,
 		M.MEMBER_NAME as
 		memberName,
 		F.FILE_NAME as fileName, MT.MENTORING_GOAL as purpose FROM

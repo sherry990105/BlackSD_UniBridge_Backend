@@ -126,14 +126,31 @@ public class MenteeUpdateOkController implements Execute {
                 // --- [B] 일반 텍스트 데이터 처리 (기존 로직 유지) ---
             	String updateType = request.getParameter("updateType");
                 System.out.println("[일반수정] 요청 updateType: " + updateType);
+                String mode = request.getParameter("mode");
 
-                if ("nickname".equals(updateType)) {
+                if ("checkNick".equals(mode)) {
                     String nickname = request.getParameter("memberNickname");
-                    System.out.println("[닉네임] 중복 체크 진행: " + nickname);
-                    if (dao.checkNickname(nickname, memberNumber) == 0) { 
+
+                    int count = dao.checkNickname(nickname, memberNumber);
+
+                    try {
+                        response.setContentType("text/plain; charset=utf-8");
+                        // 중복이 없으면 "available", 있으면 "duplicated" 응답
+                        response.getWriter().print(count == 0 ? "available" : "duplicated");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    return; // ⭐ 중요: AJAX 요청인 경우 아래의 페이지 이동 로직을 타지 않도록 종료
+                }if ("nickname".equals(updateType)) {
+                    String nickname = request.getParameter("memberNickname");
+//                    int memberNumber = ((MemberDTO)request.getSession().getAttribute("loginUser")).getMemberNumber();
+
+                    // 서버에서도 최종적으로 한 번 더 체크 (보안)
+                    if (dao.checkNickname(nickname, memberNumber) == 0) {
                         dao.updateNickname(memberNumber, nickname);
                         request.setAttribute("updateStatus", "nickname_ok");
-                        System.out.println("[닉네임] 수정 성공");
+                        // 세션 정보 갱신
+                        ((MemberDTO)request.getSession().getAttribute("loginUser")).setMemberNickname(nickname);
                     } else {
                         request.setAttribute("nickError", "중복된 닉네임입니다.");
                     }

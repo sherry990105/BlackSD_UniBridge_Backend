@@ -63,14 +63,14 @@
                         <div class="spacer"></div>
                     </div>
 
-                    <form action="${pageContext.request.contextPath}/mvc/auth/mentor/updateOk.my" method="post" id="nickForm">
+                    <form action="${pageContext.request.contextPath}/mvc/auth/mentor/updateOk.my" method="post" id="nicknameForm">
 					    <input type="hidden" name="updateType" value="nickname">
 					    <div class="inputGroup">
 					        <label>닉네임</label>
 					        <input type="text" class="userInput" name="memberNickname" id="memberNickname" value="${member.MEMBER_NICKNAME}">
 					        <button type="button" class="duplication" id="nickCheckBtn" onclick="checkNick()">중복확인</button>
-					        <button type="submit" class="change">변경</button> 
-					        <div class="errorMsg" id="nickErrorMsg"></div> 
+					        <button type="button" class="change" onclick="submitNickname()">변경</button>
+					        <div class="errorMsg" id="nickErrorMsg">${nickError}</div>
 					    </div>
 					</form>
 					
@@ -79,6 +79,8 @@
 					    <div class="inputGroup">
 					        <label>변경할 비밀번호</label>
 					        <input type="password" class="userInput" name="newPw" id="newPw">
+					        <div class="spacer"></div>
+					        <div class="spacer"></div>
 					        <div class="errorMsg"></div>
 					    </div>
 					    <div class="inputGroup">
@@ -113,12 +115,13 @@
                     <form action="${pageContext.request.contextPath}/mvc/auth/mentor/updateOk.my" method="post">
 					    <input type="hidden" name="updateType" value="gender"> <div class="inputGroup">
 					        <label>성별</label>
-					        <div class="radio-group">
+					        <div class="radioGroup">
 					            <input type="radio" value="M" name="memberGender" ${member.MEMBER_GENDER == 'M' ? 'checked' : ''}> 남성
 					            <input type="radio" value="W" name="memberGender" ${member.MEMBER_GENDER == 'W' ? 'checked' : ''}> 여성
 					            <input type="radio" value="N" name="memberGender" ${member.MEMBER_GENDER == 'N' ? 'checked' : ''}> 미정
 					        </div>
-					        <button type="submit" class="change">변경</button> </div>
+					        <button type="submit" class="change">변경</button>
+        						<div class="spacer"></div>   <!-- 오른쪽 여백 맞추기 -->
 					</form>
                 </div>
             </div>

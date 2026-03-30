@@ -26,27 +26,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 프로필 이미지 변경 로직 끝 ---
 
     // 2. 닉네임 중복 확인 (AJAX)
-    window.checkNick = function() {
-        const nick = document.getElementById('memberNickname').value.trim();
-        const errorMsg = document.getElementById('nickErrorMsg');
-        
-        if(!nick) { alert("닉네임을 입력해주세요."); return; }
+	// 1) 닉네임 입력값이 변경되면 중복 확인 상태 초기화 (필수!)
+	const nickInput = document.getElementById('memberNickname');
+	if(nickInput) {
+	    nickInput.addEventListener('input', () => {
+	        window.isNickChecked = false; // 글자를 치는 순간 다시 미인증 상태로
+	    });
+	}
 
-        fetch(`${window.contextPath}/mvc/auth/undecided/updateOk.my?mode=checkNick&memberNickname=${nick}`, {
-            method: 'POST'
-        })
-        .then(res => res.text())
-        .then(data => {
-            if(data.trim() === "available") {
-                alert("사용 가능한 닉네임입니다.");
-                errorMsg.innerText = "";
-                window.isNickChecked = true; 
-            } else {
-                errorMsg.innerText = "이미 사용 중인 닉네임입니다.";
-                window.isNickChecked = false;
-            }
-        });
-    };
+    // 2) 닉네임 중복 확인 (AJAX)
+	window.checkNick = function() {
+	    const nick = document.getElementById('memberNickname').value.trim();
+	    const errorMsg = document.getElementById('nickErrorMsg');
+	    
+	    if(!nick) { alert("닉네임을 입력해주세요."); return; }
+
+	    // mode=checkNick 파라미터를 통해 컨트롤러가 AJAX용임을 알게 함
+	    fetch(`${window.contextPath}/mvc/auth/undecided/updateOk.my?mode=checkNick&memberNickname=${nick}`, {
+	        method: 'POST'
+	    })
+	    .then(res => res.text())
+	    .then(data => {
+	        if(data.trim() === "available") { // 이제 컨트롤러가 "available"만 딱 보내줌
+	            alert("사용 가능한 닉네임입니다.");
+	            errorMsg.innerText = "";
+	            window.isNickChecked = true; 
+	        } else {
+	            errorMsg.innerText = "이미 사용 중인 닉네임입니다.";
+	            window.isNickChecked = false;
+	        }
+	    });
+	};
+	
+	// 3) 닉네임 [변경] 버튼 클릭 시 (HTML의 onclick="updateNickname()" 등으로 연결)
+	window.submitNickname = function() {
+	    if(!window.isNickChecked) {
+	        alert("먼저 중복 확인을 완료해주세요.");
+	        return;
+	    }
+	    // 중복 확인이 완료된 경우에만 폼 전송
+	    document.getElementById('nicknameForm').submit(); 
+	};
 
     // 3. 비밀번호 일치 확인
     window.checkPwMatch = function() {
