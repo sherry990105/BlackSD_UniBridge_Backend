@@ -2,11 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pay">
 
-	<insert id="insertPayment" parameterType="paymentDTO">
-		<selectKey keyProperty="payId" resultType="long"
+	<insert id="insertPayment" parameterType="paymentDTO"
+		useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="payId" resultType="long" 
 			order="BEFORE">
 			SELECT SEQ_PAY.NEXTVAL FROM DUAL
 		</selectKey>
+		
 		INSERT INTO UB_PAY (
 		pay_id,
 		pay_amount,
@@ -20,6 +22,25 @@
 		#{payMethod},
 		SYSDATE,
 		#{payStatus}
+		)
+	</insert>
+	
+	<insert id="connectMatchingIfSucceed" parameterType="paymentInsertDTO">
+		INSERT INTO UB_MATCHING
+		VALUES (
+			SEQ_MATCHING.nextval, 
+			SYSDATE, 
+			'매칭중', 
+			#{mentorNumber}, 
+			#{menteeNumber}, 
+			(SELECT usm.subject_number
+		 	 FROM UB_MEMBER um 
+			 LEFT OUTER JOIN UB_SURVEY_MENTOR usm
+				 ON um.survey_number = usm.survey_number
+			 WHERE um.member_number = #{mentorNumber}),
+			#{payId},
+			NULL,
+			NULL
 		)
 	</insert>
 
@@ -45,10 +66,10 @@
 		WHERE ROWNUM = 1
 	</select>
 
-	<select id="getLatestPayId" resultType="long">
+<!-- 	<select id="getLatestPayId" resultType="long">
 		SELECT SEQ_PAY.CURRVAL
 		FROM DUAL
-	</select>
+	</select> -->
 
 	<update id="updatePayId" parameterType="map">
 		UPDATE UB_MATCHING

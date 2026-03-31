@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.unibridge.app.pay.dto.PaymentDTO;
+import com.unibridge.app.pay.dto.PaymentInsertDTO;
 import com.unibridge.config.MyBatisConfig;
 
 public class PaymentDAO {
@@ -20,6 +21,11 @@ public class PaymentDAO {
 
     public void insertPayment(PaymentDTO payInfo) {
     	sqlSession.insert("pay.insertPayment", payInfo);
+    }
+    
+    public boolean connectMatching(PaymentInsertDTO payInsetDTO) {
+    	Integer result = sqlSession.insert("pay.connectMatchingIfSucceed", payInsetDTO);
+    	return result != null && result > 0;
     }
 
     // 2. 특정 회원의 결제 정보를 JOIN으로 가져오기

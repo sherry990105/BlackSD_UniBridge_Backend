@@ -91,7 +91,7 @@ function createLearningReport(report) {
   return html;
 }
 
-async function initLrLists(mentorNumber, responseJson) {
+async function initLrLists(userNumber, responseJson) {
 	// 학습보고서 컨텐츠에 리스트 삽입
 	const listLrReportContainer = document.querySelector(
 	  ".list-container__inner  " +
@@ -131,15 +131,17 @@ async function initLrLists(mentorNumber, responseJson) {
 }
 
 async function init() {
-	const mentorNumber = sessionStorage.getItem("userNumber");
-	const response = await fetch(`${window.contextPath}/api/user/lr/searchAllReports.rep?mentorNumber=${mentorNumber}`);
+	const userNumber = sessionStorage.getItem("userNumber");
+	const userType 	 = sessionStorage.getItem("userType");
+	
+	const response = await fetch(`${window.contextPath}/api/user/lr/searchAllReports.rep?userNumber=${userNumber}&userType=${userType}`);
 	const responseJson = await response.json();
 	
 	const responseSubjects = await fetch(`${window.contextPath}/api/user/lr/selectAllSubjects.rep`);
 	const responseSubjectsJson = await responseSubjects.json();
 	
 	// 학습보고서 컨텐츠 생성
-	await initLrLists(mentorNumber, responseJson);
+	await initLrLists(userNumber, responseJson);
 	
 	// 새 학습 보고서 작성 클릭 시 팝업 생성
 	const writeButton = document.querySelector(
@@ -236,7 +238,7 @@ async function init() {
 		  }).filter(([_, value]) => value.length > 0)
 		);
 		
-		await initLrLists(mentorNumber, retLrJson);
+		await initLrLists(userNumber, retLrJson);
 	});
 	
 	sessionStorage.setItem(

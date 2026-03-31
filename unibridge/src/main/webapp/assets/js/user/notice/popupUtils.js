@@ -2,6 +2,7 @@ const STORAGE_KEYS = {
   SUBJECTS: "learningReportSubjects",
   REPORTS: "learningReportDummyResponse",
   USER_NUMBER: "userNumber",
+  USER_TYPE: "userType",
 };
 
 const ENDPOINTS = {
@@ -327,8 +328,9 @@ export function createWritePopup() {
   const submitBtnEl = popupContainer.querySelector(".button-write");
 
   submitBtnEl.addEventListener("click", async () => {
-    const mentorNumber = Number(sessionStorage.getItem(STORAGE_KEYS.USER_NUMBER));
-
+    const userNumber = Number(sessionStorage.getItem(STORAGE_KEYS.USER_NUMBER));
+	const userType   = sessionStorage.getItem(STORAGE_KEYS.USER_TYPE);
+	
     const {
       subjectNumber,
       subjectTitle,
@@ -339,9 +341,10 @@ export function createWritePopup() {
     await fetch(ENDPOINTS.WRITE, {
       method: "POST",
       body: JSON.stringify({
-        mentorNumber: mentorNumber,
-        subjectNumber: subjectNumber,
-        subjectTitle: subjectTitle,
+        userNumber	  : userNumber,
+		userType	  : userType,
+        subjectNumber : subjectNumber,
+        subjectTitle  : subjectTitle,
         subjectSummary: subjectSummary,
         subjectContent: subjectContent,
       }),

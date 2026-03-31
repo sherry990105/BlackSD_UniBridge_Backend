@@ -11,6 +11,9 @@
 <link href="${pageContext.request.contextPath}/assets/css/fonts.css"
 	rel="stylesheet">
 </head>
+<script type="text/javascript">
+	window.mentorNumber = "${mentor.memberNumber}";
+</script>
 <body>
 	<jsp:include page="/app/user/header.jsp" />
 

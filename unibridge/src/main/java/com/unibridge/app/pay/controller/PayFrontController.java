@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.unibridge.app.Result;
+import com.unibridge.app.member.dto.MemberDTO;
 
 public class PayFrontController extends HttpServlet {
 
@@ -117,13 +118,24 @@ public class PayFrontController extends HttpServlet {
 			conn.setRequestProperty("Authorization", secretKey);
 			conn.setRequestProperty("Content-type", "application/json;charset=utf-8");
 			conn.setDoOutput(true);
-
+			
+			MemberDTO memberDTO = (MemberDTO)session.getAttribute("loginUser");
+			int mentorNumber = Integer.parseInt(request.getParameter("mentorNumber"));
+			int menteeNumber = memberDTO.getMemberNumber();
+			
 			// 2. 동적 URL이 적용된 JSON 생성
-			String jsonParams = String.format("{" + "\"cid\":\"TC0ONETIME\"," + "\"partner_order_id\":\"1001\","
-					+ "\"partner_user_id\":\"unibridge\"," + "\"item_name\":\"%s\"," + "\"quantity\":1,"
-					+ "\"total_amount\":%s," + "\"tax_free_amount\":0," + "\"approval_url\":\"%s/paymentFinish.pay\","
-					+ "\"cancel_url\":\"%s/payment.pay\"," + "\"fail_url\":\"%s/payment.pay\"" + "}", itemName,
-					totalAmount, baseUrl, baseUrl, baseUrl);
+			String jsonParams = String.format("{" + 
+					"\"cid\":\"TC0ONETIME\"," + 
+					"\"partner_order_id\":\"1001\"," + 
+					"\"partner_user_id\":\"unibridge\"," + 
+					"\"item_name\":\"%s\"," + 
+					"\"quantity\":1," + 
+					"\"total_amount\":%s," + 
+					"\"tax_free_amount\":0," + 
+					"\"approval_url\":\"%s/paymentFinish.pay?mentorNumber=%d&menteeNumber=%d\"," + 
+					"\"cancel_url\":\"%s/payment.pay\"," + 
+					"\"fail_url\":\"%s/payment.pay\"" + "}", 
+					itemName, totalAmount, baseUrl, mentorNumber, menteeNumber, baseUrl, baseUrl);
 
 			System.out.println(">>> [JSON 전송 확인]: " + jsonParams);
 

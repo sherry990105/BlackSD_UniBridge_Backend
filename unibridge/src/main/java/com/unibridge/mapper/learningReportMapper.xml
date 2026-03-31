@@ -30,7 +30,7 @@
 		ORDER BY mth.matching_number
 	</select>
 	
-	<select id="selectMatching" parameterType="int" resultType="LrMatchingInfoDTO">
+	<select id="selectMatchingByMentor" parameterType="int" resultType="LrMatchingInfoDTO">
 		SELECT 
 			mth.matching_number AS "matching_number",
 			mth.matching_start	AS "matching_start",
@@ -39,7 +39,19 @@
 			usj.subject_name	AS "subject_name"
 		FROM UB_MATCHING mth LEFT OUTER JOIN UB_SUBJECT usj
 			ON mth.subject_number = usj.subject_number
-		WHERE mth.mentor_number = #{mentorNumber}
+		WHERE mth.mentor_number = #{memberNumber}
+	</select>
+	
+	<select id="selectMatchingByMentee" parameterType="int" resultType="LrMatchingInfoDTO">
+		SELECT 
+			mth.matching_number AS "matching_number",
+			mth.matching_start	AS "matching_start",
+			mth.matching_cancel	AS "matching_end",
+			mth.matching_state	AS "matching_state",
+			usj.subject_name	AS "subject_name"
+		FROM UB_MATCHING mth LEFT OUTER JOIN UB_SUBJECT usj
+			ON mth.subject_number = usj.subject_number
+		WHERE mth.mentee_number = #{memberNumber}
 	</select>
 	
 	<select id="selectSubjects" resultType="LrSubjectDTO">

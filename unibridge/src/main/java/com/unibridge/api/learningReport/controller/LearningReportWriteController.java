@@ -60,13 +60,14 @@ public class LearningReportWriteController implements ApiExecute<String> {
 	    Type type = new TypeToken<Map<String, Object>>() {}.getType();
 	    Map<String, Object> bodyJson = new Gson().fromJson(body, type); 
 	    		
-		int mentorNumber 		= (int)Float.parseFloat(bodyJson.get("mentorNumber").toString());
+		int userNumber 			= (int)Float.parseFloat(bodyJson.get("userNumber").toString());
+		String userType			= bodyJson.get("userType").toString();
 		int subjectNumber 		= (int)Float.parseFloat(bodyJson.get("subjectNumber").toString());
 		String subjectTitle	 	= bodyJson.get("subjectTitle").toString();
 		String subjectSummary	= bodyJson.get("subjectSummary").toString();
 		String subjectContent	= bodyJson.get("subjectContent").toString();
 		
-		LrDetailDTO detailDTO = this.learningReportDAO.selectLrDetail(mentorNumber);
+		LrDetailDTO detailDTO = this.learningReportDAO.selectLrDetail(userNumber, userType);
 		int matchingNumber = detailDTO.getMatchingInfo().getMatchingNumber();
 		
 		Date matchingStart = detailDTO.getMatchingInfo().getMatchingStart();

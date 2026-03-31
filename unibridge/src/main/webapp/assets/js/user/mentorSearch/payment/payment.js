@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalAmount = 10000;
             
             // 현재 위치에서 paymentOk.pay를 호출
-            location.href = `paymentOk.pay?item_name=${itemName}&total_amount=${totalAmount}`;
+            location.href = `paymentOk.pay?item_name=${itemName}&total_amount=${totalAmount}&mentorNumber=${window.mentorNumber}`;
         });
     }
 });

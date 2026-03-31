@@ -1,8 +1,6 @@
 package com.unibridge.app.pay.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -18,6 +16,7 @@ import com.unibridge.app.Execute;
 import com.unibridge.app.Result;
 import com.unibridge.app.pay.dao.PaymentDAO;
 import com.unibridge.app.pay.dto.PaymentDTO;
+import com.unibridge.app.pay.dto.PaymentInsertDTO;
 
 public class PaymentFinishController implements Execute {
 
@@ -26,13 +25,16 @@ public class PaymentFinishController implements Execute {
             throws ServletException, IOException {
         
         Result result = new Result();
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         
         String pgToken = request.getParameter("pg_token");
         String tid = (String) session.getAttribute("tid");
         String secretKey = "SECRET_KEY " + ConfigReader.getProperty("kakao.secret.key");
         
         try {
+        	int mentorNumber = Integer.parseInt(request.getParameter("mentorNumber"));
+        	int menteeNumber = Integer.parseInt(request.getParameter("menteeNumber"));
+        	
             // 카카오 승인 API 호출
             URL url = new URL("https://open-api.kakaopay.com/online/v1/payment/approve");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -68,7 +70,18 @@ public class PaymentFinishController implements Execute {
 
                 // DB Insert (selectKey에 의해 payId가 payInfo에 자동 세팅됨)
                 paymentDAO.insertPayment(payInfo); 
-
+                
+                PaymentInsertDTO paymentInsertDTO = new PaymentInsertDTO();
+                paymentInsertDTO.setMenteeNumber(menteeNumber);
+                paymentInsertDTO.setMentorNumber(mentorNumber);
+                paymentInsertDTO.setPayId((int)payInfo.getPayId());
+                boolean bConnectSuccess= paymentDAO.connectMatching(paymentInsertDTO);
+                if (!bConnectSuccess) {
+                    result.setPath("/index.main");
+                    result.setRedirect(true);
+                    return result;
+                }
+                	
                 // 결과 페이지로 데이터 전달
                 request.setAttribute("payInfo", payInfo);
                 session.removeAttribute("tid");

@@ -64,8 +64,9 @@ public class LearningReportController implements ApiExecute<String> {
 		switch (target) {
 		case  "lr/searchAllReports.rep":
 		case "/lr/searchAllReports.rep":
-			Integer matchingNumber = Integer.parseInt(request.getParameter("mentorNumber"));
-			apiResult = this.getSearchAllReports(apiResult, matchingNumber);
+			Integer memberNumber = Integer.parseInt(request.getParameter("userNumber"));
+			String  memberType 	 = request.getParameter("userType");
+			apiResult = this.getSearchAllReports(apiResult, memberNumber, memberType);
 			break;
 		case  "lr/selectAllSubjects.rep":
 		case "/lr/selectAllSubjects.rep":
@@ -79,8 +80,8 @@ public class LearningReportController implements ApiExecute<String> {
 	private void doPost(HttpServletRequest request, HttpServletResponse response, ApiResult<String> apiResult) {
 	}
 	
-	private ApiResult<String> getSearchAllReports(ApiResult<String> apiResult, int mentorNumber) {
-		LrDetailDTO lrDetailDTO = this.learningReportDAO.selectLrDetail(mentorNumber);
+	private ApiResult<String> getSearchAllReports(ApiResult<String> apiResult, int memberNumber,  String memberType) {
+		LrDetailDTO lrDetailDTO = this.learningReportDAO.selectLrDetail(memberNumber, memberType);
 		if (
 			lrDetailDTO.getReports() == null ||
 			lrDetailDTO.getMatchingInfo() == null

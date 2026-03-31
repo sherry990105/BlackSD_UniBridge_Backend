@@ -19,9 +19,13 @@ public class LearningReportDAO {
 		sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
 	}
 	
-	public LrDetailDTO selectLrDetail(int mentorNumber) {
+	public LrDetailDTO selectLrDetail(int memberNumber, String memberType) {
 		LrDetailDTO lrDetailDTO = new LrDetailDTO();
-		LrMatchingInfoDTO matchingDetailDTO = this.sqlSession.selectOne("api.learningReport.selectMatching", mentorNumber);
+
+		String statement = memberType.toUpperCase().equals("MENTOR") 
+				? "api.learningReport.selectMatchingByMentor"
+				: "api.learningReport.selectMatchingByMentee";
+		LrMatchingInfoDTO matchingDetailDTO = this.sqlSession.selectOne(statement, memberNumber);
 		if (matchingDetailDTO == null) {
 			return lrDetailDTO;
 		}

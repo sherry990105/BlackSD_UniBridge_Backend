@@ -20,6 +20,7 @@
       <typeAlias type="com.unibridge.app.member.dto.MemberDTO" alias="MemberDTO"></typeAlias>
       <!-- <typeAlias type="com.unibridge.app.Board.dto.BoardDTO" alias="BoardDTO"></typeAlias> -->
       <typeAlias type="com.unibridge.app.pay.dto.PaymentDTO" alias="PaymentDTO"></typeAlias>
+      <typeAlias type="com.unibridge.app.pay.dto.PaymentInsertDTO" alias="PaymentInsertDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mentorSearch.dto.MentorSearchDTO" alias="MentorSearchDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.file.dto.FileDTO" alias="FileDTO"></typeAlias>
       <typeAlias type="com.unibridge.app.mypage.survey.dto.SurveyDTO" alias="SurveyDTO"></typeAlias>
