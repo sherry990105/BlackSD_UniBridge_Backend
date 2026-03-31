@@ -317,7 +317,7 @@ export function createWritePopup() {
 
   const learningReportSubjects = getLearningReportSubjects();
 
-  appendStudyLogPopup({
+  const popup = appendStudyLogPopup({
     container: popupContainer,
     type: POPUP_TYPES.WRITE,
     subjects: learningReportSubjects.map(({ subjectName }) => subjectName),
