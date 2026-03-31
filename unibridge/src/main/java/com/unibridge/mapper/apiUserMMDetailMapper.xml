@@ -21,20 +21,22 @@
 		SELECT DISTINCT 
 		    um.member_number,
 		    um.member_name,
-		    NVL(um.member_type, 'UNKNOWN') AS "member_type"
-		    CASE
-		        WHEN um.member_type = 'MENTOR'    THEN mth_mentor.matching_state
-		        WHEN um.member_type = 'MENTEE' 	  THEN mth_mentee.matching_state
-		        WHEN um.member_type = 'NODECIDED' THEN ius.survey_approval
-		        ELSE 'UNKNOWN'
-		    END AS "member_state"
+		    NVL(um.member_type, 'UNKNOWN') AS "member_type",
+		CASE
+		    WHEN um.member_type = 'MENTOR'    THEN mth_mentor.matching_state
+		    WHEN um.member_type = 'MENTEE' 	  THEN mth_mentee.matching_state
+		    WHEN um.member_type = 'NODECIDED' THEN us.survey_approval
+		    ELSE 'UNKNOWN'
+		END AS "member_state"
 		FROM UB_MEMBER um
-		LEFT JOIN UB_MATCHING mth_mentor
+		LEFT OUTER JOIN UB_MATCHING mth_mentor
 		    ON um.member_type = 'MENTOR'
 		   AND um.member_number = mth_mentor.mentor_number
-		LEFT JOIN UB_MATCHING mth_mentee
+		LEFT OUTER JOIN UB_MATCHING mth_mentee
 		    ON um.member_type = 'MENTEE'
 		   AND um.member_number = mth_mentee.mentee_number
+		LEFT OUTER JOIN UB_SURVEY us
+			ON um.member_number = us.member_number
 		WHERE um.member_type IN ('MENTOR', 'MENTEE', 'NODECIDED') 
 			AND um.member_number = #{memberNubmer}
 	</select>

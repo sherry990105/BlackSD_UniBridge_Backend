@@ -91,21 +91,14 @@ function createLearningReport(report) {
   return html;
 }
 
-async function init() {
-	const mentorNumber = sessionStorage.getItem("userNumber");
-	const response = await fetch(`${window.contextPath}/api/user/lr/searchAllReports.rep?mentorNumber=${mentorNumber}`);
-	const responseJson = await response.json();
-	
-	const responseSubjects = await fetch(`${window.contextPath}/api/user/lr/selectAllSubjects.rep`);
-	const responseSubjectsJson = await responseSubjects.json();
-	
+async function initLrLists(mentorNumber, responseJson) {
 	// 학습보고서 컨텐츠에 리스트 삽입
 	const listLrReportContainer = document.querySelector(
 	  ".list-container__inner  " +
 	  ".list-content-container"
 	);
 	listLrReportContainer.innerHTML = createLearningReportGroup(responseJson);
-	
+
 	// 상세보기 버튼 클릭 시 팝업 생성
 	const detailButton = document.querySelectorAll(
 	    ".list-container__inner " + 
@@ -135,6 +128,18 @@ async function init() {
 	modifyButtons.forEach(function(item) {
 	    item.addEventListener('click', (e) => createModifyPopup(e));
 	});
+}
+
+async function init() {
+	const mentorNumber = sessionStorage.getItem("userNumber");
+	const response = await fetch(`${window.contextPath}/api/user/lr/searchAllReports.rep?mentorNumber=${mentorNumber}`);
+	const responseJson = await response.json();
+	
+	const responseSubjects = await fetch(`${window.contextPath}/api/user/lr/selectAllSubjects.rep`);
+	const responseSubjectsJson = await responseSubjects.json();
+	
+	// 학습보고서 컨텐츠 생성
+	await initLrLists(mentorNumber, responseJson);
 	
 	// 새 학습 보고서 작성 클릭 시 팝업 생성
 	const writeButton = document.querySelector(
@@ -184,6 +189,54 @@ async function init() {
 	  item.addEventListener('click', function(event) {
 	    closeDropdownAndSetPlaceHolder(event, item);
 	  });
+	});
+	
+	function isDateInRange(targetDate, startDate = null, endDate = null) {
+	  const target = targetDate ? new Date(targetDate).getTime() : new Date().getTime();
+	  const start  = startDate  ? new Date(startDate).getTime()  : -Infinity;
+	  const end = endDate ? new Date(endDate).getTime() : Infinity;
+
+	  return start <= target && target <= end;
+	}
+	
+	const filterApplyButton = document.querySelector(".filter-apply-button");
+	filterApplyButton?.addEventListener('click', async () => {
+		const learningReportJson = JSON.parse(
+		  sessionStorage.getItem("learningReportDummyResponse")
+		) || {};
+
+		let filterSubject = document.querySelector(".filter-subject-placeholder")?.textContent?.trim() || null;
+		if (filterSubject === "필터링할 과목명을 선택해주세요.") {
+		  filterSubject = null;
+		}
+
+		let filterDate = document.querySelector(".filter-date-placeholder")?.textContent?.trim() || null;
+		let startDate = null;
+		let endDate = null;
+
+		if (filterDate && filterDate !== "기간 선택 · 전체") {
+		  [startDate, endDate] = filterDate.split("~").map(v => v.trim());
+		} else {
+		  filterDate = null;
+		}
+
+		const retLrJson = Object.fromEntries(
+		  Object.entries(learningReportJson).map(([key, value]) => {
+		    const filtered = value.filter((inner) => {
+		      const subjectPass =
+		        filterSubject === null || inner.lrSubjectName === filterSubject;
+
+		      const datePass =
+		        filterDate === null || isDateInRange(inner.lrReportDate, startDate, endDate);
+
+		      return subjectPass && datePass;
+		    });
+
+		    return [key, filtered];
+		  }).filter(([_, value]) => value.length > 0)
+		);
+		
+		await initLrLists(mentorNumber, retLrJson);
 	});
 	
 	sessionStorage.setItem(

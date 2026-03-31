@@ -48,5 +48,6 @@
 		    ON um.member_type = 'MENTEE'
 		   AND um.member_number = mth_mentee.mentee_number
 		WHERE um.member_type IN ('MENTOR', 'MENTEE', 'NODECIDED')
+			AND um.member_state != '계정 삭제'
 	</select>
 </mapper>

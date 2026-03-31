@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		);
 		
 		const respJson = await response.json();
-		if (respJson.state !== "ok") {
-			alert("API에 실패했습니다.");
+		if (respJson.status !== "ok") {
+			alert(respJson.message);
 			return;	
 		}
 		

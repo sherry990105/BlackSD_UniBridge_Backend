@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -80,7 +81,16 @@ public class LearningReportController implements ApiExecute<String> {
 	
 	private ApiResult<String> getSearchAllReports(ApiResult<String> apiResult, int mentorNumber) {
 		LrDetailDTO lrDetailDTO = this.learningReportDAO.selectLrDetail(mentorNumber);
-
+		if (
+			lrDetailDTO.getReports() == null ||
+			lrDetailDTO.getMatchingInfo() == null
+		) {
+			Map<String, String> retMap = new HashMap<String, String>();
+			apiResult.setRawData(new Gson().toJson(retMap));
+			apiResult.setContentType("application/json;charset=UTF-8");
+			return apiResult;
+		}
+		
 		LocalDate matchingStartDate = LearningReportController.toLocalDate(lrDetailDTO.getMatchingInfo().getMatchingStart());
 		Map<Integer, List<LrDTO>> groupedReports = lrDetailDTO.getReports().stream()
 				.map(value -> (LrDTO)value)
