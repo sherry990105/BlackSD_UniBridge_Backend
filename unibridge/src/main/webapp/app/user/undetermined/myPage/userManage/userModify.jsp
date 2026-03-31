@@ -59,7 +59,7 @@
                         <div class="spacer"></div>
                     </div>
 
-                    <form action="${pageContext.request.contextPath}/mvc/auth/mentor/updateOk.my" method="post" id="nicknameForm">
+                    <form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post" id="nicknameForm">
 					    <input type="hidden" name="updateType" value="nickname">
 					    <div class="inputGroup">
 					        <label>닉네임</label>
@@ -70,7 +70,7 @@
 					    </div>
 					</form>
 					
-					<form action="${pageContext.request.contextPath}/mvc/auth/mentor/updateOk.my" method="post" id="pwForm">
+					<form action="${pageContext.request.contextPath}/mvc/auth/undecided/updateOk.my" method="post" id="pwForm">
 					    <input type="hidden" name="updateType" value="password">
 					    <div class="inputGroup">
 					        <label>변경할 비밀번호</label>

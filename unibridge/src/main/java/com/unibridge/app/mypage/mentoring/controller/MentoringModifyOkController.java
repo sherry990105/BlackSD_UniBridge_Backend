@@ -24,7 +24,7 @@ public class MentoringModifyOkController implements Execute {
 		MentoringDTO dto = new MentoringDTO();
 		Result result = new Result();
 
-		// 1. 저장 경로 및 설정 (mentoring 폴더 사용)
+		//저장 경로 및 설정 (mentoring 폴더 사용)
 		String uploadPath = request.getServletContext().getRealPath("/") + "upload/mentoring/";
 		int fileSize = 1024 * 1024 * 10; // 10MB
 
@@ -34,17 +34,17 @@ public class MentoringModifyOkController implements Execute {
 				uploadDir.mkdirs();
 			}
 
-			// 2. MultipartRequest 생성
+			// MultipartRequest 생성
 			MultipartRequest multi = new MultipartRequest(request, uploadPath, fileSize, "UTF-8",
 					new DefaultFileRenamePolicy());
 
-			// 3. 기본 파라미터 수집
+			//기본 파라미터 수집
 			long mentoringNumber = Long.parseLong(multi.getParameter("mentoringNumber"));
 			HttpSession session = request.getSession();
 			long mentorNumber = Long.parseLong(String.valueOf(
 					session.getAttribute("memberNumber") != null ? session.getAttribute("memberNumber") : 21L));
 
-			// 4. [핵심] 파일 수정 로직
+			// 파일 수정 로직
 			Enumeration<String> files = multi.getFileNames();
 			String finalFileName = null;
 
@@ -54,14 +54,19 @@ public class MentoringModifyOkController implements Execute {
 				String originalName = multi.getOriginalFileName(name);
 
 				if (systemName != null) {
-					// 규칙: 현재시간_멤버번호_원본이름
-					finalFileName = System.currentTimeMillis() + "_" + mentorNumber + "_" + originalName;
-
-					File oldFile = new File(uploadPath + systemName);
-					File newFile = new File(uploadPath + finalFileName);
-					oldFile.renameTo(newFile);
-
-					// 기존에 등록된 실제 물리 파일이 있다면 삭제하는 로직을 추가할 수 있습니다.
+				    finalFileName = System.currentTimeMillis() + "_" + mentorNumber + "_" + originalName;
+				    File oldFile = new File(uploadPath + systemName);
+				    File newFile = new File(uploadPath + finalFileName);
+				    
+				    boolean isRenamed = oldFile.renameTo(newFile);
+				    System.out.println("파일 변경 성공 여부: " + isRenamed); // 이게 false면 파일 저장 안 됨
+				    
+				    if(isRenamed) {
+				        dto.setFileOriginalName(finalFileName);
+				    } else {
+				        // 실패했다면 원본 이름이라도 넣어줌 (임시 방편)
+				        dto.setFileOriginalName(systemName);
+				    }
 				}
 			}
 
@@ -70,7 +75,19 @@ public class MentoringModifyOkController implements Execute {
 			dto.setMentoringTitle(multi.getParameter("mentoringTitle"));
 			dto.setMentoringGoal(multi.getParameter("mentoringPurpose"));
 			dto.setMentoringDetail(multi.getParameter("mentoringCurriculum"));
-			dto.setSubjectNumber(Integer.parseInt(multi.getParameter("mentoringSubject")));
+			
+			String subjectParam = multi.getParameter("mentoringSubject");
+			int subjectNumber = 0; // 기본값
+
+			if (subjectParam != null && !subjectParam.isEmpty() && !subjectParam.equals("none")) {
+			    try {
+			        subjectNumber = Integer.parseInt(subjectParam);
+			    } catch (NumberFormatException e) {
+			        // 숫자가 아닐 경우 기본값 유지
+			        subjectNumber = 0; 
+			    }
+			}
+			dto.setSubjectNumber(subjectNumber);
 
 			// 새 파일이 업로드된 경우에만 파일명 세팅
 			if (finalFileName != null) {

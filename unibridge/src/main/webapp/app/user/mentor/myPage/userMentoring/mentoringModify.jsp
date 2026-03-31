@@ -10,10 +10,6 @@
 	href="${pageContext.request.contextPath}/assets/css/fonts.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/user/mentor/myPage/userMentoring/mentoringForm.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/header.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/footer.css">
 </head>
 <body>
 	<jsp:include page="/app/user/header.jsp" />
@@ -66,8 +62,8 @@
 								<div id="mentoringTopics">
 									<div class="subject">
 										<label>학습 과목</label> <select name="mentoringSubject"
-											id="mentoringSubject">
-											<option value="none">선택하세요</option>
+											id="mentoringSubject" required>
+											<option value="">과목을 선택하세요</option>
 											<option value="1"
 												${mentoring.subjectNumber == 1 ? 'selected' : ''}>자바</option>
 											<option value="2"
@@ -110,9 +106,9 @@
 										<div id="curriculumFileTitle">커리큘럼 파일 수정</div>
 										<div class="file-info-area">
 											<c:choose>
-												<c:when test="${not empty mentoring.fileName}">
+												<c:when test="${not empty mentoring.fileOriginalName}">
 													<p>
-														현재 등록된 파일: <strong>${mentoring.fileName}</strong>
+														현재 등록된 파일: <strong>${mentoring.fileOriginalName}</strong>
 													</p>
 												</c:when>
 												<c:otherwise>
@@ -138,7 +134,5 @@
 			</div>
 		</main>
 	</div>
-
-	<jsp:include page="/app/user/footer.jsp" />
 </body>
 </html>
