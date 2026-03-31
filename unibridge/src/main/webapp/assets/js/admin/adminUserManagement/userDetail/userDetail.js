@@ -17,7 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
         openModal("modalSurveyMentor");
       } else if (userType === "멘티") {
         openModal("modalSurveyMentee");
-      }
+      } else {
+		alert("설문조사를 작성하지 않은 회원입니다.");
+	  }
     });
   }
 

@@ -4,7 +4,8 @@
 	<select id="selectUserDetail" parameterType="int" resultType="AdminUserMMDetailDTO">
 		SELECT 
 			t.*,
-			usj.subject_name AS "subject_name"
+			usj.subject_name AS "subject_name",
+			uf.FILE_ORIGINAL_NAME AS "file_name"
 		FROM (
 			SELECT 
 				um.member_number AS "member_number",
@@ -22,18 +23,22 @@
 				usmte.mentee_grade	AS "mte_grade",
 				usmte.mentee_hopeuni	AS "mte_hope_uni",
 				usmte.mentee_hopemajor	AS "mte_hope_major",
+				us.SURVEY_TYPE AS "survey_type",
+				us.FILE_NUMBER  AS "file_number",
 				NVL(usmtr.subject_number, usmte.subject_number) AS "subject_number"
 			FROM UB_MEMBER um 
-			LEFT OUTER JOIN UB_SURVEY_MENTEE usmte
-				ON um.member_type = 'MENTEE'
-				AND um.survey_number = usmte.survey_number
+			LEFT OUTER JOIN UB_SURVEY_MENTEE usmte ON um.survey_number = usmte.survey_number
 			LEFT OUTER JOIN UB_SURVEY_MENTOR usmtr
-				ON um.member_type = 'MENTOR'
-				AND um.survey_number = usmtr.survey_number
+				ON um.survey_number = usmtr.survey_number
+			LEFT OUTER JOIN UB_SURVEY us 
+				ON um.survey_number = us.SURVEY_NUMBER 
+				AND us.SURVEY_APPROVAL = 'P'
 		) t
 		LEFT OUTER JOIN UB_SUBJECT usj
 			ON t."subject_number" = usj.subject_number
 			AND usj.subject_status = '활성'
+		LEFT OUTER JOIN UB_FILE uf 
+			ON t."file_number" = uf.FILE_NUMBER 
 		WHERE t."member_number" = #{memberNumber}
 	</select>
 </mapper>

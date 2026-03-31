@@ -3,12 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const totalJoinCount = document.getElementById("totalJoinCount");
   const joinSubText    = document.getElementById("joinSubText");
-  const todayVisitCount = document.getElementById("todayVisitCount");
+  const boardCount = document.getElementById("boardCount");
   const matchingCount  = document.getElementById("matchingCount");
 
 	totalJoinCount.textContent = `${data.totalUsers} 명`;
 	joinSubText.textContent    = `멘토 ${data.mentorCount}  멘티 ${data.menteeCount}`;
-	todayVisitCount.textContent = `${data.todayVisitors} 명`;
+	boardCount.textContent = `${data.boardCount}개`;
+	boardSubText.textContent    = `멘토 ${data.mentorBoardCount}  멘티 ${data.menteeBoardCount} 공지 ${data.noticeCount}`;
 	matchingCount.textContent  = `${data.matchingCount} 명`;
 
   /*최근 게시글 출력*/

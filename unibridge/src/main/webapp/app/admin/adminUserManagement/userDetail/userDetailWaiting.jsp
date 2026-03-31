@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminUserManagement/userDetail/userModal.css" />
   <script type="text/javascript">
   	window.contextPath = "${pageContext.request.contextPath}";
+  	const surveyType = "${memberDetail.surveyType}";
   </script>
 </head>
 <body>
@@ -82,7 +83,7 @@
           <span class="survey-label">첨부파일</span>
         </div>
         <!-- 백엔드 연동 시 data-file 값으로 파일명 교체 -->
-        <div class="survey-file-box" data-field="file">ex) 졸업증명서.pdf</div>
+        <div class="survey-file-box" data-field="file">${memberDetail.fileName}</div>
       </div>
     </div>
   </div>
@@ -114,7 +115,7 @@
         <div class="survey-row survey-row--file">
           <span class="survey-label">첨부파일</span>
         </div>
-        <div class="survey-file-box" data-field="file">ex) 고등학교증명서.pdf</div>
+        <div class="survey-file-box" data-field="file">${memberDetail.fileName}</div>
       </div>
     </div>
   </div>

@@ -32,12 +32,35 @@ public class AdMainDAO {
 	      int menteeTotal = sqlSession.selectOne("admin.menteetotal");
 	      return menteeTotal;
 	   }
+
+	   //멘티게시판 총합
+	   public int menteeBoardTotal() {
+		   return sqlSession.selectOne("admin.menteeboardtotal");
+		   
+	   }
+	   //멘토게시판 총합
+	   public int mentorBoardTotal() {
+		   return sqlSession.selectOne("admin.mentorboardtotal");
+		   
+	   }
+	   
+	   //공지게시판 총합
+	   public int noticeTotal() {
+		   return sqlSession.selectOne("admin.noticetotal");
+		   
+	   }
+	   
+	   //게시판 총합
+	   public int boardTotal() {
+		   return menteeBoardTotal() +  mentorBoardTotal() + noticeTotal();
+	   }
 	   
 	   //매칭 총합
 	   public int matchingTotal() {
 		   int totalMatching = sqlSession.selectOne("admin.matchingtotal");
 		   return totalMatching;
 	   }
+	   
 	   
 	   //최신 게시판
 	   public List<AdMainDTO> recentboard() {

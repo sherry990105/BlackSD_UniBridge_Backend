@@ -42,8 +42,6 @@ public class PayLogController implements Execute{
 
 	    PaymentDAO dao = new PaymentDAO();
 	    PaymentDTO payLog = dao.selectLatestPaymentByMember(loginUser.getMemberNumber());
-	    System.out.println(payLog.getMatchingNumber());
-	    System.out.println(payLog.getMemberNumber());
 
 	    // 핵심 분기
 	    if (payLog == null) {
@@ -52,6 +50,8 @@ public class PayLogController implements Execute{
 	        outResult.setRedirect(false);
 	        return;
 	    }
+	    System.out.println(payLog.getMatchingNumber());
+	    System.out.println(payLog.getMemberNumber());
 
 	    // 결제 내역 있음
 	    request.setAttribute("payLog", payLog);

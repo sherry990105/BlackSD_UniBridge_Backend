@@ -76,9 +76,22 @@ public class AdminUserMMDetailWaitController implements Execute {
 		default: memberGender = "선택 안함";
 		}
 		
+		String surveyType = adminUserMMDetailDTO.getSurveyType();
+		switch(surveyType) {
+		case "MENTOR" : surveyType = "멘토";
+			break;
+		case "MENTEE" : surveyType = "멘티";
+			break;
+		default: surveyType = "미정";
+		}
+		
+		String fileName = adminUserMMDetailDTO.getFileName();
+		
 		adminUserMMDetailDTO.setMemberType(memberType);
 		adminUserMMDetailDTO.setMemberPhone(memberPhone.toString());
 		adminUserMMDetailDTO.setMemberGender(memberGender);
+		adminUserMMDetailDTO.setSurveyType(surveyType);
+		adminUserMMDetailDTO.setFileName(fileName);
 		httpSession.setAttribute("memberDetail", adminUserMMDetailDTO);
 		
 		result.setRedirect(false);

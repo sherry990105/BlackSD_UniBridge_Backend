@@ -35,11 +35,30 @@
 		SELECT count(*) FROM
 		UB_MEMBER WHERE MEMBER_TYPE = 'MENTEE'
 	</select>
+	<!-- 멘티 게시글 갯수 -->
+	<select id="menteeboardtotal" resultType="int">
+		SELECT count(*) FROM UB_MENTEE_BOARD
+	</select>
+	
+	<!-- 멘토 게시글 갯수 -->
+	<select id="mentorboardtotal" resultType="int">
+		SELECT count(*) FROM UB_MENTOR_BOARD
+	</select>
+	
+	
+	<!-- 공지 게시글 갯수 -->
+	<select id="noticetotal" resultType="int">
+		SELECT count(*) FROM UB_NOTICEBOARD
+	</select>
+	
+
+
 	<!-- 현재 매칭 전체 -->
 	<select id="matchingtotal" resultType="int">
 		SELECT count(*) FROM
 		UB_MATCHING WHERE MATCHING_STATE = '매칭중'
 	</select>
+
 
 	<!-- 최신 게시판 -->
 	<select id="recentboard" resultType="AdMainDTO">

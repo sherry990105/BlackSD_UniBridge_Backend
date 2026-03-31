@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
      유저 유형 파악
      백엔드 연동 시: fetch("/api/user/{id}") 로 유형 받아와서 userType 교체
   ======================== */
-  const userTypeBadge = document.getElementById("userType");
-  const userType = userTypeBadge?.textContent.trim(); // "멘토" or "멘티"
+ /* const userTypeBadge = document.getElementById("userType");
+  const userType = userTypeBadge?.textContent.trim(); // "멘토" or "멘티"*/
 
   /* ========================
      설문조사 확인 버튼
@@ -14,11 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnSurvey = document.getElementById("btnSurvey");
   if (btnSurvey) {
     btnSurvey.addEventListener("click", () => {
-      if (userType === "멘토") {
+      if (surveyType === "멘토") {
         openModal("modalSurveyMentor");
-      } else if (userType === "멘티") {
+      } else if (surveyType === "멘티") {
         openModal("modalSurveyMentee");
-      }
+      }else{
+		alert("설문조사를 작성하지 않았습니다.")
+	  }
     });
   }
 

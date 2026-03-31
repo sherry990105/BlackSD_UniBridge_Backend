@@ -38,8 +38,9 @@
 		LEFT OUTER JOIN UB_SURVEY us
 			ON um.member_number = us.member_number
 		WHERE um.member_type IN ('MENTOR', 'MENTEE', 'NODECIDED') 
-			AND um.member_number = #{memberNubmer}
+			AND um.member_number = #{memberNumber}
 	</select>
+	
 	
 	<update id="updateAcceptTrue" parameterType="int">
 		UPDATE UB_SURVEY us

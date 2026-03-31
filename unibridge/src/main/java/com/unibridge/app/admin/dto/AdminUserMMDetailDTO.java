@@ -19,6 +19,9 @@ public class AdminUserMMDetailDTO {
 	private String mteHopeUni;
 	private String mteHopeMajor;
 	
+	private String surveyType;
+	private String fileName;
+	
 	private String subjectName;
 
 	public AdminUserMMDetailDTO() {
@@ -154,5 +157,21 @@ public class AdminUserMMDetailDTO {
 	}
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
+	}
+
+	public String getSurveyType() {
+		return surveyType;
+	}
+
+	public void setSurveyType(String surveyType) {
+		this.surveyType = surveyType;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }
