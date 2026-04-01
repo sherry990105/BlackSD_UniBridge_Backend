@@ -40,7 +40,7 @@
 				<li class="list-user-content">
 	                <div class="user-title-container">
 	                  <span class="user-title-date">
-	                  	<c:out value ="${matching.matchingStart}" />
+	                  	<c:out value ="${matching.matchingCancel}" />
 	                  </span>
 	                  
 	                  <span class="user-detail" data-matching-number="${matching.matchingNumber}">매칭 상세</span>

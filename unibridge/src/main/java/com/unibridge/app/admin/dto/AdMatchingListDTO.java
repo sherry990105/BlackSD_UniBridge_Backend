@@ -4,6 +4,7 @@ public class AdMatchingListDTO {
 	
 	private int matchingNumber;
 	private String matchingStart;
+	private String matchingCancel;
 	private String matchingState;
 	private int mentorNumber;
 	private String mentorName;
@@ -41,6 +42,12 @@ public class AdMatchingListDTO {
 	}
 	public void setMatchingState(String matchingState) {
 		this.matchingState = matchingState;
+	}
+	public String getMatchingCancel() {
+		return matchingCancel;
+	}
+	public void setMatchingCancel(String matchingCancel) {
+		this.matchingCancel = matchingCancel;
 	}
 
 	

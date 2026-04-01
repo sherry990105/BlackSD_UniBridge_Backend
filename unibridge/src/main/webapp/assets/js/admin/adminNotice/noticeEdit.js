@@ -1,13 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   const writeForm = document.getElementById("writeForm");
-    writeForm.addEventListener("submit", () => {
+    writeForm.addEventListener("submit", (event) => {
       const title = document.getElementById("inputTitle").value.trim();
       const content = document.getElementById("inputContent").value.trim();
-      if (!title) { alert("제목을 입력해주세요."); return; }
-      if (!content) { alert("내용을 입력해주세요."); return; }
+	  
+	event.preventDefault();
+      if (!title) { 
+		alert("제목을 입력해주세요."); 
+		return; }
+	  
+      if (!content) { 
+		alert("내용을 입력해주세요."); 
+		return; }
 
-	  writeForm.submit();
+	 writeForm.submit();
 	  
 	  
     });

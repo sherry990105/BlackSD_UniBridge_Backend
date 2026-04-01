@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   
-/*  const commentDelBtn = document.querySelectorAll(".commentDelBtn");
+  const commentDelBtn = document.querySelectorAll(".commentDelBtn");
   commentDelBtn.forEach((element)=>{
 	const commentNumber = element.dataset.commentNumber;
 	element.addEventListener("click", () => {
@@ -41,6 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 		
 	})
-  })*/
+  })
   
 });

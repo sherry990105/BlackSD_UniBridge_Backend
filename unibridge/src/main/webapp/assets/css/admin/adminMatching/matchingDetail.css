@@ -306,6 +306,7 @@ div[class$="icon"] img {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top : 50px;
 }
 
 .content-container 
@@ -343,7 +344,6 @@ div[class$="icon"] img {
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 20px;
 
   font-family: 'NanumSquareRound';
@@ -402,7 +402,7 @@ div[class$="icon"] img {
 .match-cancel-desc-container
 .match-cancel-desc-content {
   width: 100%;
-  height: 88px;
+  height: 200px;
   flex: 1;
 
   box-sizing: border-box;
@@ -414,15 +414,14 @@ div[class$="icon"] img {
 
   font-family: 'NanumSquareRound';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 400px;
+  font-size : 20px;
   line-height: 23px;
 
   color: #736969;
+  resize : none;
 }
 
-.match-cancel-desc-content{
-	resize : none;
-}
 
 .content-container 
 .match-config-detail-container
