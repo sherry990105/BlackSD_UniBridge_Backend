@@ -268,32 +268,23 @@
 	<!-- 멘토 상세 조회 -->
 	<select id="mentorSelectOne" resultType="AdMentorBoardDTO">
 		SELECT
-		UMB.mentorboard_number, UMB.BOARD_TITLE , UMB.BOARD_CONTENT ,
-		UMB.BOARD_CONTENT , UMB.BOARD_CLICK , UMB.board_date, UF.FILE_NAME,
+		UMB.mentorboard_number, UMB.BOARD_TITLE , UMB.BOARD_CONTENT, UMB.BOARD_CLICK , UMB.board_date, UF.FILE_NAME,
 		CASE
-		WHEN umb.admin_number IS NOT NULL THEN ua.admin_Nickname
-		WHEN
-		umb.MEMBER_number IS NOT NULL THEN um.MEMBER_nickname
-		END AS
-		"write_nickname",
+			WHEN umb.admin_number IS NOT NULL THEN ua.admin_Nickname
+			WHEN umb.MEMBER_number IS NOT NULL THEN um.MEMBER_nickname
+		END AS "write_nickname",
 		CASE
-		WHEN umb.admin_number IS NOT NULL THEN
-		ua.admin_number
-		WHEN umb.MEMBER_number IS NOT NULL THEN
-		um.MEMBER_number
-		END AS
-		"write_number"
+			WHEN umb.admin_number IS NOT NULL THEN ua.admin_number
+			WHEN umb.MEMBER_number IS NOT NULL THEN um.MEMBER_number
+		END AS "write_number"
 		FROM UB_MENTOR_BOARD UMB
-		LEFT JOIN
-		UB_MEMBER UM ON
-		UMB.member_number = UM.member_number
-		LEFT JOIN UB_ADMIN
-		UA ON
-		UMB.admin_number = UA.admin_number
-		LEFT JOIN UB_FILE UF ON
-		UMB.FILE_NUMBER = UF.FILE_NUMBER
-		WHERE UMB.MENTORBOARD_NUMBER =
-		#{boardNumber}
+		LEFT JOIN UB_MEMBER UM 
+		ON UMB.member_number = UM.member_number
+		LEFT JOIN UB_ADMIN UA
+		ON UMB.admin_number = UA.admin_number
+		LEFT JOIN UB_FILE UF 
+		ON UMB.FILE_NUMBER = UF.FILE_NUMBER
+		WHERE UMB.MENTORBOARD_NUMBER = #{boardNumber}
 	</select>
 
 	<!-- 멘토 게시판 작성 -->

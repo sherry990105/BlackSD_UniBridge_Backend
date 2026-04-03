@@ -4,7 +4,6 @@ public class AdMenteeBoardListDTO {
 	
 	private int menteeboardNumber;
 	private String boardTitle;
-	private String boardContent;
 	private int boardClick;
 	private String boardDate;
 	private String writeNickname;
@@ -15,9 +14,6 @@ public class AdMenteeBoardListDTO {
 	}
 	public String getBoardTitle() {
 		return boardTitle;
-	}
-	public String getBoardContent() {
-		return boardContent;
 	}
 	public int getBoardClick() {
 		return boardClick;

@@ -29,7 +29,7 @@ public class AdminMenteeBoardDetailController implements Execute {
 		String boardNumberStr = request.getParameter("boardNumber");
 		if(boardNumberStr == null || boardNumberStr.trim().isEmpty()) {
 			System.out.println("boardNumber 값이 없습니다");
-			result.setPath("/app/admin/adminBoard/menteeBoard/menteeBoardList.jsp"); //게시글 목록 페이지로 리다이렉트
+			result.setPath("/app/admin/adminBoard/menteeBoard/menteeBoardList.admin"); //게시글 목록 페이지로 리다이렉트
 			result.setRedirect(true);
 			return result;
 		}
@@ -41,19 +41,20 @@ public class AdminMenteeBoardDetailController implements Execute {
 		
 		//DB에서 게시글 가져오기
 		AdMenteeBoardDTO boardDTO = boardDAO.selectPage(boardNumber);
+
+		//게시글이 존재하지 않을 경우
+		if(boardDTO == null) {
+			System.out.println("존재하지 않는 게시물입니다." + boardNumber);
+			result.setPath("/app/board/boardList.admin");
+			result.setRedirect(true);
+			return result;
+		}
 		
 		System.out.println("boardTitle : " + boardDTO.getBoardTitle());
 		System.out.println("boardContent : " + boardDTO.getBoardContent());
 		System.out.println("WriteNumber : " + boardDTO.getWriteNumber());
 		System.out.println("boardTitle : " + boardDTO.getBoardTitle());
 		
-		//게시글이 존재하지 않을 경우
-		if(boardDTO == null) {
-			System.out.println("존재하지 않는 게시물입니다." + boardNumber);
-			result.setPath("/app/board/boardList.jsp");
-			result.setRedirect(true);
-			return result;
-		}
 		
 		// 해당 게시글으 ㅣ댓글 리스트 가져오기
 		List<AdMenteeBoardCommentDTO> commentList = boardDAO.selectComments(boardNumber);

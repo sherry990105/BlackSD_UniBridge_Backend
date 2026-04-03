@@ -34,7 +34,7 @@ public class AdminMainController implements Execute{
       data.put("mentorBoardCount",adMainDAO.mentorBoardTotal());
       data.put("noticeCount",adMainDAO.noticeTotal());
       data.put("boardCount",adMainDAO.boardTotal());
-      data.put("todayVisitors", 58);
+      
       
       List<AdMainDTO> boardList = adMainDAO.recentboard();
       List<AdMainDTO> memberList = adMainDAO.recentmember();
