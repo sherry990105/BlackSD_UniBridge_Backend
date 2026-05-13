@@ -2,12 +2,10 @@ package com.unibridge.app.member.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -32,7 +30,7 @@ public class MentorDeleteController implements Execute{
             result.setRedirect(false);
             return result;
         } else {
-            // POST 방식: AJAX 인증 처리 (mode에 따라 분기)
+            // POST 방식: 인증 처리 (mode에 따라 분기)
             String mode = request.getParameter("mode");
             response.setContentType("text/plain; charset=utf-8");
 

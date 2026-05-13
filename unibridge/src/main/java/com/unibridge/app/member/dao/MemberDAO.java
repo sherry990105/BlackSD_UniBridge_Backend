@@ -188,4 +188,10 @@ public class MemberDAO {
         // memberMapper.xml (또는 해당 namespace)의 updateMemberSurveyNumber 쿼리 호출
         sqlSession.update("member.updateMemberSurveyNumber", map);
     }
+
+	public void updateMemberState(int memberNumber) {
+		// TODO Auto-generated method stub
+		sqlSession.update("member.updateMemberState", memberNumber);
+	}
+
 }

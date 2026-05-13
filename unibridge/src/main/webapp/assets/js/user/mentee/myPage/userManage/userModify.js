@@ -25,8 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // --- 프로필 이미지 변경 로직 끝 ---
 
-    // 2. 닉네임 중복 확인 (AJAX)
-	// 1) 닉네임 입력값이 변경되면 중복 확인 상태 초기화 (필수!)
+    // 2. 닉네임 중복 확인 
+	// 1) 닉네임 입력값이 변경되면 중복 확인 상태 초기화
 	const nickInput = document.getElementById('memberNickname');
 	if(nickInput) {
 	    nickInput.addEventListener('input', () => {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    });
 	}
 
-    // 2) 닉네임 중복 확인 (AJAX)
+    // 2) 닉네임 중복 확인 
 	window.checkNick = function() {
 	    const nick = document.getElementById('memberNickname').value.trim();
 	    const errorMsg = document.getElementById('nickErrorMsg');

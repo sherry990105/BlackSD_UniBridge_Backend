@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. 인증번호 확인 (AJAX)
+    // 2. 인증번호 확인
     verifyBtn.addEventListener('click', () => {
         const code = document.getElementById('authNum').value.trim();
 

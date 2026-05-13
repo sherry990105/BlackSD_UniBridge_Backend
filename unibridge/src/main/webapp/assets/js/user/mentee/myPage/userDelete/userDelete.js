@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (data.trim() === "success") {
                 // 전송 성공 시 알람
-                alert("인증번호가 발송되었습니다. 콘솔창 혹은 휴대폰을 확인해주세요.");
+                alert("인증번호가 발송되었습니다.");
             } else {
                 // 전송 실패 시 알람 (잔액 부족 등)
                 alert("인증번호 발송에 실패하였습니다. 다시 시도해주세요.");
