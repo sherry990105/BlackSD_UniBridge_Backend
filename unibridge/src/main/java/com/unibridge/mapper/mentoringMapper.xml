@@ -2,102 +2,98 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mentoring">
 
-	<select id="select" parameterType="long"
-		resultType="MentoringDTO">
-		SELECT
-		m.MENTORING_NUMBER as mentoringNumber,
-		m.MENTOR_NUMBER as mentorNumber,
-		m.SUBJECT_NUMBER as subjectNumber,
-		m.MENTORING_TITLE as mentoringTitle,
-		m.MENTORING_GOAL as mentoringGoal,
-		m.MENTORING_DETAIL as mentoringDetail,
-		m.FILE_NUMBER as fileNumber,
-		f.FILE_ORIGINAL_NAME as fileOriginalName FROM UB_MENTORING m
-		LEFT JOIN
-		UB_FILE f ON m.FILE_NUMBER = f.FILE_NUMBER
-		WHERE m.MENTORING_NUMBER =
-		#{mentoringNumber}
-	</select>
+    <!-- 멘토링 단건 조회 -->
+    <select id="select" parameterType="long" resultType="MentoringDTO">
+        SELECT
+            m.MENTORING_NUMBER    AS mentoringNumber,
+            m.MENTOR_NUMBER       AS mentorNumber,
+            m.SUBJECT_NUMBER      AS subjectNumber,
+            m.MENTORING_TITLE     AS mentoringTitle,
+            m.MENTORING_GOAL      AS mentoringGoal,
+            m.MENTORING_DETAIL    AS mentoringDetail,
+            m.FILE_NUMBER         AS fileNumber,
+            f.FILE_ORIGINAL_NAME  AS fileOriginalName
+        FROM UB_MENTORING m
+        LEFT JOIN UB_FILE f ON m.FILE_NUMBER = f.FILE_NUMBER
+        WHERE m.MENTORING_NUMBER = #{mentoringNumber}
+    </select>
 
-	<insert id="insert" parameterType="MentoringDTO">
-		<selectKey keyProperty="fileNumber" resultType="long"
-			order="BEFORE">
-			SELECT NVL(MAX(FILE_NUMBER), 0) + 1 FROM UB_FILE
-		</selectKey>
+    <!-- 멘토링 등록 -->
+    <!-- 원본의 multi-statement(@new_file_number) → useGeneratedKeys로 파일 PK를 DTO에 받아 처리 -->
+    <!-- Step 1: 파일 먼저 insert → keyProperty로 fileNumber DTO에 자동 세팅 -->
+    <insert id="insertFile" parameterType="MentoringDTO"
+            useGeneratedKeys="true" keyProperty="fileNumber" keyColumn="FILE_NUMBER">
+        INSERT INTO UB_FILE (
+            FILE_NAME,
+            FILE_ORIGINAL_NAME,
+            FILE_EXTENSION,
+            FILE_SIZE,
+            FILE_PATH
+        ) VALUES (
+            #{fileOriginalName},
+            #{fileOriginalName},
+            #{fileExtension},
+            #{fileSize},
+            '/upload/mentoring/'
+        )
+    </insert>
 
-		INSERT ALL
-		INTO UB_FILE (
-		FILE_NUMBER,
-		FILE_NAME,
-		FILE_ORIGINAL_NAME,
-		FILE_EXTENSION,
-		FILE_SIZE,
-		FILE_PATH
-		) VALUES (
-		#{fileNumber},
-		#{fileOriginalName}, #{fileOriginalName}, #{fileExtension},
-		#{fileSize},
-		'/upload/mentoring/'
-		)
-		INTO UB_MENTORING (
-		MENTORING_NUMBER,
-		MENTOR_NUMBER,
-		SUBJECT_NUMBER,
-		MENTORING_TITLE,
-		MENTORING_GOAL,
-		MENTORING_DETAIL,
-		FILE_NUMBER,
-		CREATED_AT,
-		UPDATED_AT
-		) VALUES (
-		(SELECT NVL(MAX(MENTORING_NUMBER), 0) + 1 FROM UB_MENTORING),
-		#{mentorNumber},
-		#{subjectNumber},
-		#{mentoringTitle},
-		#{mentoringGoal},
-		#{mentoringDetail},
-		#{fileNumber},
-		CURRENT_TIMESTAMP,
-		CURRENT_TIMESTAMP
-		)
-		SELECT * FROM DUAL
-	</insert>
+    <!-- Step 2: 파일 insert 후 fileNumber가 세팅된 DTO로 멘토링 insert -->
+    <insert id="insert" parameterType="MentoringDTO">
+        INSERT INTO UB_MENTORING (
+            MENTOR_NUMBER,
+            SUBJECT_NUMBER,
+            MENTORING_TITLE,
+            MENTORING_GOAL,
+            MENTORING_DETAIL,
+            FILE_NUMBER,
+            CREATED_AT,
+            UPDATED_AT
+        ) VALUES (
+            #{mentorNumber},
+            #{subjectNumber},
+            #{mentoringTitle},
+            #{mentoringGoal},
+            #{mentoringDetail},
+            #{fileNumber},
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
+        )
+    </insert>
 
-	<update id="update" parameterType="MentoringDTO">
-		UPDATE UB_MENTORING
-		SET
-		SUBJECT_NUMBER = #{subjectNumber},
-		MENTORING_TITLE = #{mentoringTitle},
-		MENTORING_GOAL = #{mentoringGoal},
-		MENTORING_DETAIL = #{mentoringDetail},
-		<if test="fileNumber != null">
-			FILE_NUMBER = #{fileNumber},
-		</if>
-		UPDATED_AT = CURRENT_TIMESTAMP
-		WHERE MENTORING_NUMBER =
-		#{mentoringNumber}
-	</update>
+    <!-- 멘토링 수정 -->
+    <!-- fileNumber null 여부에 따라 동적으로 FILE_NUMBER 업데이트 -->
+    <update id="update" parameterType="MentoringDTO">
+        UPDATE UB_MENTORING
+        SET SUBJECT_NUMBER  = #{subjectNumber},
+            MENTORING_TITLE = #{mentoringTitle},
+            MENTORING_GOAL  = #{mentoringGoal},
+            MENTORING_DETAIL = #{mentoringDetail},
+            <if test="fileNumber != null">
+            FILE_NUMBER     = #{fileNumber},
+            </if>
+            UPDATED_AT      = CURRENT_TIMESTAMP
+        WHERE MENTORING_NUMBER = #{mentoringNumber}
+    </update>
 
-	<delete id="delete" parameterType="long">
-		DELETE FROM UB_MENTORING
-		WHERE
-		MENTORING_NUMBER = #{mentoringNumber}
-	</delete>
+    <!-- 멘토링 삭제 -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM UB_MENTORING
+        WHERE MENTORING_NUMBER = #{mentoringNumber}
+    </delete>
 
-	<select id="checkAlreadyExists" parameterType="long"
-		resultType="int">
-		SELECT COUNT(*)
-		FROM UB_MENTORING
-		WHERE MENTOR_NUMBER =
-		#{mentorNumber}
-	</select>
+    <!-- 멘토링 등록 여부 확인 -->
+    <select id="checkAlreadyExists" parameterType="long" resultType="int">
+        SELECT COUNT(*)
+        FROM UB_MENTORING
+        WHERE MENTOR_NUMBER = #{mentorNumber}
+    </select>
 
-	<select id="getMentoringNumberByMentor" parameterType="long"
-		resultType="long">
-		SELECT MENTORING_NUMBER
-		FROM UB_MENTORING
-		WHERE MENTOR_NUMBER
-		= #{mentorNumber}
-	</select>
+    <!-- 멘토 번호로 멘토링 번호 조회 -->
+    <select id="getMentoringNumberByMentor" parameterType="long" resultType="long">
+        SELECT MENTORING_NUMBER
+        FROM UB_MENTORING
+        WHERE MENTOR_NUMBER = #{mentorNumber}
+    </select>
 
 </mapper>

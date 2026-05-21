@@ -2,65 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="main">
 
+    <!-- 진행중인 공모전 목록 조회 (최대 10건) -->
     <select id="getContestList" resultType="com.unibridge.app.main.dto.MainDTO$ContestDTO">
-        SELECT *
-        FROM (
-            SELECT
-                c.contest_number,
-                title,
-                detail,
-                start_date AS startDate,
-                end_date AS endDate,
-                host_company AS hostCompany,
-                tech_stack AS techStack,
-                status
-            FROM UB_CONTEST c
-            join UB_NOTICEBOARD n ON c.contest_number = n.contest_number
-            WHERE status = '진행중'
-            ORDER BY end_date ASC
-        )
-        <![CDATA[
-        WHERE ROWNUM <= 10
-        ]]>
+        SELECT
+            c.contest_number,
+            title,
+            detail,
+            start_date    AS startDate,
+            end_date      AS endDate,
+            host_company  AS hostCompany,
+            tech_stack    AS techStack,
+            status
+        FROM UB_CONTEST c
+        JOIN UB_NOTICEBOARD n ON c.contest_number = n.contest_number
+        WHERE status = '진행중'
+        ORDER BY end_date ASC
+        LIMIT 10
     </select>
 
-<select id="getMentorCardList" resultType="com.unibridge.app.main.dto.MainDTO$MentorCardDTO">
-    SELECT *
-    FROM (
+    <!-- 멘토 카드 목록 조회 (최신순 7건) -->
+    <select id="getMentorCardList" resultType="com.unibridge.app.main.dto.MainDTO$MentorCardDTO">
         SELECT
-            m.MENTORING_NUMBER AS mentoringNumber, 
-            m.MENTOR_NUMBER    AS memberNumber,   /* 상세페이지가 기대하는 이름으로 별칭 */
+            m.MENTORING_NUMBER AS mentoringNumber,
+            m.MENTOR_NUMBER    AS memberNumber,
             m.MENTORING_TITLE  AS mentoringTitle,
             m.MENTORING_GOAL   AS mentoringGoal,
             s.subject_name     AS subjectName,
-            mb.member_name AS memberName,
+            mb.member_name     AS memberName,
             mb.member_gender   AS memberGender,
             f.file_name        AS fileName,
             sm.grad_school     AS gradSchool,
             sm.grad_depart     AS gradDepart
         FROM UB_MENTORING m
-        JOIN UB_MEMBER mb ON m.MENTOR_NUMBER = mb.member_number
-        LEFT JOIN UB_SUBJECT s ON m.SUBJECT_NUMBER = s.subject_number
-        LEFT JOIN UB_FILE f ON mb.file_number = f.file_number
+        JOIN UB_MEMBER mb         ON m.MENTOR_NUMBER  = mb.member_number
+        LEFT JOIN UB_SUBJECT s    ON m.SUBJECT_NUMBER = s.subject_number
+        LEFT JOIN UB_FILE f       ON mb.file_number   = f.file_number
         LEFT JOIN UB_SURVEY_MENTOR sm ON mb.survey_number = sm.survey_number
         WHERE mb.member_state = '계정 활성화'
         ORDER BY m.CREATED_AT DESC
-    )
-    <![CDATA[ WHERE ROWNUM <= 7 ]]>
-</select>
+        LIMIT 7
+    </select>
 
-<select id="getCompanyList" resultType="com.unibridge.app.main.dto.MainDTO$CompanyDTO">
-    SELECT
-        employment_id        AS employmentId,
-        company_name         AS companyName,
-        employment_title     AS employmentTitle,
-        employment_location  AS employmentLocation,
-        employment_career    AS employmentCareer,
-        employment_education AS employmentEducation,
-        employment_log       AS employmentLog,
-        employment_url       AS employmentUrl
-    FROM UB_COMPANY
-    ORDER BY employment_id DESC
-</select>
+    <!-- 채용 공고 목록 조회 (최신순) -->
+    <select id="getCompanyList" resultType="com.unibridge.app.main.dto.MainDTO$CompanyDTO">
+        SELECT
+            employment_id        AS employmentId,
+            company_name         AS companyName,
+            employment_title     AS employmentTitle,
+            employment_location  AS employmentLocation,
+            employment_career    AS employmentCareer,
+            employment_education AS employmentEducation,
+            employment_log       AS employmentLog,
+            employment_url       AS employmentUrl
+        FROM UB_COMPANY
+        ORDER BY employment_id DESC
+    </select>
 
 </mapper>

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="api.learningReportModify">
-	<update id="update" parameterType="LrModifyDTO">
-		UPDATE UB_LEARNING_REPORT
-		SET
-		    SUBJECT_NUMBER   = #{lrSubjectNumber},
-		    SUBJECT_TITLE    = #{lrSubjectTitle},
-		    SUBJECT_SUMMARY  = #{lrSubjectSummary},
-		    SUBJECT_CONTENT  = #{lrSubjectContent},
-		    UPDATED_AT       = SYSTIMESTAMP
-		WHERE REPORT_NUMBER = #{lrReportNumber}
-	</update>
+ 
+    <!-- 학습 보고서 수정 -->
+    <!-- CURRENT_TIMESTAMP → MySQL 동일하게 사용 가능 (NOW()도 동일) -->
+    <update id="update" parameterType="LrModifyDTO">
+        UPDATE UB_LEARNING_REPORT
+        SET SUBJECT_NUMBER  = #{lrSubjectNumber},
+            SUBJECT_TITLE   = #{lrSubjectTitle},
+            SUBJECT_SUMMARY = #{lrSubjectSummary},
+            SUBJECT_CONTENT = #{lrSubjectContent},
+            UPDATED_AT      = CURRENT_TIMESTAMP
+        WHERE REPORT_NUMBER = #{lrReportNumber}
+    </update>
+ 
 </mapper>

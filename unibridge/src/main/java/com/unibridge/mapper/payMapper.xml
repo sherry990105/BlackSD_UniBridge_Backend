@@ -2,37 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pay">
 
+	<!-- [INSERT] 결제 정보 등록 (MySQL AUTO_INCREMENT 활용) -->
 	<insert id="insertPayment" parameterType="paymentDTO"
-		useGeneratedKeys="true" keyProperty="id">
-		<selectKey keyProperty="payId" resultType="long" 
-			order="BEFORE">
-			SELECT SEQ_PAY.NEXTVAL FROM DUAL
-		</selectKey>
-		
+		useGeneratedKeys="true" keyProperty="payId">
 		INSERT INTO UB_PAY (
-		pay_id,
-		pay_amount,
-		pay_method,
-		pay_date,
-		pay_status
+			pay_amount,
+			pay_method,
+			pay_date,
+			pay_status
 		)
 		VALUES (
-		#{payId},
-		#{payAmount},
-		#{payMethod},
-		SYSDATE,
-		#{payStatus}
+			#{payAmount},
+			#{payMethod},
+			NOW(),
+			#{payStatus}
 		)
 	</insert>
 	
+	<!-- [INSERT] 매칭 정보 등록 -->
 	<insert id="connectMatchingIfSucceed" parameterType="paymentInsertDTO">
-		INSERT INTO UB_MATCHING
+		INSERT INTO UB_MATCHING (
+			matching_start,
+			matching_state,
+			mentor_number,
+			mentee_number,
+			subject_number,
+			pay_id,
+			matching_cancel,
+			matching_can_reason
+		)
 		VALUES (
-			SEQ_MATCHING.nextval, 
-			SYSDATE, 
-			'매칭중', 
-			#{mentorNumber}, 
-			#{menteeNumber}, 
+			NOW(),
+			'매칭중',
+			#{mentorNumber},
+			#{menteeNumber},
 			(SELECT usm.subject_number
 		 	 FROM UB_MEMBER um 
 			 LEFT OUTER JOIN UB_SURVEY_MENTOR usm
@@ -44,82 +47,67 @@
 		)
 	</insert>
 
+	<!-- [SELECT] 회원의 최근 결제 내역 조회 (기본형) -->
 	<select id="selectLatestPaymentByMember" parameterType="long"
 		resultType="com.unibridge.app.pay.dto.PaymentDTO">
-		SELECT *
-		FROM (
 		SELECT
-		p.PAY_ID AS payId,
-		p.PAY_AMOUNT AS
-		payAmount,
-		p.PAY_METHOD AS payMethod,
-		TO_CHAR(p.PAY_DATE, 'YYYY-MM-DD')
-		AS payDate,
-		p.PAY_STATUS AS payStatus
-		FROM UB_PAY p
-		JOIN UB_MATCHING m ON
-		p.PAY_ID = m.PAY_ID
+			p.PAY_ID AS payId,
+			p.PAY_AMOUNT AS payAmount,
+			p.PAY_METHOD AS payMethod,
+			DATE_FORMAT(p.PAY_DATE, '%Y-%m-%d') AS payDate,
+			p.PAY_STATUS AS payStatus
+		FROM UB_PAY p 
+		JOIN UB_MATCHING m ON p.PAY_ID = m.PAY_ID
 		WHERE m.MENTEE_NUMBER = #{memberNumber}
-		ORDER BY
-		p.PAY_ID DESC
-		)
-		WHERE ROWNUM = 1
+		ORDER BY p.PAY_ID DESC
+		LIMIT 1
 	</select>
 
-<!-- 	<select id="getLatestPayId" resultType="long">
-		SELECT SEQ_PAY.CURRVAL
-		FROM DUAL
-	</select> -->
-
+	<!-- [UPDATE] 매칭 데이터의 pay_id 업데이트 -->
 	<update id="updatePayId" parameterType="map">
 		UPDATE UB_MATCHING
-		SET
-		pay_id = #{payId}
+		SET pay_id = #{payId}
 		WHERE matching_number = #{matchingNumber}
 	</update>
 
+	<!-- [SELECT] 회원의 최근 결제 내역 상세 조회 (회원 정보 및 멘토링 목표 포함) -->
 	<select id="selectLatestPaymentByMemberNew" parameterType="long"
 		resultType="paymentDTO">
-		SELECT * FROM (
 		SELECT
-		P.PAY_ID as payId,
-		P.PAY_AMOUNT as
-		payAmount,
-		P.PAY_METHOD as payMethod,
-		TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD
-		HH24:MI:SS') as payDate,
-		P.PAY_STATUS as payStatus,
-		M.MEMBER_ID as memberId,
-		M.MEMBER_NAME as
-		memberName,
-		F.FILE_NAME as fileName, MT.MENTORING_GOAL as purpose FROM
-		UB_PAY P
-		JOIN UB_MATCHING MAT ON P.PAY_ID = MAT.PAY_ID
-		JOIN UB_MEMBER M
-		ON MAT.MENTOR_NUMBER = M.MEMBER_NUMBER
-		LEFT JOIN UB_FILE F ON
-		M.FILE_NUMBER = F.FILE_NUMBER
-		LEFT JOIN UB_MENTORING MT ON
-		M.MEMBER_NUMBER = MT.MENTOR_NUMBER
-		WHERE MAT.MENTEE_NUMBER =
-		#{memberNumber}
+			P.PAY_ID as payId,
+			P.PAY_AMOUNT as payAmount,
+			P.PAY_METHOD as payMethod,
+			DATE_FORMAT(P.PAY_DATE, '%Y-%m-%d %H:%i:%s') as payDate,
+			P.PAY_STATUS as payStatus,
+			M.MEMBER_ID as memberId,
+			M.MEMBER_NAME as memberName,
+			F.FILE_NAME as fileName, 
+			MT.MENTORING_GOAL as purpose 
+		FROM UB_PAY P
+		LEFT JOIN UB_MATCHING MAT ON P.PAY_ID = MAT.PAY_ID
+		LEFT JOIN UB_MEMBER M ON MAT.MENTOR_NUMBER = M.MEMBER_NUMBER
+		LEFT JOIN UB_FILE F ON M.FILE_NUMBER = F.FILE_NUMBER
+		LEFT JOIN UB_MENTORING MT ON M.MEMBER_NUMBER = MT.MENTOR_NUMBER
+		WHERE MAT.MENTEE_NUMBER = #{memberNumber}
 		ORDER BY P.PAY_ID DESC
-		) WHERE ROWNUM = 1
+		LIMIT 1
 	</select>
 
+	<!-- [SELECT] 결제 ID로 단건 조회 -->
 	<select id="selectPaymentById" parameterType="long"
 		resultType="paymentDTO">
 		SELECT 
-	        P.PAY_ID as payId,
-	        P.PAY_AMOUNT as payAmount,
-	        P.PAY_METHOD as payMethod,
-	        TO_CHAR(P.PAY_DATE, 'YYYY-MM-DD HH24:MI:SS') as payDate,
-	        P.PAY_STATUS as payStatus,
-	        F.FILE_NAME as fileName  FROM UB_PAY P
-	    JOIN UB_MATCHING MAT ON P.PAY_ID = MAT.PAY_ID
-	    JOIN UB_MEMBER M ON MAT.MENTOR_NUMBER = M.MEMBER_NUMBER
-	    LEFT JOIN UB_FILE F ON M.FILE_NUMBER = F.FILE_NUMBER
-	    WHERE P.PAY_ID = #{payId}
+			P.PAY_ID as payId,
+			P.PAY_AMOUNT as payAmount,
+			P.PAY_METHOD as payMethod,
+			DATE_FORMAT(P.PAY_DATE, '%Y-%m-%d %H:%i:%s') as payDate,
+			P.PAY_STATUS as payStatus,
+			F.FILE_NAME as fileName  
+		FROM UB_PAY P
+		LEFT JOIN UB_MATCHING MAT ON P.PAY_ID = MAT.PAY_ID
+		LEFT JOIN UB_MEMBER M ON MAT.MENTOR_NUMBER = M.MEMBER_NUMBER
+		LEFT JOIN UB_FILE F ON M.FILE_NUMBER = F.FILE_NUMBER
+		WHERE P.PAY_ID = #{payId}
 	</select>
 
 </mapper>

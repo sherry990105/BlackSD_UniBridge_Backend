@@ -2,63 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mentorSearch">
 
-	<select id="selectAllMentors" resultType="MentorSearchDTO">
-		SELECT
-		m.member_number
-		AS memberNumber,
-		m.member_name AS memberName,
-		s.grad_school AS
-		gradSchool,
-		s.grad_depart AS gradDepart,
-		f.file_name AS fileName,
-		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt,
-		sub.subject_name AS
-		subject FROM UB_MEMBER m
-		LEFT JOIN UB_SURVEY_MENTOR s ON
-		m.survey_number = s.survey_number
-		LEFT JOIN UB_FILE f ON m.file_number
-		= f.file_number
-		LEFT JOIN UB_MENTORING mt ON m.member_number =
-		mt.mentor_number
-		LEFT JOIN UB_SUBJECT sub ON s.subject_number =
-		sub.subject_number
-		WHERE m.member_type = 'MENTOR'
-		AND m.member_state =
-		'계정 활성화'
-		ORDER BY m.member_number DESC
-	</select>
+    <!-- 멘토 전체 목록 조회 -->
+    <select id="selectAllMentors" resultType="MentorSearchDTO">
+        SELECT
+            m.member_number  AS memberNumber,
+            m.member_name    AS memberName,
+            s.grad_school    AS gradSchool,
+            s.grad_depart    AS gradDepart,
+            f.file_name      AS fileName,
+            DATE_FORMAT(mt.created_at, '%Y.%m.%d') AS createdAt,
+            sub.subject_name AS subject
+        FROM UB_MEMBER m
+        LEFT JOIN UB_SURVEY_MENTOR s  ON m.survey_number  = s.survey_number
+        LEFT JOIN UB_FILE f           ON m.file_number    = f.file_number
+        LEFT JOIN UB_MENTORING mt     ON m.member_number  = mt.mentor_number
+        LEFT JOIN UB_SUBJECT sub      ON s.subject_number = sub.subject_number
+        WHERE m.member_type  = 'MENTOR'
+          AND m.member_state = '계정 활성화'
+        ORDER BY m.member_number DESC
+    </select>
 
-	<select id="selectMentorDetail" parameterType="long"
-		resultType="MentorSearchDTO">
-		SELECT
-		m.member_number AS memberNumber,
-		m.member_name AS
-		memberName,
-		m.member_nickname AS memberNickname,
-		s.grad_school AS
-		gradSchool,
-		s.grad_depart AS gradDepart,
-		f.file_name AS fileName,
-		TO_CHAR(mt.created_at, 'YYYY.MM.DD') AS createdAt,
-		mt.MENTORING_TITLE AS mentoringTitle,
-        mt.MENTORING_GOAL AS mentoringGoal
-		FROM UB_MEMBER m
-		LEFT
-		JOIN UB_SURVEY_MENTOR s ON m.survey_number = s.survey_number
-		LEFT JOIN
-		UB_FILE f ON m.file_number = f.file_number
-		LEFT JOIN UB_MENTORING mt ON
-		m.member_number = mt.mentor_number
-		WHERE m.member_number =
-		#{memberNumber}
-	</select>
+    <!-- 멘토 상세 조회 -->
+    <select id="selectMentorDetail" parameterType="long" resultType="MentorSearchDTO">
+        SELECT
+            m.member_number    AS memberNumber,
+            m.member_name      AS memberName,
+            m.member_nickname  AS memberNickname,
+            s.grad_school      AS gradSchool,
+            s.grad_depart      AS gradDepart,
+            f.file_name        AS fileName,
+            DATE_FORMAT(mt.created_at, '%Y.%m.%d') AS createdAt,
+            mt.MENTORING_TITLE AS mentoringTitle,
+            mt.MENTORING_GOAL  AS mentoringGoal
+        FROM UB_MEMBER m
+        LEFT JOIN UB_SURVEY_MENTOR s ON m.survey_number = s.survey_number
+        LEFT JOIN UB_FILE f          ON m.file_number   = f.file_number
+        LEFT JOIN UB_MENTORING mt    ON m.member_number = mt.mentor_number
+        WHERE m.member_number = #{memberNumber}
+    </select>
 
-	<select id="checkMenteeMatchingStatus" parameterType="int"
-		resultType="int">
-		SELECT COUNT(*)
-		FROM UB_MATCHING
-		WHERE mentee_number = #{menteeNumber}
-		AND matching_state = '매칭중'
-	</select>
+    <!-- 멘티 매칭 진행 여부 확인 -->
+    <select id="checkMenteeMatchingStatus" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM UB_MATCHING
+        WHERE mentee_number   = #{menteeNumber}
+          AND matching_state  = '매칭중'
+    </select>
 
 </mapper>

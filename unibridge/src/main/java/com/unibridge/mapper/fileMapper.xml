@@ -2,45 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="file">
 
-	<!-- 파일 추가 -->
-    <insert id="insertFile" parameterType="FileDTO">
-        <selectKey keyProperty="fileNumber" resultType="int" order="BEFORE">
-            SELECT SEQ_FILE.NEXTVAL FROM DUAL
-        </selectKey>
-        INSERT INTO UB_FILE (file_number, file_name, file_original_name, file_extension, file_size, file_path)
-        VALUES (#{fileNumber}, #{fileName}, #{fileOriginalName}, #{fileExtension}, #{fileSize}, #{filePath})
+    <!-- 파일 등록 -->
+    <insert id="insertFile" parameterType="FileDTO"
+            useGeneratedKeys="true" keyProperty="fileNumber" keyColumn="file_number">
+        INSERT INTO UB_FILE (file_name, file_original_name, file_extension, file_size, file_path)
+        VALUES (#{fileName}, #{fileOriginalName}, #{fileExtension}, #{fileSize}, #{filePath})
     </insert>
-    
-    <!-- file_number 로 파일 1건 조회
-         UB_NOTICEBOARD.file_number(FK) → UB_FILE.file_number 로 조회할 때 사용 -->
+
+    <!-- 파일 단건 조회 -->
     <select id="selectFile" parameterType="int" resultType="FileDTO">
         SELECT
-            file_number         AS fileNumber,
-            file_name           AS fileName,
-            file_original_name  AS fileOriginalName,
-            file_extension      AS fileExtension,
-            file_size           AS fileSize,
-            file_path           AS filePath
+            file_number        AS fileNumber,
+            file_name          AS fileName,
+            file_original_name AS fileOriginalName,
+            file_extension     AS fileExtension,
+            file_size          AS fileSize,
+            file_path          AS filePath
         FROM UB_FILE
         WHERE file_number = #{fileNumber}
     </select>
-    
+
+    <!-- 파일 수정 -->
     <update id="updateFile" parameterType="FileDTO">
         UPDATE UB_FILE
-        SET
-            file_name = #{fileName},
+        SET file_name          = #{fileName},
             file_original_name = #{fileOriginalName},
-            file_extension = #{fileExtension},
-            file_size = #{fileSize},
-            file_path = #{filePath}
+            file_extension     = #{fileExtension},
+            file_size          = #{fileSize},
+            file_path          = #{filePath}
         WHERE file_number = #{fileNumber}
     </update>
-    
-    
-    <delete id="delete" parameterType="int"> 
-    	DELETE FROM UB_file WHERE file_number = #{fileNumber} 
+
+    <!-- 파일 삭제 -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM UB_FILE
+        WHERE file_number = #{fileNumber}
     </delete>
-    
-    
-    
+
 </mapper>

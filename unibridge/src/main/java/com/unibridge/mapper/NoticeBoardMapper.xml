@@ -2,80 +2,72 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="noticeBoard">
 
-<!--  게시글 총 개수  -->
-<select id="getTotal" resultType="int">
-		SELECT COUNT(noticeboard_number)
-		FROM UB_NOTICEBOARD
-</select>
-	
-<!--  조회수 증가  -->
-<update id="updateClick" parameterType="int">
-		UPDATE UB_NOTICEBOARD
-		SET board_click = board_click + 1
-		WHERE noticeboard_number = #{noticeBoardNumber}
-</update>
-	
-<!--  게시글 상세(1건 조회)  -->
-<!--  config.xml의 mapUnderscoreToCamelCase=true 로 자동매핑 안되는 컬럼은 alias 지정  -->
-<select id="select" parameterType="int" resultType="NoticeBoardListDTO">
-<![CDATA[ SELECT
-		        noticeboard_number  AS noticeBoardNumber,
-		        board_type          AS boardType,
-		        board_title         AS boardTitle,
-		        board_content       AS boardContent,
-		        board_click         AS boardClick,
-		        TO_CHAR(board_date, 'YYYY-MM-DD') AS boardDate,
-		        admin_number        AS adminNumber,
-		        contest_number      AS contestNumber,
-		        file_number         AS fileNumber
-		    FROM UB_NOTICEBOARD
-		    WHERE noticeboard_number = #{noticeBoardNumber} ]]>
-</select>
+    <!-- 게시글 총 개수 -->
+    <select id="getTotal" resultType="int">
+        SELECT COUNT(noticeboard_number)
+        FROM UB_NOTICEBOARD
+    </select>
 
-<!--  전체 게시글 조회 (페이징)  -->
-<select id="selectAll" parameterType="map" resultType="NoticeBoardListDTO">
-<![CDATA[
-			SELECT *
-		    FROM (
-		        SELECT ROWNUM AS rn, n.*
-		        FROM (
-		            SELECT
-		                noticeboard_number  AS noticeBoardNumber,
-		                board_type          AS boardType,
-		                board_title         AS boardTitle,
-		                board_content       AS boardContent,
-		                board_click         AS boardClick,
-		                TO_CHAR(board_date, 'YYYY-MM-DD') AS boardDate,
-		                admin_number        AS adminNumber,
-		                contest_number      AS contestNumber,
-		                file_number         AS fileNumber
-		            FROM UB_NOTICEBOARD
-		            ORDER BY noticeboard_number DESC
-		        ) n
-		    )
-		    WHERE rn BETWEEN #{startRow} AND #{endRow} ]]>
-</select>
+    <!-- 조회수 증가 -->
+    <update id="updateClick" parameterType="int">
+        UPDATE UB_NOTICEBOARD
+        SET board_click = board_click + 1
+        WHERE noticeboard_number = #{noticeBoardNumber}
+    </update>
 
-<!-- contest_number 로 연결된 공지사항 1건 조회
-         대회 카드 클릭 시 해당 대회의 공지사항 상세 페이지로 이동할 때 사용 -->
-	<select id="selectByContestNumber" parameterType="int" resultType="NoticeBoardListDTO">
-	<![CDATA[    
-		SELECT
-		        noticeboard_number  AS noticeBoardNumber,
-		        board_type          AS boardType,
-		        board_title         AS boardTitle,
-		        board_content       AS boardContent,
-		        board_click         AS boardClick,
-		        TO_CHAR(board_date, 'YYYY-MM-DD') AS boardDate,
-		        admin_number        AS adminNumber,
-		        contest_number      AS contestNumber,
-		        file_number         AS fileNumber
-		    FROM UB_NOTICEBOARD
-		    WHERE contest_number = #{contestNumber}
-		    AND ROWNUM = 1 ]]>
-	</select>
+    <!-- 게시글 상세 (1건 조회) -->
+    <!-- Oracle TO_CHAR() → MySQL DATE_FORMAT() / CDATA 블록 불필요하여 제거 -->
+    <select id="select" parameterType="int" resultType="NoticeBoardListDTO">
+        SELECT
+            noticeboard_number  AS noticeBoardNumber,
+            board_type          AS boardType,
+            board_title         AS boardTitle,
+            board_content       AS boardContent,
+            board_click         AS boardClick,
+            DATE_FORMAT(board_date, '%Y-%m-%d') AS boardDate,
+            admin_number        AS adminNumber,
+            contest_number      AS contestNumber,
+            file_number         AS fileNumber
+        FROM UB_NOTICEBOARD
+        WHERE noticeboard_number = #{noticeBoardNumber}
+    </select>
+
+    <!-- 전체 게시글 조회 (페이징) -->
+    <!-- Oracle ROWNUM → MySQL ROW_NUMBER() OVER (ORDER BY ...) -->
+    <select id="selectAll" parameterType="map" resultType="NoticeBoardListDTO">
+        SELECT *
+        FROM (
+            SELECT ROW_NUMBER() OVER (ORDER BY noticeboard_number DESC) AS rn,
+                   noticeboard_number  AS noticeBoardNumber,
+                   board_type          AS boardType,
+                   board_title         AS boardTitle,
+                   board_content       AS boardContent,
+                   board_click         AS boardClick,
+                   DATE_FORMAT(board_date, '%Y-%m-%d') AS boardDate,
+                   admin_number        AS adminNumber,
+                   contest_number      AS contestNumber,
+                   file_number         AS fileNumber
+            FROM UB_NOTICEBOARD
+        ) paged
+        WHERE rn BETWEEN #{startRow} AND #{endRow}
+    </select>
+
+    <!-- contest_number 로 연결된 공지사항 1건 조회 -->
+    <!-- Oracle AND ROWNUM = 1 → MySQL LIMIT 1 -->
+    <select id="selectByContestNumber" parameterType="int" resultType="NoticeBoardListDTO">
+        SELECT
+            noticeboard_number  AS noticeBoardNumber,
+            board_type          AS boardType,
+            board_title         AS boardTitle,
+            board_content       AS boardContent,
+            board_click         AS boardClick,
+            DATE_FORMAT(board_date, '%Y-%m-%d') AS boardDate,
+            admin_number        AS adminNumber,
+            contest_number      AS contestNumber,
+            file_number         AS fileNumber
+        FROM UB_NOTICEBOARD
+        WHERE contest_number = #{contestNumber}
+        LIMIT 1
+    </select>
 
 </mapper>
-
-
-

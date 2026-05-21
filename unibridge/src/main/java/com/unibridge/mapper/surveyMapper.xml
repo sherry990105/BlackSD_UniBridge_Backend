@@ -30,118 +30,118 @@
 	    <result property="subjectNumber" column="subject_number"/>
 	</resultMap>
 
-    <insert id="insertSurvey" parameterType="SurveyDTO">
-	    <selectKey keyProperty="surveyNumber" resultType="int" order="BEFORE">
-	        SELECT SEQ_SURVEY.NEXTVAL FROM DUAL
-	    </selectKey>
-	    INSERT INTO UB_SURVEY (
-	        survey_number, 
-	        survey_type, 
-	        member_number,  
-	        admin_number, 
-	        file_number,
-	        survey_approval,
-	        survey_app_date  )
-	    VALUES (
-	        #{surveyNumber}, 
-	        #{surveyType}, 
-	        #{memberNumber}, 
-	        1, 
-	        #{fileNumber, jdbcType=INTEGER},
-	        'P',
-	        SYSDATE          )
+	<!-- [INSERT] Oracle 시퀀스 제거 -> MySQL AUTO_INCREMENT 속성 바인딩으로 교체 -->
+	<insert id="insertSurvey" parameterType="SurveyDTO"
+		useGeneratedKeys="true" keyProperty="surveyNumber">
+		INSERT INTO UB_SURVEY (
+			survey_type, 
+			member_number,  
+			admin_number, 
+			file_number,
+			survey_approval,
+			survey_app_date
+		)
+		VALUES (
+			#{surveyType}, 
+			#{memberNumber}, 
+			1, 
+			#{fileNumber, jdbcType=INTEGER},
+			'P',
+			NOW()
+		)
 	</insert>
 	
 	<insert id="insertMenteeSurvey" parameterType="SurveyMenteeDTO">
-	    INSERT INTO UB_SURVEY_MENTEE (
-	        survey_number, mentee_school, mentee_grade, 
-	        mentee_hopeuni, mentee_hopemajor, subject_number
-	    )
-	    VALUES (
-	        #{surveyNumber}, #{menteeSchool}, #{menteeGrade}, 
-	        #{menteeHopeuni}, #{menteeHopemajor}, #{subjectNumber}
-	    )
+		INSERT INTO UB_SURVEY_MENTEE (
+			survey_number, mentee_school, mentee_grade, 
+			mentee_hopeuni, mentee_hopemajor, subject_number
+		)
+		VALUES (
+			#{surveyNumber}, #{menteeSchool}, #{menteeGrade}, 
+			#{menteeHopeuni}, #{menteeHopemajor}, #{subjectNumber}
+		)
 	</insert>
     
-    <insert id="insertMentorSurvey" parameterType="SurveyMentorDTO">
-        INSERT INTO UB_SURVEY_MENTOR (
-            survey_number, grad_school, grad_depart, grad_score, subject_number
-        )
-        VALUES (
-            #{surveyNumber}, #{gradSchool}, #{gradDepart}, #{gradScore}, #{subjectNumber}
-        )
-    </insert>
+	<insert id="insertMentorSurvey" parameterType="SurveyMentorDTO">
+		INSERT INTO UB_SURVEY_MENTOR (
+			survey_number, grad_school, grad_depart, grad_score, subject_number
+		)
+		VALUES (
+			#{surveyNumber}, #{gradSchool}, #{gradDepart}, #{gradScore}, #{subjectNumber}
+		)
+	</insert>
 
-    <select id="selectLatestSurvey" parameterType="int" resultMap="menteeSurveyMap">
-	    SELECT * FROM (
-	        SELECT 
-	            m.member_type, m.member_name,
-	            s.survey_number, s.survey_type, s.survey_approval, s.survey_rej_reason, 
-	            s.survey_app_date, s.admin_number, s.file_number, s.member_number,
-	            sm.grad_school, sm.grad_depart, sm.grad_score, 
-	            se.mentee_school, se.mentee_grade, se.mentee_hopeuni, se.mentee_hopemajor,
-	            NVL(sm.subject_number, se.subject_number) AS subject_number
-	        FROM UB_MEMBER m
-	        JOIN UB_SURVEY s ON m.member_number = s.member_number
-	        LEFT JOIN UB_SURVEY_MENTOR sm ON s.survey_number = sm.survey_number
-	        LEFT JOIN UB_SURVEY_MENTEE se ON s.survey_number = se.survey_number
-	        WHERE m.member_number = #{memberNumber}
-	        ORDER BY s.survey_number DESC
-	    ) WHERE ROWNUM = 1
+	<!-- [SELECT] ROWNUM 인라인뷰 제거 -> MySQL LIMIT 1 / NVL -> COALESCE 교체 -->
+	<select id="selectLatestSurvey" parameterType="int" resultMap="menteeSurveyMap">
+		SELECT 
+			m.member_type, m.member_name,
+			s.survey_number, s.survey_type, s.survey_approval, s.survey_rej_reason, 
+			s.survey_app_date, s.admin_number, s.file_number, s.member_number,
+			sm.grad_school, sm.grad_depart, sm.grad_score, 
+			se.mentee_school, se.mentee_grade, se.mentee_hopeuni, se.mentee_hopemajor,
+			COALESCE(sm.subject_number, se.subject_number) AS subject_number
+		FROM UB_MEMBER m
+		JOIN UB_SURVEY s ON m.member_number = s.member_number
+		LEFT JOIN UB_SURVEY_MENTOR sm ON s.survey_number = sm.survey_number
+		LEFT JOIN UB_SURVEY_MENTEE se ON s.survey_number = se.survey_number
+		WHERE m.member_number = #{memberNumber}
+		ORDER BY s.survey_number DESC
+		LIMIT 1
 	</select>
 	
 	<select id="checkSurveyExists" parameterType="int" resultType="int">
-	    SELECT COUNT(*) FROM UB_SURVEY WHERE member_number = #{memberNumber}
+		SELECT COUNT(*) FROM UB_SURVEY WHERE member_number = #{memberNumber}
 	</select>
     
-    <select id="selectMentorSurvey" parameterType="int" resultMap="mentorSurveyMap">
-        SELECT * FROM (
-            SELECT 
-                s.survey_number, s.survey_type, s.survey_approval, s.survey_rej_reason, s.survey_app_date, s.file_number, s.member_number,
-                m.member_type, m.member_name,
-                sm.grad_school, sm.grad_depart, sm.grad_score, sm.subject_number
-            FROM UB_SURVEY s
-            JOIN UB_MEMBER m ON s.member_number = m.member_number
-            JOIN UB_SURVEY_MENTOR sm ON s.survey_number = sm.survey_number
-            WHERE s.member_number = #{memberNumber}
-            ORDER BY s.survey_number DESC
-        ) WHERE ROWNUM = 1
-    </select>
+	<!-- [SELECT] ROWNUM 제거 -> LIMIT 1 교체 및 resultMap 매핑 유지 -->
+	<select id="selectMentorSurvey" parameterType="int" resultMap="mentorSurveyMap">
+		SELECT 
+			s.survey_number, s.survey_type, s.survey_approval, s.survey_rej_reason, s.survey_app_date, s.file_number, s.member_number,
+			m.member_type, m.member_name,
+			sm.grad_school, sm.grad_depart, sm.grad_score, sm.subject_number
+		FROM UB_SURVEY s
+		JOIN UB_MEMBER m ON s.member_number = m.member_number
+		JOIN UB_SURVEY_MENTOR sm ON s.survey_number = sm.survey_number
+		WHERE s.member_number = #{memberNumber}
+		ORDER BY s.survey_number DESC
+		LIMIT 1
+	</select>
     
-    <select id="selectMenteeSurvey" parameterType="int" resultMap="menteeSurveyMap">
-	    SELECT * FROM (
-	        SELECT 
-	            s.survey_number, s.survey_type, s.survey_approval, s.survey_rej_reason, s.survey_app_date, s.file_number, s.member_number,
-	            m.member_type, m.member_name,
-	            se.mentee_school, se.mentee_grade, se.mentee_hopeuni, se.mentee_hopemajor, se.subject_number
-	        FROM UB_SURVEY s
-	        JOIN UB_MEMBER m ON s.member_number = m.member_number
-	        JOIN UB_SURVEY_MENTEE se ON s.survey_number = se.survey_number
-	        WHERE s.member_number = #{memberNumber}
-	        ORDER BY s.survey_number DESC
-	    ) WHERE ROWNUM = 1
+	<!-- [SELECT] ROWNUM 제거 -> LIMIT 1 교체 및 resultMap 매핑 유지 -->
+	<select id="selectMenteeSurvey" parameterType="int" resultMap="menteeSurveyMap">
+		SELECT 
+			s.survey_number, s.survey_type, s.survey_approval, s.survey_rej_reason, s.survey_app_date, s.file_number, s.member_number,
+			m.member_type, m.member_name,
+			se.mentee_school, se.mentee_grade, se.mentee_hopeuni, se.mentee_hopemajor, se.subject_number
+		FROM UB_SURVEY s
+		JOIN UB_MEMBER m ON s.member_number = m.member_number
+		JOIN UB_SURVEY_MENTEE se ON s.survey_number = se.survey_number
+		WHERE s.member_number = #{memberNumber}
+		ORDER BY s.survey_number DESC
+		LIMIT 1
 	</select>
 	
+	<!-- [SELECT] ROWNUM 제거 -> LIMIT 1 교체 -->
 	<select id="getSurveyType" parameterType="int" resultType="string">
-	    SELECT * FROM (
-	        SELECT survey_type
-	        FROM UB_SURVEY
-	        WHERE member_number = #{memberNumber}
-	        ORDER BY survey_number DESC
-	    ) WHERE ROWNUM = 1
+		SELECT survey_type
+		FROM UB_SURVEY
+		WHERE member_number = #{memberNumber}
+		ORDER BY survey_number DESC
+		LIMIT 1
 	</select>
 	
+	<!-- [UPDATE] SYSDATE -> NOW() 교체 및 원본의 jdbcType 설정 유지 -->
 	<update id="updateSurvey" parameterType="SurveyDTO">
-	    UPDATE UB_SURVEY
-	    SET
-	        survey_type     = #{surveyType},
-	        member_number   = #{memberNumber},
-	        admin_number    = 1,
-	        file_number     = #{fileNumber, jdbcType=INTEGER},
-	        survey_approval = 'P',
-	        survey_app_date = SYSDATE           
-	    WHERE 
-	        survey_number   = #{surveyNumber}
+		UPDATE UB_SURVEY
+		SET
+			survey_type     = #{surveyType},
+			member_number   = #{memberNumber},
+			admin_number    = 1,
+			file_number     = #{fileNumber, jdbcType=INTEGER},
+			survey_approval = 'P',
+			survey_app_date = NOW()           
+		WHERE 
+			survey_number   = #{surveyNumber}
 	</update>
     
 </mapper>
