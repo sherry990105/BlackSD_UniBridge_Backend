@@ -87,6 +87,7 @@ public class AdminUserMMDetailWaitController implements Execute {
 		
 		String fileName = adminUserMMDetailDTO.getFileName();
 		
+		
 		adminUserMMDetailDTO.setMemberType(memberType);
 		adminUserMMDetailDTO.setMemberPhone(memberPhone.toString());
 		adminUserMMDetailDTO.setMemberGender(memberGender);

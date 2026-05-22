@@ -76,6 +76,8 @@ public class AdminUserMMDetailController implements Execute {
 		default: memberGender = "선택 안함";
 		}
 		
+		
+		
 		adminUserMMDetailDTO.setMemberType(memberType);
 		adminUserMMDetailDTO.setMemberPhone(memberPhone.toString());
 		adminUserMMDetailDTO.setMemberGender(memberGender);
